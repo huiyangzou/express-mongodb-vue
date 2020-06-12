@@ -4,6 +4,7 @@ const bodyParser = require('body-parser');
 const logger = require('./common/logger').logger;
 const log = logger.getLogger('API');
 const users = require('./users');
+const orders = require('./orders');
 
 const Api = function(){
     let express = require('express');
@@ -95,7 +96,35 @@ const Api = function(){
             res.status(status).send({code: code, message: message});
         }
     });
-    
+
+
+    app.post('/v1/order', async function(req, res){
+        try {
+            let body = req.body;
+            await orders.create(body.orderName, body.orderTime, body.payMoney);
+            res.status(200).send({message: 'ok'});
+        } catch (error) {
+            log.warn('create users error', error);
+            let status = error.status || 500;
+            let code = error.code || '1000';
+            let message = error.message || error.name || error;
+            res.status(status).send({code: code, message: message});
+        }
+    });
+    app.get('/v1/order', async function(req, res){
+        try {
+            let result = await orders.list();
+            res.status(200).send({message: 'ok', data: result});
+        } catch (error) {
+            log.warn('get users error', error);
+            let status = error.status || 500;
+            let code = error.code || '1000';
+            let message = error.message || error.name || error;
+            res.status(status).send({code: code, message: message});
+        }
+    });
+
+
     return app;
 };
 

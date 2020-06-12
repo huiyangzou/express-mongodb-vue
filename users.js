@@ -19,11 +19,17 @@ const UsersModule = {
         return 'ok';
     },
 
-    update: async function(){
+    update: async function(id,body){
+
+        let userInfo=await usersModule.findOne({_id:id})
+        userInfo.name=body.name;
+        userInfo.age=body.age;
+        await  usersModule.update(userInfo)
         return 'ok';
     },
 
     delete: async function(){
+        await usersModule.delete({_id:id})
         return 'ok';
     },
 
