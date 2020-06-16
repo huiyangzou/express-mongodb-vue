@@ -1,5 +1,5 @@
 <template>
-    <div>创建用户</div>
+    <div style="width: 100%;height: 500px; ">创建用户</div>
 </template>
 
 <script>

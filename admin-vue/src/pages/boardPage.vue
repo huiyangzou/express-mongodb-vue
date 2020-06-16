@@ -1,5 +1,5 @@
 <template>
-    $END$
+    <div>board page</div>
 </template>
 
 <script>

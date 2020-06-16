@@ -1,5 +1,5 @@
 <template>
-    $END$
+    <div>app热更新</div>
 </template>
 
 <script>

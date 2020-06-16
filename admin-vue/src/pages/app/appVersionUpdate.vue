@@ -1,5 +1,5 @@
 <template>
-    $END$
+    <div>app版本更新</div>
 </template>
 
 <script>
