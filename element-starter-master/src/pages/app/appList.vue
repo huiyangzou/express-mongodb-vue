@@ -100,7 +100,7 @@
         <el-dialog
                 title="添加应用"
                 :visible.sync="dialogVisible"
-                width="30%"
+                width="40%"
                 >
             <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
                 <el-tab-pane label="基本信息" name="first">
@@ -112,8 +112,8 @@
                     </div>
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
                         <span style="flex: 1;text-align: center">APPKEY*</span>
-                        <el-tooltip content="配置文件 中的appkey。" placement="top">
-                            <el-input style="flex:4;margin-left: 20px;" v-model="input" placeholder="配置文件 中的appkey。"></el-input>
+                        <el-tooltip content="请输入内容" placement="top">
+                            <el-input style="flex:4;margin-left: 20px;" v-model="input" placeholder="请输入内容"></el-input>
                         </el-tooltip>
 
                     </div>
@@ -128,7 +128,7 @@
                         </el-alert>
 
                         <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">APPKEY*</span>
+                            <span style="flex: 1;text-align: center">闪屏广告图片</span>
                             <el-tooltip   style="flex:4;margin-left: 20px;" content="闪屏广告图片：留空则不显示闪屏广告。" placement="top">
                                 <el-upload
                                         class="avatar-uploader"
@@ -145,30 +145,47 @@
 
                         </div>
                         <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">APPKEY*</span>
-                            <el-tooltip content="配置文件 中的appkey。" placement="top">
-                                <el-input style="flex:4;margin-left: 20px;" v-model="input" placeholder="配置文件 中的appkey。"></el-input>
+                            <span style="flex: 1;text-align: center">闪屏显示时间</span>
+                            <el-tooltip content="打开应用时显示APP闪屏广告的时间，留空默认：2秒。" placement="top">
+                                <el-select  style="flex:4;margin-left: 20px;" v-model="value" clearable placeholder="请选择">
+                                    <el-option
+                                            v-for="item in options"
+                                            :key="item.value"
+                                            :label="item.label"
+                                            :value="item.value">
+                                    </el-option>
+                                </el-select>
                             </el-tooltip>
 
                         </div>
                         <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">APPKEY*</span>
-                            <el-tooltip content="配置文件 中的appkey。" placement="top">
-                                <el-input style="flex:4;margin-left: 20px;" v-model="input" placeholder="配置文件 中的appkey。"></el-input>
+                            <span style="flex: 1;text-align: center">闪屏跳过按钮</span>
+                            <el-tooltip content="闪屏广告是否显示时间倒计时及跳过等待的按钮。" placement="top">
+                                <el-radio-group  style="flex:4;margin-left: 20px;" v-model="radio">
+                                    <el-radio :label="3">显示跳过</el-radio>
+                                    <el-radio :label="6">隐藏跳过</el-radio>
+                                </el-radio-group>
                             </el-tooltip>
 
                         </div>
                         <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">APPKEY*</span>
-                            <el-tooltip content="配置文件 中的appkey。" placement="top">
-                                <el-input style="flex:4;margin-left: 20px;" v-model="input" placeholder="配置文件 中的appkey。"></el-input>
+                            <span style="flex: 1;text-align: center">闪屏点击打开</span>
+                            <el-tooltip content="点击闪屏广告时打开的js页面路径，如：ad.js或https://abc.com/ad.js。" placement="top">
+                                <el-input style="flex:4;margin-left: 20px;" v-model="input" placeholder="请输入内容"></el-input>
                             </el-tooltip>
 
                         </div>
                         <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">APPKEY*</span>
-                            <el-tooltip content="配置文件 中的appkey。" placement="top">
-                                <el-input style="flex:4;margin-left: 20px;" v-model="input" placeholder="配置文件 中的appkey。"></el-input>
+                            <span style="flex: 1;text-align: center">闪屏有效时限</span>
+                            <el-tooltip content="设置闪屏广告在指定时间范围内显示。" placement="top">
+                                <el-date-picker
+                                        v-model="dataTime"
+                                        type="datetime"
+                                        style="flex:4;margin-left: 20px;"
+                                        placeholder="选择日期时间"
+                                        align="bottom"
+                                        :picker-options="pickerOptions">
+                                </el-date-picker>
                             </el-tooltip>
 
                         </div>
@@ -191,6 +208,49 @@
         name: "appList",
         data() {
             return {
+                radio: 3,
+                options: [{
+                    value: '0.5',
+                    label: '0.5秒'
+                }, {
+                    value: '1',
+                    label: '1秒'
+                }, {
+                    value: '1.5',
+                    label: '1.5秒'
+                }, {
+                    value: '2',
+                    label: '2秒'
+                }, {
+                    value: '2.5',
+                    label: '2.5秒'
+                }, {
+                    value: '3',
+                    label: '3秒'
+                }, {
+                    value: '4',
+                    label: '4秒'
+                }, {
+                    value: '5',
+                    label: '5秒'
+                }, {
+                    value: '6',
+                    label: '6秒'
+                }, {
+                    value: '7',
+                    label: '7秒'
+                }, {
+                    value: '8',
+                    label: '8秒'
+                }, {
+                    value: '9',
+                    label: '9秒'
+                }, {
+                    value: '10',
+                    label: '10秒'
+                }],
+                value: '',
+                dataTime:0,
                 activeName: 'first',
                 dialogVisible: false,
                 tableData: [{
@@ -266,7 +326,7 @@
 
 <style>
     .avatar-uploader .el-upload {
-        border: 1px dashed #ff0033;
+        border: 1px dashed #d9d9d9;
         border-radius: 6px;
         cursor: pointer;
         position: relative;
