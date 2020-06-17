@@ -54,8 +54,9 @@
                 </el-header>
 
                 <el-main style="">
-                    <el-tabs v-model="editableTabsValue" type="card" closable  @edit="handleTabsEdit" @tab-click="skipTo(editableTabsValue)" style="flex: 1;height: 60px;">
+                    <el-tabs  v-model="editableTabsValue" type="card" closable  @edit="handleTabsEdit" @tab-click="skipTo(editableTabsValue)" style="flex: 1;height: 60px;">
                         <el-tab-pane
+
                                 :key="item.name"
                                 v-for="(item) in editableTabs"
                                 :label="item.title"
