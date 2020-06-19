@@ -31,7 +31,7 @@ const Api = function(){
         try {
             let body = req.body;
             await users.create(body.name, body.pwd, body.age);
-            res.status(200).send({message: 'ok'});
+            res.status(200).send({code:1000,message: 'ok'});
         } catch (error) {
             log.warn('create users error', error);
             let status = error.status || 500;
@@ -46,7 +46,7 @@ const Api = function(){
             let id = req.params.id;
             let body = req.body;
             await users.update(id, body);
-            res.status(200).send({message: 'ok'});
+            res.status(200).send({code:1000,message: 'ok'});
         } catch (error) {
             log.warn('update users error', error);
             let status = error.status || 500;
@@ -61,7 +61,7 @@ const Api = function(){
             let id = req.params.id;
             let body = req.body;
             await users.patch(id, body);
-            res.status(200).send({message: 'ok'});
+            res.status(200).send({code:1000,message: 'ok'});
         } catch (error) {
             log.warn('path users error', error);
             let status = error.status || 500;
@@ -75,7 +75,7 @@ const Api = function(){
         try {
             let id = req.params.id;
             await users.delete(marketingCode);
-            res.status(200).send({message: 'ok'});
+            res.status(200).send({code:1000,message: 'ok'});
         } catch (error) {
             log.warn('delete users error', error);
             let status = error.status || 500;
@@ -88,7 +88,7 @@ const Api = function(){
     app.get('/v1/users', async function(req, res){
         try {
             let result = await users.list();
-            res.status(200).send({message: 'ok', data: result});
+            res.status(200).send({code:1000,message: 'ok', data: result});
         } catch (error) {
             log.warn('get users error', error);
             let status = error.status || 500;
@@ -103,7 +103,7 @@ const Api = function(){
         try {
             let body = req.body;
             await orders.create(body.orderName, body.orderTime, body.payMoney);
-            res.status(200).send({message: 'ok'});
+            res.status(200).send({code:1000,message: 'ok'});
         } catch (error) {
             log.warn('create users error', error);
             let status = error.status || 500;
@@ -115,7 +115,7 @@ const Api = function(){
     app.get('/v1/order', async function(req, res){
         try {
             let result = await orders.list();
-            res.status(200).send({message: 'ok', data: result});
+            res.status(200).send({code:1000,message: 'ok', data: result});
         } catch (error) {
             log.warn('get users error', error);
             let status = error.status || 500;
@@ -132,7 +132,7 @@ const Api = function(){
             console.log("body",body.remark)
 
             await apps.create(body);
-            res.status(200).send({message: 'ok'});
+            res.status(200).send({code:1000,message: 'ok'});
         } catch (error) {
             log.warn('create users error', error);
             let status = error.status || 500;
@@ -144,7 +144,7 @@ const Api = function(){
     app.get('/v1/app', async function(req, res){
         try {
             let result = await apps.list();
-            res.status(200).send({message: 'ok', data: result});
+            res.status(200).send({code:1000,message: 'ok', data: result});
         } catch (error) {
             log.warn('get users error', error);
             let status = error.status || 500;
@@ -158,7 +158,7 @@ const Api = function(){
         try {
             let id = req.params.id;
             await apps.delete(id);
-            res.status(200).send({message: 'ok'});
+            res.status(200).send({code:1000,message: 'ok'});
         } catch (error) {
             log.warn('delete users error', error);
             let status = error.status || 500;

@@ -17,16 +17,14 @@
             <el-col :span="12">
                 <div style="display:flex;flex-direction: column;margin-left: 20px;">
                     <span class="input_title">更新应用</span>
-                    <el-tooltip content="打开应用时显示APP闪屏广告的时间，留空默认：2秒。" placement="top">
-                        <el-select   v-model="formData.adTime" clearable placeholder="请选择">
+                        <el-select   v-model="formData._id" clearable placeholder="请选择">
                             <el-option
                                     v-for="item in options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
+                                    :key="item._id"
+                                    :label="item.remark"
+                                    :value="item._id">
                             </el-option>
                         </el-select>
-                    </el-tooltip>
                 </div>
 
             </el-col>
@@ -137,12 +135,12 @@
                 <span style="flex: 1;text-align: center">更新应用</span>
 
 
-                    <el-select  style="flex:4;margin-left: 20px;" v-model="formData.adTime" clearable placeholder="请选择">
+                    <el-select  style="flex:4;margin-left: 20px;" v-model="formData._id" clearable placeholder="选择要更新的APP">
                         <el-option
                                 v-for="item in options"
-                                :key="item.value"
-                                :label="item.label"
-                                :value="item.value">
+                                :key="item._id"
+                                :label="item.remark"
+                                :value="item._id">
                         </el-option>
                     </el-select>
 
@@ -255,9 +253,7 @@
                     totalCount:0,
                 },
                 radio: 3,
-                options: [{value: '0.5',label: '所有应用'}, {value: '1',label: 'xiquedao'}, {value: '1.5',label: '1.5秒'}, {value: '2',label: '2秒'}, {
-                    value: '2.5',label: '2.5秒'}, { value: '3',label: '3秒'}, {value: '4',label: '4秒'}, {value: '5',label: '5秒'
-                }, {value: '6', label: '6秒'}, { value: '7',label: '7秒'}, {value: '8',label: '8秒'}, {value: '9',label: '9秒'}, {value: '10',label: '10秒'}],
+                options: [],
                 value: '',
                 dataTime:0,
                 activeName: 'first',
@@ -297,6 +293,7 @@
                     .then((response) => {
                         console.log(response)
                         this.tableData=response.data;
+                        this.options=response.data;
                     })
             },
             submitApp(){

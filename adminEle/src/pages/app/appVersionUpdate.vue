@@ -17,16 +17,15 @@
             <el-col :span="12">
                 <div style="display:flex;flex-direction: column;margin-left: 20px;">
                     <span class="input_title">更新应用</span>
-                    <el-tooltip content="打开应用时显示APP闪屏广告的时间，留空默认：2秒。" placement="top">
-                        <el-select   v-model="formData.adTime" clearable placeholder="请选择">
+                        <el-select   v-model="formData._id" clearable placeholder="请选择">
                             <el-option
                                     v-for="item in options"
-                                    :key="item.value"
-                                    :label="item.label"
-                                    :value="item.value">
+                                    :key="item._id"
+                                    :label="item.remark"
+                                    :value="item._id">
                             </el-option>
                         </el-select>
-                    </el-tooltip>
+
                 </div>
 
             </el-col>
@@ -119,12 +118,12 @@
                     <div style="display: flex;flex-direction: row;align-items: center">
                         <span style="flex: 1;text-align: center">更新应用*</span>
                         <el-tooltip content="仅用于管理平台备注" placement="top">
-                            <el-select style="flex:4;margin-left: 20px;"   v-model="formData.adTime" clearable placeholder="请选择">
+                            <el-select  style="flex:4;margin-left: 20px;" v-model="formData._id" clearable placeholder="选择要版本更新的APP">
                                 <el-option
                                         v-for="item in options"
-                                        :key="item.value"
-                                        :label="item.label"
-                                        :value="item.value">
+                                        :key="item._id"
+                                        :label="item.remark"
+                                        :value="item._id">
                                 </el-option>
                             </el-select>
                         </el-tooltip>
@@ -133,7 +132,7 @@
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
                         <span style="flex: 1;text-align: center">应用版本</span>
                         <el-tooltip content="请输入内容" placement="top">
-                            <el-input style="flex:4;margin-left: 20px;" v-model="formData.appkey" placeholder="请输入内容"></el-input>
+                            <el-input style="flex:4;margin-left: 20px;" v-model="formData.appkey" placeholder="输入要版本更新的APP版本号，如：12"></el-input>
                         </el-tooltip>
 
                     </div>
@@ -157,76 +156,56 @@
                 </el-tab-pane>
                 <el-tab-pane label="更新设置" name="second">
                     <div style="flex-direction: column">
-                        <el-alert
-                                title="注意：闪屏广告修改后在第2次启动app生效（修改后的第1次启动时生成缓存）。"
-                                type="warning"
-                                :closable="false"
-                                show-icon>
-                        </el-alert>
-
                         <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">闪屏广告图片</span>
-                            <el-tooltip   style="flex:4;margin-left: 20px;" content="闪屏广告图片：留空则不显示闪屏广告。" placement="top">
-                                <el-upload
-                                        class="avatar-uploader"
-                                        action="https://jsonplaceholder.typicode.com/posts/"
-                                        :show-file-list="false"
+                            <span style="flex: 1;text-align: center">提示标题</span>
 
-                                        :on-success="handleAvatarSuccess"
-                                        :before-upload="beforeAvatarUpload">
-                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
-                                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                                </el-upload>
-
-                            </el-tooltip>
+                            <el-input style="flex:4;margin-left: 20px;" v-model="input" placeholder="例如:发现新版本"></el-input>
 
                         </div>
                         <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">闪屏显示时间</span>
-                            <el-tooltip content="打开应用时显示APP闪屏广告的时间，留空默认：2秒。" placement="top">
-                                <el-select  style="flex:4;margin-left: 20px;" v-model="formData.adTime" clearable placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-tooltip>
+                            <span style="flex: 1;text-align: center">更新内容</span>
 
+                            <el-input
+                                    style="flex:4;margin-left: 20px;"
+                                    type="textarea"
+                                    :autosize="{ minRows:5, maxRows: 5}"
+                                    placeholder="例如：
+1.修复已知bug
+2.全新我的UI页面
+3.更好的用户体验
+4.提升启动数据刷新流畅度"
+                                    v-model="formData.updateContent">
+                            </el-input>
+                        </div>
+
+                        <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
+                            <span style="flex: 1;text-align: center">下载地址</span>
+
+                            <el-input
+                                    style="flex:4;margin-left: 20px;"
+                                    type="textarea"
+                                    :autosize="{ minRows:2, maxRows: 2}"
+                                    placeholder="填写新版app下载地址"
+                                    v-model="formData.appDownLoadUrl">
+                            </el-input>
                         </div>
                         <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">闪屏跳过按钮</span>
-                            <el-tooltip content="闪屏广告是否显示时间倒计时及跳过等待的按钮。" placement="top">
-                                <el-radio-group  style="flex:4;margin-left: 20px;" v-model="radio">
-                                    <el-radio :label="3">显示跳过</el-radio>
-                                    <el-radio :label="6">隐藏跳过</el-radio>
-                                </el-radio-group>
-                            </el-tooltip>
-
+                            <span style="flex: 1;text-align: center">提示模板</span>
+                            <el-radio-group  style="flex:4;margin-left: 20px;" v-model="radio">
+                                <el-radio :label="1">模板1</el-radio>
+                                <el-radio :label="2">模板2</el-radio>
+                                <el-radio :label="3">模板3</el-radio>
+                                <el-radio :label="4">模板4</el-radio>
+                                <el-radio :label="5">模板5</el-radio>
+                            </el-radio-group>
                         </div>
                         <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">闪屏点击打开</span>
-                            <el-tooltip content="点击闪屏广告时打开的js页面路径，如：ad.js或https://abc.com/ad.js。" placement="top">
-                                <el-input style="flex:4;margin-left: 20px;" v-model="input" placeholder="请输入内容"></el-input>
-                            </el-tooltip>
-
+                            <span style="flex: 1;text-align: center">强制更新</span>
+                            <el-radio-group  style="flex:4;margin-left: 20px;" v-model="radio">
+                                <el-radio :label="1">自由更新</el-radio>
+                                <el-radio :label="2">强制更新</el-radio>
+                            </el-radio-group>
                         </div>
-                        <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">闪屏有效时限</span>
-                            <el-tooltip content="设置闪屏广告在指定时间范围内显示。" placement="top">
-                                <el-date-picker
-                                        v-model="dataTime"
-                                        type="datetime"
-                                        style="flex:4;margin-left: 20px;"
-                                        placeholder="选择日期时间"
-                                        align="bottom"
-                                        :picker-options="pickerOptions">
-                                </el-date-picker>
-                            </el-tooltip>
-
-                        </div>
-
                     </div>
                 </el-tab-pane>
 
@@ -247,6 +226,7 @@
             return {
                 checkList:[],
                 formData:{
+                    _id:'',
                     id:'',
                     remark:'',
                     appkey:'',
@@ -254,11 +234,11 @@
                     todayCount:0,
                     yesterdayCount:0,
                     totalCount:0,
+                    updateContent:'',
+                    appDownLoadUrl:'',
                 },
                 radio: 3,
-                options: [{value: '0.5',label: '0.5秒'}, {value: '1',label: '1秒'}, {value: '1.5',label: '1.5秒'}, {value: '2',label: '2秒'}, {
-                    value: '2.5',label: '2.5秒'}, { value: '3',label: '3秒'}, {value: '4',label: '4秒'}, {value: '5',label: '5秒'
-                }, {value: '6', label: '6秒'}, { value: '7',label: '7秒'}, {value: '8',label: '8秒'}, {value: '9',label: '9秒'}, {value: '10',label: '10秒'}],
+                options: [],
                 value: '',
                 dataTime:0,
                 activeName: 'first',
@@ -277,6 +257,7 @@
                     .then((response) => {
                         console.log(response)
                         this.tableData=response.data;
+                        this.options=response.data;
                     })
             },
             submitApp(){

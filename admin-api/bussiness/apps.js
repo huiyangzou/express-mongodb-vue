@@ -9,9 +9,14 @@ const AppsModule = {
 
     create: async function(params){
         // TODO verifyParameters_
+        let {appKey} =params;
+        let userInfo=await appsModule.findOne({appKey:appKey})
+        if(userInfo==null){
+            await appsModule.create(params);
+        }else{
+            throw {status: 200, code: '1002', message: 'App already exists'};
+        }
 
-        await appsModule.create(params);
-        return 'ok';
     },
 
     update: async function(id,body){
@@ -20,16 +25,13 @@ const AppsModule = {
         userInfo.orderName=body.orderName;
         userInfo.orderTime=body.orderTime;
         await  appsModule.update(userInfo)
-        return 'ok';
     },
 
     delete: async function(id){
         await appsModule.delete({_id:id})
-        return 'ok';
     },
 
     patch: async function(){
-        return 'ok';
     },
 
     list: async function(){

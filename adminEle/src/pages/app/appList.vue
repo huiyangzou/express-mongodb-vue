@@ -32,6 +32,7 @@
             <el-button type="primary" icon="el-icon-search">搜索</el-button>
         </div>
         <el-table
+                id="elMain"
                 ref="multipleTable"
                 :data="tableData"
                 tooltip-effect="dark"
@@ -138,7 +139,7 @@
 
                                         :on-success="handleAvatarSuccess"
                                         :before-upload="beforeAvatarUpload">
-                                    <img v-if="imageUrl" :src="imageUrl" class="avatar">
+                                    <img v-if="imageUrl" :src="formData.adPic" class="avatar">
                                     <i v-else class="el-icon-plus avatar-uploader-icon"></i>
                                 </el-upload>
 
@@ -162,9 +163,9 @@
                         <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
                             <span style="flex: 1;text-align: center">闪屏跳过按钮</span>
                             <el-tooltip content="闪屏广告是否显示时间倒计时及跳过等待的按钮。" placement="top">
-                                <el-radio-group  style="flex:4;margin-left: 20px;" v-model="radio">
-                                    <el-radio :label="3">显示跳过</el-radio>
-                                    <el-radio :label="6">隐藏跳过</el-radio>
+                                <el-radio-group  style="flex:4;margin-left: 20px;" v-model="formData.showSkipBtn">
+                                    <el-radio :label="true">显示跳过</el-radio>
+                                    <el-radio :label="false">隐藏跳过</el-radio>
                                 </el-radio-group>
                             </el-tooltip>
 
@@ -172,20 +173,27 @@
                         <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
                             <span style="flex: 1;text-align: center">闪屏点击打开</span>
                             <el-tooltip content="点击闪屏广告时打开的js页面路径，如：ad.js或https://abc.com/ad.js。" placement="top">
-                                <el-input style="flex:4;margin-left: 20px;" v-model="input" placeholder="请输入内容"></el-input>
+                                <el-input style="flex:4;margin-left: 20px;" v-model="formData.targetUrl" placeholder="请输入内容"></el-input>
                             </el-tooltip>
 
                         </div>
                         <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
                             <span style="flex: 1;text-align: center">闪屏有效时限</span>
+
                             <el-tooltip content="设置闪屏广告在指定时间范围内显示。" placement="top">
+
+
                                 <el-date-picker
-                                        v-model="dataTime"
-                                        type="datetime"
+                                        value-format=" yyyy-MM-dd HH:mm"
+                                        format="yyyy-MM-dd HH:mm"
+                                        v-model="formData.timeLimit"
                                         style="flex:4;margin-left: 20px;"
-                                        placeholder="选择日期时间"
-                                        align="bottom"
-                                        :picker-options="pickerOptions">
+                                        type="datetimerange"
+                                        :picker-options="pickerOptions"
+                                        range-separator="至"
+                                        start-placeholder="开始日期"
+                                        end-placeholder="结束日期"
+                                        align="right">
                                 </el-date-picker>
                             </el-tooltip>
 
@@ -210,28 +218,48 @@
         name: "appList",
         data() {
             return {
-                // id: { type: Schema.Types.String, required: true, description: "The ID of app" },
-                // remark: { type: Schema.Types.String, required: true, description: "The 标题备注 of app"},
-                // appkey: { type: Schema.Types.String, required: true, description: "The APPKEY of app"},
-                // adTime: { type: Schema.Types.Number, required: true, description: "The APP闪屏广告 of app"},
-                // todayCount: { type: Schema.Types.Number, required: true, description: "The 今日启动 of app"},
-                // yesterdayCount: { type: Schema.Types.Number, required: true, description: "The 昨日启动 of app"},
-                // totalCount: { type: Schema.Types.Number, required: true, description: "The 累计启动 of app"}
+                pickerOptions: {
+                    shortcuts: [{
+                        text: '最近一周',
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 7);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }, {
+                        text: '最近一个月',
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 30);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }, {
+                        text: '最近三个月',
+                        onClick(picker) {
+                            const end = new Date();
+                            const start = new Date();
+                            start.setTime(start.getTime() - 3600 * 1000 * 24 * 90);
+                            picker.$emit('pick', [start, end]);
+                        }
+                    }]},
                 formData:{
                     id:'',
                     remark:'',
                     appkey:'',
                     adTime:0,
-                    todayCount:0,
-                    yesterdayCount:0,
-                    totalCount:0,
+                    adPic:'',
+                    showSkipBtn:false,
+                    targetUrl:'',
+                    timeLimit:[]
                 },
                 radio: 3,
                 options: [{value: '0.5',label: '0.5秒'}, {value: '1',label: '1秒'}, {value: '1.5',label: '1.5秒'}, {value: '2',label: '2秒'}, {
                     value: '2.5',label: '2.5秒'}, { value: '3',label: '3秒'}, {value: '4',label: '4秒'}, {value: '5',label: '5秒'
                 }, {value: '6', label: '6秒'}, { value: '7',label: '7秒'}, {value: '8',label: '8秒'}, {value: '9',label: '9秒'}, {value: '10',label: '10秒'}],
                 value: '',
-                dataTime:0,
+                dateTime:[],
                 activeName: 'first',
                 dialogVisible: false,
                 tableData: [],
