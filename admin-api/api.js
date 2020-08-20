@@ -227,7 +227,7 @@ const Api = function(){
             await android.update(id, body);
             res.status(200).send({code:1000,message: 'ok'});
         } catch (error) {
-            log.warn('update users error', error);
+            log.warn('update android error', error);
             let status = error.status || 500;
             let code = error.code || '1000';
             let message = error.message || error.name || error;

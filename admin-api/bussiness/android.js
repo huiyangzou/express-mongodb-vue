@@ -24,7 +24,8 @@ const AndroidModule = {
         let userInfo=await androidModule.findOne({_id:id})
         userInfo.question=body.question;
         userInfo.answer=body.answer;
-        await  androidModule.update(userInfo)
+        console.log(JSON.stringify(userInfo))
+        await  androidModule.update({_id:id},{$set: userInfo})
     },
 
     delete: async function(id){
