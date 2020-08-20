@@ -28,7 +28,7 @@
         </el-row>
         <div style="flex-direction: row;justify-content: space-between;display: flex;margin-top: 20px;">
 
-            <el-button type="primary" icon="el-icon-plus" @click="dialogVisible = true">添加应用</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="dialogVisible = true">添加问题类型</el-button>
             <el-button type="primary" icon="el-icon-search">搜索</el-button>
         </div>
         <el-table
@@ -48,34 +48,16 @@
                     width="120">
             </el-table-column>
             <el-table-column
-                    prop="remark"
-                    label="标题备注"
+                    prop="questionTypeName"
+                    label="类型名称"
                     width="360">
             </el-table-column>
             <el-table-column
-                    prop="appkey"
-                    label="APPKEY"
+                    prop="level"
+                    label="级别"
                     width="360">
             </el-table-column>
-            <el-table-column
-                    prop="adTime"
-                    label="APP闪屏广告"
-                    width="120">
-            </el-table-column>
-            <el-table-column
-                    prop="todayCount"
-                    label="今日启动"
-                    width="120">
-            </el-table-column>
-            <el-table-column
-                    prop="yesterdayCount"
-                    label="昨日启动"
-                    width="120">
-            </el-table-column> <el-table-column
-                    prop="totalCount"
-                    label="累计启动"
-                    width="120">
-            </el-table-column>
+
             <el-table-column
                     label="操作"
                     fixed="right"
@@ -100,107 +82,49 @@
             </el-pagination>
         </div>
         <el-dialog
-                title="添加应用"
+                title="添加问题"
                 :visible.sync="dialogVisible"
                 width="40%"
                 >
             <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
                 <el-tab-pane label="基本信息" name="first">
                     <div style="display: flex;flex-direction: row;align-items: center">
-                        <span style="flex: 1;text-align: center">标题备注*</span>
+                        <span style="flex: 1;text-align: center">类型名称</span>
                         <el-tooltip content="仅用于管理平台备注" placement="top">
-                        <el-input style="flex:4;margin-left: 20px;" v-model="formData.remark" placeholder="仅用于管理平台备注"></el-input>
+                        <el-input style="flex:4;margin-left: 20px;" v-model="formData.questionTypeName" placeholder="请输入内容"></el-input>
                         </el-tooltip>
                     </div>
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">APPKEY*</span>
-                        <el-tooltip content="请输入内容" placement="top">
-                            <el-input style="flex:4;margin-left: 20px;" v-model="formData.appkey" placeholder="请输入内容"></el-input>
+                        <span style="flex: 1;text-align: center">级别</span>
+                        <el-tooltip content="" placement="top">
+                            <el-select  style="flex:4;margin-left: 20px;" v-model="formData.level" clearable placeholder="请选择" @change="changeVisible">
+                                <el-option
+                                        v-for="item in levels"
+                                        :key="item.value"
+                                        :label="item.label"
+                                        :value="item.value">
+                                </el-option>
+                            </el-select>
                         </el-tooltip>
 
                     </div>
-                </el-tab-pane>
-                <el-tab-pane label="闪屏广告" name="second">
-                    <div style="flex-direction: column">
-                        <el-alert
-                                title="注意：闪屏广告修改后在第2次启动app生效（修改后的第1次启动时生成缓存）。"
-                                type="warning"
-                                :closable="false"
-                                show-icon>
-                        </el-alert>
-
-                        <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">闪屏广告图片</span>
-                            <el-tooltip   style="flex:4;margin-left: 20px;" content="闪屏广告图片：留空则不显示闪屏广告。" placement="top">
-                                <el-upload
-                                        class="avatar-uploader"
-                                        action="https://jsonplaceholder.typicode.com/posts/"
-                                        :show-file-list="false"
-
-                                        :on-success="handleAvatarSuccess"
-                                        :before-upload="beforeAvatarUpload">
-                                    <img v-if="imageUrl" :src="formData.adPic" class="avatar">
-                                    <i v-else class="el-icon-plus avatar-uploader-icon"></i>
-                                </el-upload>
-
-                            </el-tooltip>
-
-                        </div>
-                        <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">闪屏显示时间</span>
-                            <el-tooltip content="打开应用时显示APP闪屏广告的时间，留空默认：2秒。" placement="top">
-                                <el-select  style="flex:4;margin-left: 20px;" v-model="formData.adTime" clearable placeholder="请选择">
-                                    <el-option
-                                            v-for="item in options"
-                                            :key="item.value"
-                                            :label="item.label"
-                                            :value="item.value">
-                                    </el-option>
-                                </el-select>
-                            </el-tooltip>
-
-                        </div>
-                        <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">闪屏跳过按钮</span>
-                            <el-tooltip content="闪屏广告是否显示时间倒计时及跳过等待的按钮。" placement="top">
-                                <el-radio-group  style="flex:4;margin-left: 20px;" v-model="formData.showSkipBtn">
-                                    <el-radio :label="true">显示跳过</el-radio>
-                                    <el-radio :label="false">隐藏跳过</el-radio>
-                                </el-radio-group>
-                            </el-tooltip>
-
-                        </div>
-                        <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">闪屏点击打开</span>
-                            <el-tooltip content="点击闪屏广告时打开的js页面路径，如：ad.js或https://abc.com/ad.js。" placement="top">
-                                <el-input style="flex:4;margin-left: 20px;" v-model="formData.targetUrl" placeholder="请输入内容"></el-input>
-                            </el-tooltip>
-
-                        </div>
-                        <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                            <span style="flex: 1;text-align: center">闪屏有效时限</span>
-
-                            <el-tooltip content="设置闪屏广告在指定时间范围内显示。" placement="top">
-
-
-                                <el-date-picker
-                                        value-format=" yyyy-MM-dd HH:mm"
-                                        format="yyyy-MM-dd HH:mm"
-                                        v-model="formData.timeLimit"
-                                        style="flex:4;margin-left: 20px;"
-                                        type="datetimerange"
-                                        :picker-options="pickerOptions"
-                                        range-separator="至"
-                                        start-placeholder="开始日期"
-                                        end-placeholder="结束日期"
-                                        align="right">
-                                </el-date-picker>
-                            </el-tooltip>
-
-                        </div>
+                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;" v-show="visible">
+                        <span style="flex: 1;text-align: center">父类型</span>
+                        <el-tooltip content="" placement="top">
+                            <el-select  style="flex:4;margin-left: 20px;" v-model="formData.fartherid" clearable placeholder="请选择" >
+                                <el-option
+                                        v-for="item in farthers"
+                                        :key="item._id"
+                                        :label="item.questionTypeName"
+                                        :value="item._id">
+                                </el-option>
+                            </el-select>
+                        </el-tooltip>
 
                     </div>
+
                 </el-tab-pane>
+
 
             </el-tabs>
             <span slot="footer" class="dialog-footer">
@@ -218,6 +142,7 @@
         name: "appList",
         data() {
             return {
+                visible:true,
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',
@@ -246,18 +171,13 @@
                     }]},
                 formData:{
                     id:'',
-                    remark:'',
-                    appkey:'',
-                    adTime:1,
-                    adPic:'',
-                    showSkipBtn:true,
-                    targetUrl:'',
-                    timeLimit:[]
+                    questionTypeName:'',
+                    fartherid:'0',
+                    level:"",
                 },
                 radio: 3,
-                options: [{value: '0.5',label: '0.5秒'}, {value: '1',label: '1秒'}, {value: '1.5',label: '1.5秒'}, {value: '2',label: '2秒'}, {
-                    value: '2.5',label: '2.5秒'}, { value: '3',label: '3秒'}, {value: '4',label: '4秒'}, {value: '5',label: '5秒'
-                }, {value: '6', label: '6秒'}, { value: '7',label: '7秒'}, {value: '8',label: '8秒'}, {value: '9',label: '9秒'}, {value: '10',label: '10秒'}],
+                levels: [{value: 'l1',label: '一级'}, {value: 'l2',label: '二级'}],
+                farthers:[],
                 value: '',
                 dateTime:[],
                 activeName: 'first',
@@ -271,17 +191,34 @@
 
         },
         methods: {
+            changeVisible(event,item){
+                console.log("xxxxxxxxxxxxxxxxxx")
+
+                if(event === 'l1'){
+                    this.visible=false;
+                    console.log(event)
+                }else{
+                    this.visible=true;
+                    console.log(event)
+                }
+            },
             getData(){
-                this.$fetch('/v1/app')
+                this.$fetch('/v1/questionType')
                     .then((response) => {
                         console.log(response)
                         this.tableData=response.data;
+                    })
+
+                this.$fetch('/v1/questionType',{level:'l1'})
+                    .then((response) => {
+                        console.log(response)
+                        this.farthers=response.data;
                     })
             },
             submitApp(){
                 console.log("formData",this.formData);
                 this.dialogVisible = false;
-                this.$post('/v1/app',this.formData)
+                this.$post('/v1/questionType',this.formData)
                     .then((response) => {
                         console.log(response)
                         this.getData();
@@ -294,7 +231,7 @@
             },
             deleteClick(tab, event) {
                 console.log(tab, event);
-                this.$delete('/v1/app/'+tab._id)
+                this.$delete('/v1/questionType/'+tab._id)
                     .then((response) => {
                         console.log(response)
                         this.getData();
