@@ -9,8 +9,8 @@ const AppsModule = {
 
     create: async function(params){
         // TODO verifyParameters_
-        let {appKey} =params;
-        let userInfo=await appsModule.findOne({appKey:appKey})
+        let {appkey} =params;
+        let userInfo=await appsModule.findOne({appkey:appkey})
         if(userInfo==null){
             await appsModule.create(params);
         }else{

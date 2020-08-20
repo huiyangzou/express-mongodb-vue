@@ -27,6 +27,8 @@
                         <el-menu-item-group>
                             <el-menu-item index="3-1">图标工具</el-menu-item>
                             <el-menu-item index="3-2">启动图工具</el-menu-item>
+                            <el-menu-item index="3-3" @click="skipTo('android')">Android面试题</el-menu-item>
+                            <el-menu-item index="3-4" @click="skipTo('questionType')">问题类型</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
