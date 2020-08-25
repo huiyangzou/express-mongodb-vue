@@ -2,7 +2,7 @@ import axios from 'axios';
 import Vue from 'vue'
 
 axios.defaults.timeout = 5000;
-axios.defaults.baseURL = 'http://127.0.0.1:8080';
+axios.defaults.baseURL = 'http://106.14.16.185:8080';
 import { Message, Loading } from 'element-ui';
 import _ from 'lodash';
 let loadingInstance; //loading 实例
