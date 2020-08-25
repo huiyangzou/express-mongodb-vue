@@ -3,31 +3,31 @@
         <el-container style="height: 100%; border: 1px solid #eee">
             <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
                 <el-menu  style="text-align: left" >
-                    <el-submenu index="1" >
-                        <template slot="title" ><i class="el-icon-message" ></i>管理首页</template>
-                    </el-submenu>
-                    <el-submenu index="2">
-                        <template slot="title"><i class="el-icon-menu"></i>APP管理</template>
-                        <el-menu-item-group>
-                            <el-menu-item index="2-1" @click="skipTo('appList')">APP列表</el-menu-item>
-                            <el-menu-item index="2-2" @click="skipTo('appUpdate')" >APP热更新</el-menu-item>
-                            <el-menu-item index="2-3" @click="skipTo('appVersionUpdate')">APP版本更新</el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                    <el-submenu index="3">
-                        <template slot="title"><i class="el-icon-setting"></i>插件管理</template>
-                        <el-menu-item-group>
-                            <el-menu-item index="3-1"  @click="skipTo('create')">插件列表</el-menu-item>
-                            <el-menu-item index="3-2"  @click="skipTo('delete')">插件列表1.x</el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
+<!--                    <el-submenu index="1" >-->
+<!--                        <template slot="title" ><i class="el-icon-message" ></i>管理首页</template>-->
+<!--                    </el-submenu>-->
+<!--                    <el-submenu index="2">-->
+<!--                        <template slot="title"><i class="el-icon-menu"></i>APP管理</template>-->
+<!--                        <el-menu-item-group>-->
+<!--                            <el-menu-item index="2-1" @click="skipTo('appList')">APP列表</el-menu-item>-->
+<!--                            <el-menu-item index="2-2" @click="skipTo('appUpdate')" >APP热更新</el-menu-item>-->
+<!--                            <el-menu-item index="2-3" @click="skipTo('appVersionUpdate')">APP版本更新</el-menu-item>-->
+<!--                        </el-menu-item-group>-->
+<!--                    </el-submenu>-->
+<!--                    <el-submenu index="3">-->
+<!--                        <template slot="title"><i class="el-icon-setting"></i>插件管理</template>-->
+<!--                        <el-menu-item-group>-->
+<!--                            <el-menu-item index="3-1"  @click="skipTo('create')">插件列表</el-menu-item>-->
+<!--                            <el-menu-item index="3-2"  @click="skipTo('delete')">插件列表1.x</el-menu-item>-->
+<!--                        </el-menu-item-group>-->
+<!--                    </el-submenu>-->
 
                     <el-submenu index="4">
-                        <template slot="title"><i class="el-icon-setting"></i>开发工具</template>
+                        <template slot="title"><i class="el-icon-setting"></i>面试宝典</template>
                         <el-menu-item-group>
-                            <el-menu-item index="3-1">图标工具</el-menu-item>
-                            <el-menu-item index="3-2">启动图工具</el-menu-item>
-                            <el-menu-item index="3-3" @click="skipTo('android')">Android面试题</el-menu-item>
+<!--                            <el-menu-item index="3-1">图标工具</el-menu-item>-->
+<!--                            <el-menu-item index="3-2">启动图工具</el-menu-item>-->
+                            <el-menu-item index="3-3" @click="skipTo('android')">面试题大合集</el-menu-item>
                             <el-menu-item index="3-4" @click="skipTo('questionType')">问题类型</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
