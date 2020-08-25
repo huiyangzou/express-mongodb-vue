@@ -36,7 +36,7 @@
 
             <el-container>
                 <el-header style=" font-size: 12px;display: flex;">
-                    <span style="font-size: 34px;color:#ffffff">吉祥应用管理平台</span>
+                    <span style="font-size: 34px;color:#ffffff">应用管理平台</span>
 
                     <div
                     style="flex: 1;text-align: right"

@@ -191,7 +191,7 @@ const Api = function(){
 
     app.get('/v1/android', async function(req, res){
         try {
-            var param={_id:req.query._id,typeOne:req.query.typeOne};
+            var param={_id:req.query._id,typeOne:req.query.typeOne,typeTwo:req.query.typeTwo};
             param= _.pickBy(param, _.isString);
             console.log(JSON.stringify(param))
             let result = await android.list(param);

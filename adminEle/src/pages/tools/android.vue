@@ -3,33 +3,62 @@
         <el-row>
 
             <el-col :span="12">
-                <div style="display:flex;flex-direction: column;">
-                    <span class="input_title">标题备注</span>
-                    <el-input
-                            placeholder="请输入内容"
-                            v-model="input"
-                            clearable>
-                    </el-input>
-                </div>
+<!--                <div style="display:flex;flex-direction: column;">-->
+<!--                    <span class="input_title">标题备注</span>-->
+<!--                    <el-input-->
+<!--                            placeholder="请输入内容"-->
+<!--                            v-model="input"-->
+<!--                            clearable>-->
+<!--                    </el-input>-->
+<!--                </div>-->
+                <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
+                    <span style="flex: 1;text-align: center">题目类型一级</span>
 
+                    <el-select  style="flex:4;margin-left: 20px;" v-model="queryData.typeOne" clearable placeholder="请选择" @change="gettypeList">
+                        <el-option
+                                v-for="item in typesOne"
+                                :key="item._id"
+                                :label="item.questionTypeName"
+                                :value="item._id">
+                        </el-option>
+                    </el-select>
+
+                </div>
             </el-col>
 
             <el-col :span="12">
-                <div style="display:flex;flex-direction: column;margin-left: 20px;">
-                    <span class="input_title">APPKEY</span>
-                    <el-input
-                            placeholder="请输入内容"
-                            v-model="input"
-                            clearable>
-                    </el-input>
-                </div>
+<!--                <div style="display:flex;flex-direction: column;margin-left: 20px;">-->
+<!--                    <span class="input_title">APPKEY</span>-->
+<!--                    <el-input-->
+<!--                            placeholder="请输入内容"-->
+<!--                            v-model="input"-->
+<!--                            clearable>-->
+<!--                    </el-input>-->
+<!--                </div>-->
+                <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
+                    <span style="flex: 1;text-align: center">题目类型二级</span>
+                    <el-select filterable  style="flex:4;margin-left: 20px;" v-model="queryData.typeTwo" clearable placeholder="请选择">
+                        <el-option
+                                v-for="item in typesTwo"
+                                :key="item._id"
+                                :label="item.questionTypeName"
+                                :value="item._id">
+                        </el-option>
+                    </el-select>
 
+                </div>
             </el-col>
+
+
         </el-row>
         <div style="flex-direction: row;justify-content: space-between;display: flex;margin-top: 20px;">
 
             <el-button type="primary" icon="el-icon-plus" @click="addQuestion">添加面试题</el-button>
-            <el-button type="primary" icon="el-icon-search">搜索</el-button>
+            <div>
+                <el-button type="primary" icon="el-icon-delete" @click="queryData.typeOne=null">清空</el-button>
+                <el-button type="primary" icon="el-icon-search" @click="getData">搜索</el-button>
+            </div>
+
         </div>
         <el-table
                 id="elMain"
@@ -106,7 +135,7 @@
                     </div>
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
                         <span style="flex: 1;text-align: center">题目类型二级</span>
-                            <el-select  style="flex:4;margin-left: 20px;" v-model="formData.typeTwo" clearable placeholder="请选择">
+                            <el-select filterable style="flex:4;margin-left: 20px;" v-model="formData.typeTwo" clearable placeholder="请选择">
                                 <el-option
                                         v-for="item in typesTwo"
                                         :key="item._id"
@@ -172,6 +201,10 @@
                             picker.$emit('pick', [start, end]);
                         }
                     }]},
+                queryData:{
+                    typeOne:null,
+                    typeTwo:null,
+                },
                 formData:{
                     id:'',
                     question:'',
@@ -211,7 +244,7 @@
                 this.formData={}
             },
             getData(){
-                this.$fetch('/v1/android')
+                this.$fetch('/v1/android',this.queryData)
                     .then((response) => {
                         console.log(response)
                         this.tableData=response.data;
