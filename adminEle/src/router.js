@@ -20,7 +20,7 @@ const routes = [
             {path: '/appList', component: appList, name:'appList',realName:'应用列表'},
             {path: '/appUpdate', component: appUpdate, name:'appUpdate',realName:'应用热更新'},
             {path: '/appVersionUpdate', component: appVersionUpdate, name:'appVersionUpdate',realName:'应用版本更新'},
-            {path: '/android', component: android, name:'android',realName:'android面试题'},
+            {path: '/question', component: android, name:'android',realName:'android面试题'},
             {path: '/questionType', component: questionType, name:'questionType',realName:'问题类型'},
         ]
     }
