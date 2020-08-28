@@ -86,7 +86,7 @@
                     label="答案"
                     :show-overflow-tooltip="true"
 
-                    width="360">
+                    width="860">
             </el-table-column>
 
             <el-table-column
@@ -307,7 +307,7 @@
                 this.$fetch('/v1/android',{_id:tab._id})
                     .then((response) => {
                         console.log(response)
-                        this.formData=response.data[0];
+                        this.formData=response.data.data[0];
                     })
                 this.dialogVisible = true;
             },
