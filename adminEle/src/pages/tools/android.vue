@@ -55,8 +55,8 @@
 
             <el-button type="primary" icon="el-icon-plus" @click="addQuestion">添加面试题</el-button>
             <div>
-                <el-button type="primary" icon="el-icon-delete" @click="queryData.typeOne=null">清空</el-button>
-                <el-button type="primary" icon="el-icon-search" @click="getData">搜索</el-button>
+                <el-button type="primary" icon="el-icon-delete" @click="clearQuery">清空</el-button>
+                <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
             </div>
 
         </div>
@@ -105,11 +105,11 @@
             <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage4"
-                    :page-sizes="[100, 200, 300, 400]"
-                    :page-size="100"
+                    :current-page="queryData.currentPage"
+                    :page-sizes="[5,10, 20, 30, 40]"
+                    :page-size="queryData.pageSize"
                     layout="total, sizes, prev, pager, next, jumper"
-                    :total="400">
+                    :total="totalItem">
             </el-pagination>
         </div>
         <el-dialog
@@ -204,6 +204,8 @@
                 queryData:{
                     typeOne:null,
                     typeTwo:null,
+                    currentPage:1,
+                    pageSize:5
                 },
                 formData:{
                     id:'',
@@ -231,6 +233,8 @@
                 activeName: 'first',
                 dialogVisible: false,
                 tableData: [],
+                totalItem:0,
+                currentPage:1,
                 multipleSelection: []
             }
         },
@@ -243,11 +247,22 @@
                 this.dialogVisible = true;
                 this.formData={}
             },
+            clearQuery(){
+              this.queryData.typeOne=null
+              this.queryData.typeTwo=null
+            },
+            search(){
+              this.queryData.currentPage=1;
+              this.getData();
+            },
             getData(){
                 this.$fetch('/v1/android',this.queryData)
                     .then((response) => {
                         console.log(response)
-                        this.tableData=response.data;
+                        this.tableData=response.data.data;
+                        this.totalItem=response.data.total
+                        this.currentPage=response.data.currentPage;
+
                     })
 
                 this.$fetch('/v1/questionType',{level:'l1'})
@@ -323,10 +338,14 @@
             handleSizeChange(val) {
                 //每页多少条
                 console.log(`每页 ${val} 条`);
+                this.queryData.pageSize=val
+                this.getData();
             },
             handleCurrentChange(val) {
                 //当前页
                 console.log(`当前页: ${val}`);
+                this.queryData.currentPage=val
+                this.getData();
             }
         }
     }

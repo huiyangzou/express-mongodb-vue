@@ -2,6 +2,7 @@
 
 const logger = require('../../common/logger').logger;
 const log = logger.getLogger('AppsModule');
+var _ = require('lodash');
 const androidModel = require('../models/androidModel');
 
 const AndroidModel = {
@@ -47,7 +48,15 @@ const AndroidModel = {
 
     findMany: async function(conditions){
         try {
-            return await androidModel.find(conditions);
+            console.log(conditions.currentPage+conditions.pageSize)
+            var currentPage=parseInt(conditions.currentPage);
+            var pageSize=parseInt(conditions.pageSize);
+            let skip=(currentPage-1)*pageSize;
+            conditions= _.omit(conditions, ['currentPage', 'pageSize']);
+            console.log(currentPage+"_"+pageSize)
+            let count=await androidModel.find(conditions).count();
+            var data=await androidModel.find(conditions).skip(skip).limit(pageSize);
+            return  {total:count,data:data,currentPage:currentPage};
         } catch (error) {
             log.warn('find error,', error);
             throw {status: 500, code: '1401', message: 'database error'};
