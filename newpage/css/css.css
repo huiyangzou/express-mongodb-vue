@@ -5,8 +5,7 @@
 
 body {
     background-image: url(../img/bg.png);
-    background-size: 100% 100%;
-    background-repeat: repeat-y;
+    background-size: 100%;
     overflow-x: hidden;
     background-repeat: no-repeat;
     background-attachment: fixed
