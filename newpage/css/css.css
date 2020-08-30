@@ -8,7 +8,7 @@ body {
     background: url("../img/bg1.png") no-repeat;
     background-size:100% 100%;
     /*overflow-x: hidden;*/
-    background-attachment: fixed
+    background-attachment: fixed;
 }
 
 .main {
@@ -67,6 +67,18 @@ body {
 .home-yah img {
     width: 90vw;
     height: 90vw
+}
+
+.home-yah1 {
+    display: flex;
+    width: 60vw;
+    justify-content: center;
+    margin-top: 5vw
+}
+
+.home-yah1 img {
+    width: 90vw;
+    height: 45vw
 }
 
 .piaofu1 {
