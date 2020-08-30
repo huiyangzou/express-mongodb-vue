@@ -162,11 +162,11 @@
                 var map = new AMap.Map('container', {
                     resizeEnable: true, //是否监控地图容器尺寸变化
                     zoom: 11, //初始化地图层级
-                    center: [106.723634, 26.585646] //初始化地图中心点
+                    center: [114.299062,32.062785] //初始化地图中心点//114.299062,32.062785
                 });
 
                 var marker = new AMap.Marker({
-                    position: new AMap.LngLat(106.723634, 26.585646),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
+                    position: new AMap.LngLat(114.299062,32.062785),   // 经纬度对象，也可以是经纬度构成的一维数组[116.39, 39.9]
                     title: '维也纳酒店'
                 });
 
@@ -177,7 +177,7 @@
 
 
                 // 传入经纬度，设置地图中心点
-                var position = new AMap.LngLat(106.723634, 26.585646);  // 标准写法
+                var position = new AMap.LngLat(114.299062,32.062785);  // 标准写法
                 // 简写 var position = [116, 39];
                 map.setCenter(position);
                 // 获取地图中心点
@@ -200,7 +200,7 @@
                         position: ["{$lng}", "{$lat}"]
                     })
                     marker.setLabel({
-                        offset: new AMap.Pixel(106.723634, 26.585646),//修改label相对于maker的位置
+                        offset: new AMap.Pixel(114.299062,32.062785),//修改label相对于maker的位置
                         content: "Marker"
                     });
                     marker.on('click', function (e) {
@@ -274,7 +274,7 @@
         <div class="homer-dhtitle wow bounceInLeft" data-wow-iteration="1" data-wow-duration="3s">
             <span style="font-size: 18px;color: #ffffff">在线报名</span>
         </div>
-        <form action="/message_sj.php" method="POST" name="form_book" onSubmit="return cheackbook();"
+        <form action="http://xxx.ssss/message_sj.php" method="POST" name="form_book" onSubmit="return cheackbook();"
               enctype="multipart/form-data">
             <input type="hidden" name="refer" value="#"/>
             <div class="home-name wow bounceInLeft" data-wow-iteration="1" data-wow-duration="3s">

@@ -29,6 +29,7 @@
 <!--                            <el-menu-item index="3-2">启动图工具</el-menu-item>-->
                             <el-menu-item index="3-3" @click="skipTo('question')">面试题大合集</el-menu-item>
                             <el-menu-item index="3-4" @click="skipTo('questionType')">问题类型</el-menu-item>
+                            <el-menu-item index="3-4" @click="skipTo('baoming')">报名</el-menu-item>
                         </el-menu-item-group>
                     </el-submenu>
                 </el-menu>
