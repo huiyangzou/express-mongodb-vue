@@ -5,8 +5,8 @@
 
 body {
     /*background-image: url(../img/bg.png);*/
-    background: url("../img/bg.png") no-repeat;
-    background-size:cover;
+    background: url("../img/bg1.png") no-repeat;
+    background-size:100% 100%;
     /*overflow-x: hidden;*/
     background-attachment: fixed
 }
@@ -53,7 +53,7 @@ body {
 }
 
 .piaofu img {
-    width: 30vw;
+    width: 20vw;
     height: 15vw
 }
 
@@ -65,7 +65,7 @@ body {
 }
 
 .home-yah img {
-    width: 40vw;
+    width: 90vw;
     height: 90vw
 }
 
@@ -77,8 +77,8 @@ body {
 }
 
 .piaofu1 img {
-    width: 30vw;
-    height: 15vw
+    width: 20vw;
+    height: 12vw;
 }
 
 .home-ewm {
