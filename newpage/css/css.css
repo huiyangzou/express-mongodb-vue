@@ -167,13 +167,23 @@ body {
 }
 
 .home-lcxx {
-    width: 50vw;
+    width: 87vw;
     margin-top: 3vw
 }
 
 .home-lcxx img {
-    width: 50vw;
-    height: 20vw
+    width: 87vw;/*1390   695 348 174  87*/
+    height: 101vw/*1622 811 405 202 101*/
+}
+
+.home-lcxx1 {
+    width: 73vw;
+    margin-top: 3vw
+}
+
+.home-lcxx1 img {
+    width: 73vw;/*504   252 146 73  */
+    height: 188vw/*1426 713 356 178 */
 }
 
 .home-name {
