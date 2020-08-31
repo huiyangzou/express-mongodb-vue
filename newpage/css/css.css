@@ -56,7 +56,7 @@ body {
 
 .piaofu img {
     width: 20vw;
-    height: 15vw
+    height: 16.2vw
 }
 
 .home-yah {
@@ -80,7 +80,7 @@ body {
 
 .home-yah1 img {
     width: 90vw;
-    height: 45vw
+    height: 47vw
 }
 
 .piaofu1 {
@@ -92,7 +92,7 @@ body {
 
 .piaofu1 img {
     width: 20vw;
-    height: 12vw;
+    height: 12.4vw;
 }
 
 .home-ewm {
@@ -171,13 +171,23 @@ body {
 }
 
 .home-lcxx {
-    width: 87vw;
-    margin-top: 3vw
+    width: 87vw;/*1390*/
+    margin-top: 3vw/*1622*/
 }
 
 .home-lcxx img {
     width: 87vw;/*1390   695 348 174  87*/
-    height: 101vw/*1622 811 405 202 101*/
+    height: 100vw/*1622 811 405 202 101*/
+}
+
+.home-lcxx4 {
+    width: 87vw;
+    margin-top: 3vw
+}
+
+.home-lcxx4 img {
+    width: 87vw;/*1390   695 348 174  87*/
+    height: 62vw/*1622 811 405 202 101*/
 }
 
 .home-lcxx3 {
@@ -187,7 +197,7 @@ body {
 
 .home-lcxx3 img {
     width: 87vw;/*1440   144 72 174  87*/
-    height: 61vw/*1080 108 54 202 101*/
+    height: 65vw/*1080 108 54 202 101*/
 }
 
 .home-lcxx2 {
@@ -197,7 +207,7 @@ body {
 
 .home-lcxx2 img {
     width: 87vw;/*1920   192 96 174  87*/
-    height: 50vw/*1080 108 54 202 101*/
+    height: 49vw/*1080 108 54 202 101*/
 }
 
 .home-lcxx1 {
