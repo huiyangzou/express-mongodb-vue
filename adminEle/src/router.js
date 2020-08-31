@@ -7,6 +7,7 @@ import appList from "./pages/app/appList";
 import appUpdate from "./pages/app/appUpdate";
 import appVersionUpdate from "./pages/app/appVersionUpdate";
 import android from "./pages/tools/android";
+import baoming from "./pages/tools/baoming";
 import questionType from "./pages/tools/questionType";
 
 const routes = [
@@ -21,6 +22,7 @@ const routes = [
             {path: '/appUpdate', component: appUpdate, name:'appUpdate',realName:'应用热更新'},
             {path: '/appVersionUpdate', component: appVersionUpdate, name:'appVersionUpdate',realName:'应用版本更新'},
             {path: '/question', component: android, name:'question',realName:'面试题大集合'},
+            {path: '/baoming', component: baoming, name:'baoming',realName:'报名'},
             {path: '/questionType', component: questionType, name:'questionType',realName:'问题类型'},
         ]
     }

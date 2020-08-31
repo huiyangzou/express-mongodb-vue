@@ -3,6 +3,7 @@ const bodyParser = require('body-parser');
 const logger = require('./common/logger').logger;
 const log = logger.getLogger('API');
 const users = require('./bussiness/users');
+const baoming = require('./bussiness/baoming');
 const orders = require('./bussiness/orders');
 const apps = require('./bussiness/apps');
 const android = require('./bussiness/android');
@@ -299,6 +300,77 @@ const Api = function(){
     });
 
 
+    //报名
+    app.post('/v1/baoming', async function(req, res){
+        try {
+            let body = req.body;
+            await baoming.create(body.name, body.pwd, body.age);
+            res.status(200).send({code:1000,message: 'ok'});
+        } catch (error) {
+            log.warn('create users error', error);
+            let status = error.status || 500;
+            let code = error.code || '1000';
+            let message = error.message || error.name || error;
+            res.status(status).send({code: code, message: message});
+        }
+    });
+
+    app.put('/v1/baoming/:id', async function(req, res){
+        try {
+            let id = req.params.id;
+            let body = req.body;
+            await baoming.update(id, body);
+            res.status(200).send({code:1000,message: 'ok'});
+        } catch (error) {
+            log.warn('update users error', error);
+            let status = error.status || 500;
+            let code = error.code || '1000';
+            let message = error.message || error.name || error;
+            res.status(status).send({code: code, message: message});
+        }
+    });
+
+    app.patch('/v1/baoming/:id', async function(req, res){
+        try {
+            let id = req.params.id;
+            let body = req.body;
+            await baoming.patch(id, body);
+            res.status(200).send({code:1000,message: 'ok'});
+        } catch (error) {
+            log.warn('path users error', error);
+            let status = error.status || 500;
+            let code = error.code || '1000';
+            let message = error.message || error.name || error;
+            res.status(status).send({code: code, message: message});
+        }
+    });
+
+    app.delete('/v1/baoming/:id', async function(req, res){
+        try {
+            let id = req.params.id;
+            await baoming.delete(marketingCode);
+            res.status(200).send({code:1000,message: 'ok'});
+        } catch (error) {
+            log.warn('delete users error', error);
+            let status = error.status || 500;
+            let code = error.code || '1000';
+            let message = error.message || error.name || error;
+            res.status(status).send({code: code, message: message});
+        }
+    });
+
+    app.get('/v1/baoming', async function(req, res){
+        try {
+            let result = await baoming.list();
+            res.status(200).send({code:1000,message: 'ok', data: result});
+        } catch (error) {
+            log.warn('get users error', error);
+            let status = error.status || 500;
+            let code = error.code || '1000';
+            let message = error.message || error.name || error;
+            res.status(status).send({code: code, message: message});
+        }
+    });
 
 
     return app;
