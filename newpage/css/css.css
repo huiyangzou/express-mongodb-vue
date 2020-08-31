@@ -7,6 +7,7 @@ body {
     /*background-image: url(../img/bg.png);*/
     background: url("../img/bg1.png") no-repeat;
     background-size:100% 100%;
+    color: #ffffff;
     /*overflow-x: hidden;*/
     background-attachment: fixed;
 }
@@ -38,10 +39,11 @@ body {
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
-    width: 50vw;
-    font-size: 12px;
+    width: 80vw;
+    font-weight: bold;
+    font-size: 18px;
     line-height: 24px;
-    color: #efcb85;
+    color: #ffffff;
     margin-top: 1vw
 }
 
@@ -135,11 +137,12 @@ body {
 
 .hmeo-zcyq-title {
     display: flex;
-    width: 50vw;
+    width: 60vw;
     justify-content: flex-start;
-    font-size: 16px;
+    font-size: 18px;
+    font-weight: bold;
     line-height: 32px;
-    color: #f4cfa3;
+    color: #ffffff;
     margin-top: 5vw
 }
 
@@ -148,9 +151,10 @@ body {
     margin-top: 3vw;
     width: 50vw;
     justify-content: flex-start;
-    font-size: 12px;
+    font-size: 16px;
+    font-weight: bold;
     line-height: 24px;
-    color: #f4cfa3
+    color: #ffffff
 }
 
 .home-lcbanner {
@@ -176,6 +180,17 @@ body {
     height: 101vw/*1622 811 405 202 101*/
 }
 
+
+.home-lcxx2 {
+    width: 87vw;
+    margin-top: 3vw
+}
+
+.home-lcxx2 img {
+    width: 87vw;/*1920   192 96 174  87*/
+    height: 50vw/*1080 108 54 202 101*/
+}
+
 .home-lcxx1 {
     width: 73vw;
     margin-top: 3vw
@@ -188,7 +203,8 @@ body {
 
 .home-name {
     font-size: 32 rpx;
-    color: #f3da91;
+    color: #ffffff;
+    font-weight: bold;
     margin-top: 5vw;
     font-weight: 500;
     width: 50vw;
@@ -218,6 +234,7 @@ body {
     font-size: 16px;
     color: #fff;
     line-height: 32px;
+    margin-top: 50px;
     font-weight: 700
 }
 
@@ -273,6 +290,7 @@ body {
     color: #fff;
     background-color: #bc832a;
     font-size: 12px;
+    font-weight: bold;
     line-height: 36px;
     text-decoration: none;
     text-align: center;
