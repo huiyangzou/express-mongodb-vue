@@ -49,7 +49,27 @@
                 </div>
             </el-col>
 
+            <el-col :span="12">
+                <!--                <div style="display:flex;flex-direction: column;">-->
+                <!--                    <span class="input_title">标题备注</span>-->
+                <!--                    <el-input-->
+                <!--                            placeholder="请输入内容"-->
+                <!--                            v-model="input"-->
+                <!--                            clearable>-->
+                <!--                    </el-input>-->
+                <!--                </div>-->
+                <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
+                    <span style="flex: 1;text-align: center">文章标题</span>
+                    <el-input
+                            style="flex:4;margin-left: 20px;"
+                            placeholder="请输入要查找的文章标题"
+                            v-model="queryData.question"
+                            clearable>
+                    </el-input>
 
+
+                </div>
+            </el-col>
         </el-row>
         <div style="flex-direction: row;justify-content: space-between;display: flex;margin-top: 20px;">
 
@@ -205,7 +225,8 @@
                     typeOne:null,
                     typeTwo:null,
                     currentPage:1,
-                    pageSize:5
+                    pageSize:5,
+                    question:null,
                 },
                 formData:{
                     id:'',
