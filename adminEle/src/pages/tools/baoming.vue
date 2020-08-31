@@ -268,9 +268,9 @@
                 this.$fetch('/v1/baoming',this.queryData)
                     .then((response) => {
                         console.log(response)
-                        this.tableData=response.data.data;
-                        this.totalItem=response.data.total
-                        this.currentPage=response.data.currentPage;
+                        this.tableData=response.data;
+                        this.totalItem=response.data.length;
+                        // this.currentPage=response.data.currentPage;
 
                     })
 

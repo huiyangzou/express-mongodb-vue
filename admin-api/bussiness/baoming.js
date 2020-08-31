@@ -9,8 +9,8 @@ const BaomingModule = {
 
     create: async function(params){
         // TODO verifyParameters_
-        let {question} =params;
-        let userInfo=await baomingModule.findOne({question:question})
+        let {phone} =params;
+        let userInfo=await baomingModule.findOne({phone:phone})
         if(userInfo==null){
             await baomingModule.create(params);
         }else{

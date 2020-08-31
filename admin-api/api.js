@@ -18,6 +18,8 @@ const Api = function(){
     app.use(bodyParser.json(
         {limit: '50mb'}
     ));
+    app.use(bodyParser.urlencoded({ extended: false }));
+
     app.use(function(req, res, next) {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, PATCH, OPTIONS, DELETE');
@@ -304,7 +306,9 @@ const Api = function(){
     app.post('/v1/baoming', async function(req, res){
         try {
             let body = req.body;
-            await baoming.create(body.name, body.pwd, body.age);
+
+            console.log(JSON.stringify(req.body))
+            await baoming.create({name:body.name, phone:body.tel,mark: body.content,number:body.age});
             res.status(200).send({code:1000,message: 'ok'});
         } catch (error) {
             log.warn('create users error', error);
@@ -348,7 +352,7 @@ const Api = function(){
     app.delete('/v1/baoming/:id', async function(req, res){
         try {
             let id = req.params.id;
-            await baoming.delete(marketingCode);
+            await baoming.delete(id);
             res.status(200).send({code:1000,message: 'ok'});
         } catch (error) {
             log.warn('delete users error', error);
