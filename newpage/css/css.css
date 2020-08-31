@@ -180,6 +180,15 @@ body {
     height: 101vw/*1622 811 405 202 101*/
 }
 
+.home-lcxx3 {
+    width: 87vw;
+    margin-top: 3vw
+}
+
+.home-lcxx3 img {
+    width: 87vw;/*1440   144 72 174  87*/
+    height: 61vw/*1080 108 54 202 101*/
+}
 
 .home-lcxx2 {
     width: 87vw;
