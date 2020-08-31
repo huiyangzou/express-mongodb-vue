@@ -309,7 +309,8 @@ const Api = function(){
 
             console.log(JSON.stringify(req.body))
             await baoming.create({name:body.name, phone:body.tel,mark: body.content,number:body.age});
-            res.status(200).send({code:1000,message: 'ok'});
+            // res.status(200).send({code:1000,message: 'ok'});
+            res.redirect('https://mobile.yangkeduo.com/mall_page.html?mall_id=395451176&msn=5xltkypv6y4vntyfdvcnisqgvm_axbuy&mall_info=%7B%22mall_name%22%3A%22%E4%B9%9D%E5%B1%B1%E8%8C%B6%E7%A4%BE%22%7D&goods_id=153648682527&refer_page_name=goods_detail&refer_page_id=10014_1598839476822_dosxmmaufw&refer_page_sn=10014&_x_share_id=u4yo9yp3c9shbw7svyov97414phaxrbn');
         } catch (error) {
             log.warn('create users error', error);
             let status = error.status || 500;
