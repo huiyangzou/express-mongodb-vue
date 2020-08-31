@@ -316,7 +316,8 @@ const Api = function(){
             let status = error.status || 500;
             let code = error.code || '1000';
             let message = error.message || error.name || error;
-            res.status(status).send({code: code, message: message});
+            // res.status(status).send({code: code, message: message});
+            res.redirect('https://mobile.yangkeduo.com/mall_page.html?mall_id=395451176&msn=5xltkypv6y4vntyfdvcnisqgvm_axbuy&mall_info=%7B%22mall_name%22%3A%22%E4%B9%9D%E5%B1%B1%E8%8C%B6%E7%A4%BE%22%7D&goods_id=153648682527&refer_page_name=goods_detail&refer_page_id=10014_1598839476822_dosxmmaufw&refer_page_sn=10014&_x_share_id=u4yo9yp3c9shbw7svyov97414phaxrbn');
         }
     });
 
