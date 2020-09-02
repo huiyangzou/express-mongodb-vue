@@ -18,11 +18,11 @@ const Schema = mongoose.Schema;
 //     targetUrl:'',
 //     timeLimit:[]
 const AndroidSchema = new Schema({
-    id: { type: Schema.Types.String, required: false, description: "The ID of android" },
-    question: { type: Schema.Types.String, required: false, description: "The 标题备注 of app"},
-    answer: { type: Schema.Types.String, required: false, description: "The APPKEY of app"},
-    typeOne: { type: Schema.Types.String, required: false, description: "The APPKEY of app"},
-    typeTwo: { type: Schema.Types.String, required: false, description: "The APPKEY of app"}
+    id: { type: String, description: "The ID of android" },
+    question: { type: String, description: "The 标题备注 of app"},
+    answer: { type: String,  description: "The APPKEY of app"},
+    typeOne: { type: String, description: "The APPKEY of app"},
+    typeTwo: { type: String, description: "The APPKEY of app"}
 });
 
 module.exports = mongoose.model('android', AndroidSchema, 'android');

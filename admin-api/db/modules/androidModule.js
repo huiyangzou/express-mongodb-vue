@@ -49,13 +49,14 @@ const AndroidModel = {
     findMany: async function(conditions){
         try {
             console.log(conditions.currentPage+conditions.pageSize)
-            var currentPage=parseInt(conditions.currentPage);
-            var pageSize=parseInt(conditions.pageSize);
+            const currentPage = parseInt(conditions.currentPage);
+            const pageSize = parseInt(conditions.pageSize);
             let skip=(currentPage-1)*pageSize;
             conditions= _.omit(conditions, ['currentPage', 'pageSize']);
             console.log(currentPage+"_"+pageSize)
-            let count=await androidModel.find(conditions).count();
-            var data=await androidModel.find(conditions).skip(skip).limit(pageSize);
+            console.log(conditions,'conditions____________')
+            let count=await androidModel.countDocuments(conditions);
+            const data = await androidModel.find(conditions).skip(skip).limit(pageSize);
             return  {total:count,data:data,currentPage:currentPage};
         } catch (error) {
             log.warn('find error,', error);
