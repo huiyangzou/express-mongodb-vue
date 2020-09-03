@@ -1,76 +1,107 @@
 <template>
-    <div style="height: 1024px;">
-        <el-container style="height: 100%; border: 1px solid #eee">
-            <el-aside width="200px" style="background-color: rgb(238, 241, 246)">
-                <el-menu  style="text-align: left" >
-<!--                    <el-submenu index="1" >-->
-<!--                        <template slot="title" ><i class="el-icon-message" ></i>管理首页</template>-->
-<!--                    </el-submenu>-->
-<!--                    <el-submenu index="2">-->
-<!--                        <template slot="title"><i class="el-icon-menu"></i>APP管理</template>-->
-<!--                        <el-menu-item-group>-->
-<!--                            <el-menu-item index="2-1" @click="skipTo('appList')">APP列表</el-menu-item>-->
-<!--                            <el-menu-item index="2-2" @click="skipTo('appUpdate')" >APP热更新</el-menu-item>-->
-<!--                            <el-menu-item index="2-3" @click="skipTo('appVersionUpdate')">APP版本更新</el-menu-item>-->
-<!--                        </el-menu-item-group>-->
-<!--                    </el-submenu>-->
-<!--                    <el-submenu index="3">-->
-<!--                        <template slot="title"><i class="el-icon-setting"></i>插件管理</template>-->
-<!--                        <el-menu-item-group>-->
-<!--                            <el-menu-item index="3-1"  @click="skipTo('create')">插件列表</el-menu-item>-->
-<!--                            <el-menu-item index="3-2"  @click="skipTo('delete')">插件列表1.x</el-menu-item>-->
-<!--                        </el-menu-item-group>-->
-<!--                    </el-submenu>-->
+    <div style="display: flex;flex-direction: column;height: 1024px;">
+        <el-container style=" border: 1px solid #eee">
+            <el-header style=" width:100%;font-size: 12px;display: flex;">
+                <span style="font-size: 34px;color:#ffffff">知识仓库</span>
 
-                    <el-submenu index="4">
-                        <template slot="title"><i class="el-icon-setting"></i>面试宝典</template>
-                        <el-menu-item-group>
-<!--                            <el-menu-item index="3-1">图标工具</el-menu-item>-->
-<!--                            <el-menu-item index="3-2">启动图工具</el-menu-item>-->
-                            <el-menu-item index="3-3" @click="skipTo('question')">面试题大合集</el-menu-item>
-                            <el-menu-item index="3-4" @click="skipTo('questionType')">问题类型</el-menu-item>
-                            <el-menu-item index="3-4" @click="skipTo('baoming')">报名</el-menu-item>
-                        </el-menu-item-group>
-                    </el-submenu>
-                </el-menu>
-            </el-aside>
+                <div
+                        style="flex: 1;text-align: right"
+                >
+                    <el-dropdown>
+                        <i class="el-icon-setting" style="margin-right: 15px"></i>
+                        <el-dropdown-menu slot="dropdown">
+                            <el-dropdown-item>查看</el-dropdown-item>
+                            <el-dropdown-item>新增</el-dropdown-item>
+                            <el-dropdown-item>删除</el-dropdown-item>
+                        </el-dropdown-menu>
+                    </el-dropdown>
+                    <span>王小虎</span>
 
-            <el-container>
-                <el-header style=" font-size: 12px;display: flex;">
-                    <span style="font-size: 34px;color:#ffffff">面试宝典，高薪攻略</span>
+                </div>
 
-                    <div
-                    style="flex: 1;text-align: right"
-                    >
-                        <el-dropdown>
-                            <i class="el-icon-setting" style="margin-right: 15px"></i>
-                            <el-dropdown-menu slot="dropdown">
-                                <el-dropdown-item>查看</el-dropdown-item>
-                                <el-dropdown-item>新增</el-dropdown-item>
-                                <el-dropdown-item>删除</el-dropdown-item>
-                            </el-dropdown-menu>
-                        </el-dropdown>
-                        <span>王小虎</span>
+            </el-header>
 
-                    </div>
+            <el-container style="flex-direction: row;flex: 1">
 
-                </el-header>
+                <el-aside  style="width:202px;background-color: rgb(238, 241, 246)">
 
-                <el-main style="">
-                    <el-tabs  v-model="editableTabsValue" type="card" closable  @edit="handleTabsEdit" @tab-click="skipTo(editableTabsValue)" style="flex: 1;height: 60px;">
-                        <el-tab-pane
+                    <!--                <el-menu default-active="1-4-1" class="el-menu-vertical-demo" @open="handleOpen" @close="handleClose" :collapse="isCollapse">-->
+                    <!--                    <el-submenu index="1">-->
+                    <!--                        <template slot="title">-->
+                    <!--                            <i class="el-icon-location"></i>-->
+                    <!--                            <span slot="title">导航一</span>-->
+                    <!--                        </template>-->
+                    <!--                        <el-menu-item-group>-->
+                    <!--                            <span slot="title">分组一</span>-->
+                    <!--                            <el-menu-item index="1-1">选项1</el-menu-item>-->
+                    <!--                            <el-menu-item index="1-2">选项2</el-menu-item>-->
+                    <!--                        </el-menu-item-group>-->
+                    <!--                        <el-menu-item-group title="分组2">-->
+                    <!--                            <el-menu-item index="1-3">选项3</el-menu-item>-->
+                    <!--                        </el-menu-item-group>-->
+                    <!--                        <el-submenu index="1-4">-->
+                    <!--                            <span slot="title">选项4</span>-->
+                    <!--                            <el-menu-item index="1-4-1">选项1</el-menu-item>-->
+                    <!--                        </el-submenu>-->
+                    <!--                    </el-submenu>-->
+                    <!--                    <el-menu-item index="2">-->
+                    <!--                        <i class="el-icon-menu"></i>-->
+                    <!--                        <span slot="title">导航二</span>-->
+                    <!--                    </el-menu-item>-->
+                    <!--                    <el-menu-item index="3" disabled>-->
+                    <!--                        <i class="el-icon-document"></i>-->
+                    <!--                        <span slot="title">导航三</span>-->
+                    <!--                    </el-menu-item>-->
+                    <!--                    <el-menu-item index="4">-->
+                    <!--                        <i class="el-icon-setting"></i>-->
+                    <!--                        <span slot="title">导航四</span>-->
+                    <!--                    </el-menu-item>-->
+                    <!--                </el-menu>-->
 
-                                :key="item.name"
-                                v-for="(item) in editableTabs"
-                                :label="item.title"
-                                :name="item.name"
-                        >
-                        </el-tab-pane>
-                    </el-tabs>
-                    <router-view>
+                    <el-menu  default-active="4-0" class="el-menu-vertical-demo" style="text-align: left" unique-opened="true" >
+                        <el-submenu index="4">
+                            <template slot="title">
+                                <i class="el-icon-setting"></i>
+                                <span slot="title">android知识库</span>
 
-                    </router-view>
-                </el-main>
+                            </template>
+                            <el-menu-item-group>
+                                <el-menu-item index="4-0" @click="skipTo('boardPage')">首页</el-menu-item>
+                                <el-menu-item index="4-1" @click="skipTo('question')">面试题大合集</el-menu-item>
+                                <el-menu-item index="4-2" @click="skipTo('questionType')">问题类型</el-menu-item>
+                            </el-menu-item-group>
+                        </el-submenu>
+
+
+                        <el-submenu index="5">
+                            <template slot="title">
+                                <i class="el-icon-setting"></i>
+                                <span slot="title">宝宝</span>
+                            </template>
+                            <el-menu-item-group>
+                                <el-menu-item index="5-1" @click="skipTo('baoming')">报名</el-menu-item>
+                            </el-menu-item-group>
+                        </el-submenu>
+                    </el-menu>
+                </el-aside>
+                <el-container>
+                    <el-main style="">
+                        <el-tabs  v-model="editableTabsValue" type="card" closable  @edit="handleTabsEdit" @tab-click="skipTo(editableTabsValue)" style="flex: 1;height: 60px;">
+                            <el-tab-pane
+
+                                    :key="item.name"
+                                    v-for="(item) in editableTabs"
+                                    :label="item.title"
+                                    :name="item.name"
+                            >
+                            </el-tab-pane>
+                        </el-tabs>
+                        <router-view>
+
+                        </router-view>
+                    </el-main>
+                </el-container>
+
             </el-container>
         </el-container>
 
@@ -91,6 +122,9 @@
                 }],
                 tabIndex: 1
             }
+        },
+        created() {
+            this.$router.push('boardPage');
         },
         methods:{
             skipTo(name){
@@ -145,6 +179,10 @@
 </script>
 
 <style scoped>
+    .el-menu-vertical-demo:not(.el-menu--collapse) {
+        width: 200px;
+        height: 100%;
+    }
     .el-header {
         background-color: #B3C0D1;
         color: #333;
