@@ -39,6 +39,7 @@ const UsersModel = {
 
     findOne: async function(conditions){
         try {
+            console.log(conditions)
             return await usersModel.findOne(conditions);
         } catch (error) {
             log.warn('delete error,', error);

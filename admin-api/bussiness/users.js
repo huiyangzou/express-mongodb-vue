@@ -6,6 +6,15 @@ const utils = require('./../common/utils');
 const usersModule = require('./../db/modules/usersModule');
 
 const UsersModule = {
+    query: async function(name,pwd){
+        let params = {
+            name: name,
+            pwd: utils.MD5(pwd),
+        }
+
+        console.log(params)
+        return usersModule.findOne(params);
+    },
 
     create: async function(name, pwd, age){
         // TODO verifyParameters_

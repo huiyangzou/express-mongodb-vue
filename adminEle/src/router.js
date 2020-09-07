@@ -15,7 +15,12 @@ import userList from "./pages/user/userList";
 
 const routes = [
     {
-        path: '/', component: mainPage,
+        path: '/', component: login,
+    },
+
+    {
+        path: '/home', component: mainPage,
+
         children: [
             {path: '/boardPage', component: boardPage, name:'boardPage',realName:'首页'},
             {path: '/create', component: create, name:'create',realName:'创建'},

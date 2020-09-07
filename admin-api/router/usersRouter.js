@@ -3,7 +3,40 @@ const router = express.Router()
 const users = require('../bussiness/users');
 const logger = require('../common/logger').logger;
 const log = logger.getLogger('API');
+var session = require('express-session');
 
+app=express();
+app.use(
+    session({
+        secret:'secret',              //  用来对session_id相关的cookie进行签名
+        resave:false,
+        saveUninitialized: false,
+        cookie: {userName:"default",maxAge: 7*24*60*60*1000}    // 设置有效期
+    })
+)
+
+router.post('/v1/login', async function (req, res) {
+    try {
+        let body = req.body;
+        let result =  await users.query(body.username, body.password);
+        console.log(result)
+        if(result !=null){
+            req.session.userName = userName;
+            req.session.isLogin = true;
+            res.status(200).send({code: 1000, message: 'ok'});
+
+        }else{
+            res.status(200).send({code: 1001, message: 'fail'});
+
+        }
+    } catch (error) {
+        log.warn('find users error', error);
+        let status = error.status || 500;
+        let code = error.code || '1000';
+        let message = error.message || error.name || error;
+        res.status(status).send({code: code, message: message});
+    }
+});
 
 router.post('/v1/users', async function (req, res) {
     try {
@@ -80,6 +113,8 @@ router.get('/v1/users', async function (req, res) {
         res.status(status).send({code: code, message: message});
     }
 });
+
+
 
 
 module.exports = router
