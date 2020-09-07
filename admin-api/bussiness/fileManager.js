@@ -9,8 +9,8 @@ const FileManagerModule = {
 
     create: async function(params){
         // TODO verifyParameters_
-        let {question} =params;
-        let userInfo=await fileManagerModule.findOne({question:question})
+        let {fileName} =params;
+        let userInfo=await fileManagerModule.findOne({fileName:fileName})
         if(userInfo==null){
             await fileManagerModule.create(params);
         }else{

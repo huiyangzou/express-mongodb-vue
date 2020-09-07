@@ -72,7 +72,8 @@ const Api = function () {
             // 随后我们会在 react 组件中实现
             // 在客户端中的 public 文件夹下创建 uploads 文件夹 用于保存上传的文件
             const result={fileName: file.name, filePath: `uploads/${file.name}`,fileSize:file.size,fileUrl:'https://www.93goodtea.com/'+`uploads/${file.name}`,mineType:file.minetype};
-            await fileManager.create(result);
+            console.log(result)
+            fileManager.create(result);
             res.json(result);
         });
     });

@@ -27,14 +27,7 @@
             </el-col>
 
             <el-col :span="12">
-<!--                <div style="display:flex;flex-direction: column;margin-left: 20px;">-->
-<!--                    <span class="input_title">APPKEY</span>-->
-<!--                    <el-input-->
-<!--                            placeholder="请输入内容"-->
-<!--                            v-model="input"-->
-<!--                            clearable>-->
-<!--                    </el-input>-->
-<!--                </div>-->
+
                 <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
                     <span style="flex: 1;text-align: center">题目类型二级</span>
                     <el-select filterable  style="flex:4;margin-left: 20px;" v-model="queryData.typeTwo" clearable placeholder="请选择">
@@ -50,14 +43,7 @@
             </el-col>
 
             <el-col :span="12">
-                <!--                <div style="display:flex;flex-direction: column;">-->
-                <!--                    <span class="input_title">标题备注</span>-->
-                <!--                    <el-input-->
-                <!--                            placeholder="请输入内容"-->
-                <!--                            v-model="input"-->
-                <!--                            clearable>-->
-                <!--                    </el-input>-->
-                <!--                </div>-->
+
                 <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
                     <span style="flex: 1;text-align: center">文章标题</span>
                     <el-input
@@ -73,7 +59,7 @@
         </el-row>
         <div style="flex-direction: row;justify-content: space-between;display: flex;margin-top: 20px;">
 
-            <el-button type="primary" icon="el-icon-plus" @click="addQuestion">添加面试题</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="addQuestion">添加资源</el-button>
             <div>
                 <el-button type="primary" icon="el-icon-delete" @click="clearQuery">清空</el-button>
                 <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
@@ -148,50 +134,67 @@
             </el-pagination>
         </div>
         <el-dialog
-                title="添加问题"
+                title="添加资源"
                 :visible.sync="dialogVisible"
                 width="40%"
                 >
             <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
                 <el-tab-pane label="基本信息" name="first">
+                    <el-upload
+                            class="upload-demo"
+                            action="http://127.0.0.1:8080/upload"
+                            :on-preview="handlePreview"
+                            :on-remove="handleRemove"
+                            :before-remove="beforeRemove"
+                            multiple
+                            :limit="1"
+                            name="foo"
+                            :auto-upload="false"
+                            ref="upload"
+                            :on-exceed="handleExceed"
+                            :file-list="fileList">
+                        <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
+                        <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
+                        <div slot="tip" class="el-upload__tip">只能上传jpg/png文件，且不超过500kb</div>
+                    </el-upload>
 
-                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">题目类型一级</span>
+<!--                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">-->
+<!--                        <span style="flex: 1;text-align: center">题目类型一级</span>-->
 
-                            <el-select  style="flex:4;margin-left: 20px;" v-model="formData.typeOne" clearable placeholder="请选择" @change="gettypeList">
-                                <el-option
-                                        v-for="item in typesOne"
-                                        :key="item._id"
-                                        :label="item.questionTypeName"
-                                        :value="item._id">
-                                </el-option>
-                            </el-select>
+<!--                            <el-select  style="flex:4;margin-left: 20px;" v-model="formData.typeOne" clearable placeholder="请选择" @change="gettypeList">-->
+<!--                                <el-option-->
+<!--                                        v-for="item in typesOne"-->
+<!--                                        :key="item._id"-->
+<!--                                        :label="item.questionTypeName"-->
+<!--                                        :value="item._id">-->
+<!--                                </el-option>-->
+<!--                            </el-select>-->
 
-                    </div>
-                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">题目类型二级</span>
-                            <el-select filterable style="flex:4;margin-left: 20px;" v-model="formData.typeTwo" clearable placeholder="请选择">
-                                <el-option
-                                        v-for="item in typesTwo"
-                                        :key="item._id"
-                                        :label="item.questionTypeName"
-                                        :value="item._id">
-                                </el-option>
-                            </el-select>
+<!--                    </div>-->
+<!--                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">-->
+<!--                        <span style="flex: 1;text-align: center">题目类型二级</span>-->
+<!--                            <el-select filterable style="flex:4;margin-left: 20px;" v-model="formData.typeTwo" clearable placeholder="请选择">-->
+<!--                                <el-option-->
+<!--                                        v-for="item in typesTwo"-->
+<!--                                        :key="item._id"-->
+<!--                                        :label="item.questionTypeName"-->
+<!--                                        :value="item._id">-->
+<!--                                </el-option>-->
+<!--                            </el-select>-->
 
-                    </div>
+<!--                    </div>-->
 
-                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">题目</span>
-                            <el-input style="flex:4;margin-left: 20px;" v-model="formData.question" placeholder="请输入内容"></el-input>
-                    </div>
+<!--                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">-->
+<!--                        <span style="flex: 1;text-align: center">题目</span>-->
+<!--                            <el-input style="flex:4;margin-left: 20px;" v-model="formData.question" placeholder="请输入内容"></el-input>-->
+<!--                    </div>-->
 
-                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">答案</span>
-                            <el-input style="flex:4;margin-left: 20px;"   type="textarea"
-                                      :autosize="{ minRows:5, maxRows: 5}" v-model="formData.answer" placeholder="请输入内容"></el-input>
+<!--                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">-->
+<!--                        <span style="flex: 1;text-align: center">答案</span>-->
+<!--                            <el-input style="flex:4;margin-left: 20px;"   type="textarea"-->
+<!--                                      :autosize="{ minRows:5, maxRows: 5}" v-model="formData.answer" placeholder="请输入内容"></el-input>-->
 
-                    </div>
+<!--                    </div>-->
                 </el-tab-pane>
 
             </el-tabs>
@@ -210,6 +213,7 @@
         name: "appList",
         data() {
             return {
+                fileList: [],
                 pickerOptions: {
                     shortcuts: [{
                         text: '最近一周',
@@ -382,7 +386,24 @@
                 console.log(`当前页: ${val}`);
                 this.queryData.currentPage=val
                 this.getData();
-            }
+            },
+            handleRemove(file, fileList) {
+                console.log(file, fileList);
+            },
+            handlePreview(file) {
+                console.log(file);
+            },
+            handleExceed(files, fileList) {
+                this.dialogVisible = false;
+                // this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+            },
+            beforeRemove(file, fileList) {
+                return this.$confirm(`确定移除 ${ file.name }？`);
+            },
+            submitUpload() {
+                this.$refs.upload.submit();
+            },
+
         }
     }
 </script>
