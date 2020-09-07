@@ -9,10 +9,11 @@ import appVersionUpdate from "./pages/app/appVersionUpdate";
 import android from "./pages/tools/android";
 import baoming from "./pages/tools/baoming";
 import questionType from "./pages/tools/questionType";
+import login from './pages/user/login'
 
 const routes = [
     {
-        path: '/', component: mainPage,
+        path: '/', component: login,
         children: [
             {path: '/boardPage', component: boardPage, name:'boardPage',realName:'首页'},
             {path: '/create', component: create, name:'create',realName:'创建'},
