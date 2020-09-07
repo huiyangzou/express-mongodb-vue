@@ -28,7 +28,7 @@ const UsersModule = {
         return 'ok';
     },
 
-    delete: async function(){
+    delete: async function(id){
         await usersModule.delete({_id:id})
         return 'ok';
     },
@@ -37,8 +37,9 @@ const UsersModule = {
         return 'ok';
     },
 
-    list: async function(){
-        return usersModule.findMany();
+    list: async function(params){
+        console.log("xyyxyxyxyxyxyxyyxyxyx")
+        return usersModule.findMany(params);
     }
 };
 

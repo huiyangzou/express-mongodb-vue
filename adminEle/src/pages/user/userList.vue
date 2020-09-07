@@ -52,7 +52,7 @@
         </el-row>
         <div style="flex-direction: row;justify-content: space-between;display: flex;margin-top: 20px;">
 
-            <el-button type="primary" icon="el-icon-plus" @click="addQuestion">添加面试题</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="addQuestion">添加用户</el-button>
             <div>
                 <el-button type="primary" icon="el-icon-delete" @click="clearQuery">清空</el-button>
                 <el-button type="primary" icon="el-icon-search" @click="search">搜索</el-button>
@@ -76,13 +76,13 @@
                     width="120">
             </el-table-column>
             <el-table-column
-                    prop="question"
-                    label="问题"
+                    prop="name"
+                    label="用户名"
                     width="360">
             </el-table-column>
             <el-table-column
-                    prop="answer"
-                    label="答案"
+                    prop="pwd"
+                    label="密码"
                     :show-overflow-tooltip="true"
 
                     width="860">
@@ -112,48 +112,24 @@
             </el-pagination>
         </div>
         <el-dialog
-                title="添加问题"
+                title="添加用户"
                 :visible.sync="dialogVisible"
                 width="40%"
                 >
             <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
                 <el-tab-pane label="基本信息" name="first">
 
+
+
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">题目类型一级</span>
-
-                            <el-select  style="flex:4;margin-left: 20px;" v-model="formData.typeOne" clearable placeholder="请选择" @change="gettypeList">
-                                <el-option
-                                        v-for="item in typesOne"
-                                        :key="item._id"
-                                        :label="item.questionTypeName"
-                                        :value="item._id">
-                                </el-option>
-                            </el-select>
-
-                    </div>
-                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">题目类型二级</span>
-                            <el-select filterable style="flex:4;margin-left: 20px;" v-model="formData.typeTwo" clearable placeholder="请选择">
-                                <el-option
-                                        v-for="item in typesTwo"
-                                        :key="item._id"
-                                        :label="item.questionTypeName"
-                                        :value="item._id">
-                                </el-option>
-                            </el-select>
-
+                        <span style="flex: 1;text-align: center">用户名</span>
+                            <el-input style="flex:4;margin-left: 20px;" v-model="formData.name" placeholder="请输入内容"></el-input>
                     </div>
 
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">题目</span>
-                            <el-input style="flex:4;margin-left: 20px;" v-model="formData.question" placeholder="请输入内容"></el-input>
-                    </div>
-
-                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">答案</span>
-                            <el-input style="flex:4;margin-left: 20px;"   type="textarea"
-                                      :autosize="{ minRows:5, maxRows: 5}" v-model="formData.answer" placeholder="请输入内容"></el-input>
+                        <span style="flex: 1;text-align: center">密码</span>
+                            <el-input style="flex:4;margin-left: 20px;"   type="text"
+                                       v-model="formData.pwd" placeholder="请输入内容"></el-input>
 
                     </div>
                 </el-tab-pane>
@@ -209,8 +185,8 @@
                 },
                 formData:{
                     id:'',
-                    question:'',
-                    answer:'',
+                    name:'',
+                    password:'',
                     type:0,
                     typeOne:"",
                     typeTwo:"",

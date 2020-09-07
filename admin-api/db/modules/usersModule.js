@@ -3,6 +3,7 @@
 const logger = require('../../common/logger').logger;
 const log = logger.getLogger('UsersModule');
 const usersModel = require('../models/usersModel');
+var _ = require('lodash');
 
 const UsersModel = {
     
@@ -47,7 +48,18 @@ const UsersModel = {
 
     findMany: async function(conditions){
         try {
-            return await usersModel.find(conditions);
+
+            console.log(conditions.currentPage+conditions.pageSize)
+            const currentPage = parseInt(conditions.currentPage);
+            const pageSize = parseInt(conditions.pageSize);
+            let skip=(currentPage-1)*pageSize;
+            conditions= _.omit(conditions, ['currentPage', 'pageSize']);
+            console.log(currentPage+"_"+pageSize)
+            console.log(conditions,'conditions____________')
+            let count=await usersModel.countDocuments(conditions);
+            const data = await usersModel.find(conditions).skip(skip).limit(pageSize);
+            return  {total:count,data:data,currentPage:currentPage};
+
         } catch (error) {
             log.warn('find error,', error);
             throw {status: 500, code: '1401', message: 'database error'};
