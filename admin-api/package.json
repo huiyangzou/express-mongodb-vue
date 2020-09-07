@@ -6,7 +6,8 @@
     "test": "mocha ./specs -R spec --timeout 5000 --exit"
   },
   "dependencies": {
-    "express": "~4.16.1",
+    "express": "^4.16.4",
+    "express-fileupload": "^1.2.0",
     "lodash": "^4.17.20",
     "log4js": "^1.1.1",
     "mongoose": "^5.9.13"

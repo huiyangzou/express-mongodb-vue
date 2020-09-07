@@ -7,13 +7,23 @@ const baoming = require('./bussiness/baoming');
 const orders = require('./bussiness/orders');
 const apps = require('./bussiness/apps');
 const android = require('./bussiness/android');
-const questionType = require('./bussiness/questionType');
+const fileManagerRouter = require('./router/fileManager');
+const questionTypeRouter = require('./router/questionType');
+const fileManager = require('./bussiness/fileManager');
+
+const fileUpload = require('express-fileupload');
+
 var _ = require('lodash');
 
 
 const Api = function () {
     let express = require('express');
     let app = express();
+    app.use( fileUpload(
+        {
+            limits: { fileSize: 50 * 1024 * 1024 },
+        }
+    ) );
 
     app.use(bodyParser.json(
         {limit: '50mb'}
@@ -36,6 +46,37 @@ const Api = function () {
         next();
 
     });
+
+    app.use('/',fileManagerRouter)
+    app.use('/',questionTypeRouter)
+
+    // 处理由 /upload 页面发送过来的post请求
+    app.post('/upload', (req, res) => {
+        // req 中的 files 属性由 express-fileupload 中间件添加!? (疑问暂存)
+        // 判断 files 属性是否存在 和 是否有文件传来 若无返回400
+        console.log(req.files.foo,"yyyy"); // the uploaded file object
+        if(req.files === null){
+            return res.status(400).json({msg:'no file uploaded'});
+        }
+        // 否则 获取文件
+        // file 由后文中 formData.append('file', file) 的第一个参数定义 可自定义为其他名称
+        const file = req.files.foo;
+        // 移动文件到第一参数指定位置 若有错误 返回500
+        file.mv(`${__dirname}/client/public/uploads/${file.name}`, async err => {
+            if(err){
+                console.error(err);
+                return res.status(500).send(err);
+            }
+            // 若无错误 返回一个 json
+            // 我们计划上传文件后 根据文件在服务器上的路径 显示上传后的文件
+            // 随后我们会在 react 组件中实现
+            // 在客户端中的 public 文件夹下创建 uploads 文件夹 用于保存上传的文件
+            const result={fileName: file.name, filePath: `uploads/${file.name}`,fileSize:file.size,fileUrl:'https://www.93goodtea.com/'+`uploads/${file.name}`,mineType:file.minetype};
+            await fileManager.create(result);
+            res.json(result);
+        });
+    });
+
 
     // TODO add authentication
 
@@ -201,16 +242,6 @@ const Api = function () {
             if (typeOne) param.typeOne = typeOne;
             if (typeTwo) param.typeTwo = typeTwo;
             if (question) param.question = {$regex:new RegExp(question,'i')};
-            // param= _.pickBy(param, _.isString);
-            // param= _.pickBy(param, function(v) { return _.isString(v) || _.isBoolean(v)})
-            // console.log(param,"======================pickBy")
-            // param=_.pick(param,['_id','question'])
-            // console.log(param,"======================pick")
-            // param=_.omit(param,['_id','question'])
-            // console.log(param,"======================omit")
-            // param= _.omitBy(param, function(v) { return _.isUndefined(v) || _.isNull(v)})
-            // console.log(param,"======================omitBy")
-            // console.log(JSON.stringify(param))
             let result = await android.list(param);
             res.status(200).send({code: 1000, message: 'ok', data: result});
         } catch (error) {
@@ -269,49 +300,7 @@ const Api = function () {
     });
 
 
-    app.get('/v1/questionType', async function (req, res) {
-        try {
-            var param = {level: req.query.level, fartherid: req.query.fartherid};
-            param = _.pickBy(param, _.isString);
-            let result = await questionType.list(param);
-            res.status(200).send({code: 1000, message: 'ok', data: result});
-        } catch (error) {
-            log.warn('get users error', error);
-            let status = error.status || 500;
-            let code = error.code || '1000';
-            let message = error.message || error.name || error;
-            res.status(status).send({code: code, message: message});
-        }
-    });
 
-    app.post('/v1/questionType', async function (req, res) {
-        try {
-            let body = req.body;
-            await questionType.create(body);
-            res.status(200).send({code: 1000, message: 'ok'});
-        } catch (error) {
-            log.warn('create users error', error);
-            let status = error.status || 500;
-            let code = error.code || '1000';
-            let message = error.message || error.name || error;
-            res.status(status).send({code: code, message: message});
-        }
-    });
-
-
-    app.delete('/v1/questionType/:id', async function (req, res) {
-        try {
-            let id = req.params.id;
-            await questionType.delete(id);
-            res.status(200).send({code: 1000, message: 'ok'});
-        } catch (error) {
-            log.warn('delete users error', error);
-            let status = error.status || 500;
-            let code = error.code || '1000';
-            let message = error.message || error.name || error;
-            res.status(status).send({code: code, message: message});
-        }
-    });
 
 
     //报名
