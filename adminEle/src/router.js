@@ -10,10 +10,11 @@ import android from "./pages/tools/android";
 import baoming from "./pages/tools/baoming";
 import questionType from "./pages/tools/questionType";
 import login from './pages/user/login'
+import fileManager from "./pages/tools/fileManager";
 
 const routes = [
     {
-        path: '/', component: login,
+        path: '/', component: mainPage,
         children: [
             {path: '/boardPage', component: boardPage, name:'boardPage',realName:'首页'},
             {path: '/create', component: create, name:'create',realName:'创建'},
@@ -25,6 +26,7 @@ const routes = [
             {path: '/question', component: android, name:'question',realName:'面试题大集合'},
             {path: '/baoming', component: baoming, name:'baoming',realName:'报名'},
             {path: '/questionType', component: questionType, name:'questionType',realName:'问题类型'},
+            {path: '/fileManager', component: fileManager, name:'fileManager',realName:'文件管理'},
         ]
     }
 

@@ -80,6 +80,8 @@
                             </template>
                             <el-menu-item-group>
                                 <el-menu-item index="5-1" @click="skipTo('baoming')">报名</el-menu-item>
+                            </el-menu-item-group>  <el-menu-item-group>
+                                <el-menu-item index="5-2" @click="skipTo('fileManager')">文件管理</el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
                     </el-menu>
