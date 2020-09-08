@@ -141,7 +141,7 @@
             handleTabsEdit(targetName, action) {
                 if (action === 'add') {
                     if(!_.find(this.editableTabs,{name:targetName})){
-                        let rou=_.find(routes[0].children,{name:targetName})
+                        let rou=_.find(routes[1].children,{name:targetName})
                         this.editableTabs.push({
                             title: rou.realName,
                             name: targetName,

@@ -32,6 +32,10 @@
           login(){
               this.$post('/v1/login',this.form)
                   .then((response) => {
+                      if(response.code==1000){
+
+                          this.$router.push('home');
+                      }
                       console.log(response)
 
                   })

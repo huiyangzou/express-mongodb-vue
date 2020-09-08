@@ -3,17 +3,8 @@ const router = express.Router()
 const users = require('../bussiness/users');
 const logger = require('../common/logger').logger;
 const log = logger.getLogger('API');
-var session = require('express-session');
 
-app=express();
-app.use(
-    session({
-        secret:'secret',              //  用来对session_id相关的cookie进行签名
-        resave:false,
-        saveUninitialized: false,
-        cookie: {userName:"default",maxAge: 7*24*60*60*1000}    // 设置有效期
-    })
-)
+
 
 router.post('/v1/login', async function (req, res) {
     try {
@@ -21,7 +12,7 @@ router.post('/v1/login', async function (req, res) {
         let result =  await users.query(body.username, body.password);
         console.log(result)
         if(result !=null){
-            req.session.userName = userName;
+            req.session.userName = result.name;
             req.session.isLogin = true;
             res.status(200).send({code: 1000, message: 'ok'});
 

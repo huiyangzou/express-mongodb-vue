@@ -19,7 +19,7 @@ const routes = [
     },
 
     {
-        path: '/home', component: mainPage,
+        path: '/home', component: mainPage,name:'home',realName:'主页',
 
         children: [
             {path: '/boardPage', component: boardPage, name:'boardPage',realName:'首页'},

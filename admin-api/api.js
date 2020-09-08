@@ -10,6 +10,7 @@ const fileManagerRouter = require('./router/fileManager');
 const questionTypeRouter = require('./router/questionType');
 const usersRouter = require('./router/usersRouter');
 const fileManager = require('./bussiness/fileManager');
+const session = require('express-session');
 
 const fileUpload = require('express-fileupload');
 
@@ -20,6 +21,14 @@ var _ = require('lodash');
 const Api = function () {
     let express = require('express');
     let app = express();
+    app.use(
+        session({
+            secret:'secret',              //  用来对session_id相关的cookie进行签名
+            resave:false,
+            saveUninitialized: false,
+            cookie: {userName:"default",maxAge: 7*24*60*60*1000}    // 设置有效期
+        })
+    )
 
     app.use( fileUpload(
         {
