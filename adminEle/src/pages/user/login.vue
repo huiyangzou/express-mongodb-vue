@@ -34,7 +34,7 @@
                   .then((response) => {
                       if(response.code==1000){
 
-                          this.$router.push('home');
+                          this.$router.replace('home');
                       }
                       console.log(response)
 

@@ -7,7 +7,6 @@
                     <span class="input_title">标题备注</span>
                     <el-input
                             placeholder="请输入内容"
-                            v-model="input"
                             clearable>
                     </el-input>
                 </div>
@@ -19,7 +18,6 @@
                     <span class="input_title">APPKEY</span>
                     <el-input
                             placeholder="请输入内容"
-                            v-model="input"
                             clearable>
                     </el-input>
                 </div>
@@ -74,7 +72,7 @@
             <el-pagination
                     @size-change="handleSizeChange"
                     @current-change="handleCurrentChange"
-                    :current-page="currentPage4"
+                    :current-page="1"
                     :page-sizes="[100, 200, 300, 400]"
                     :page-size="100"
                     layout="total, sizes, prev, pager, next, jumper"

@@ -58,7 +58,7 @@
                     <!--                    </el-menu-item>-->
                     <!--                </el-menu>-->
 
-                    <el-menu  default-active="4-0" class="el-menu-vertical-demo" style="text-align: left" unique-opened="true" >
+                    <el-menu  default-active="4-0" class="el-menu-vertical-demo" style="text-align: left" :unique-opened="true" >
                         <el-submenu index="4">
                             <template slot="title">
                                 <i class="el-icon-setting"></i>
