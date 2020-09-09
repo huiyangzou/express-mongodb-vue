@@ -152,6 +152,7 @@
                             :auto-upload="false"
                             ref="upload"
                             :on-exceed="handleExceed"
+                            :on-success="uploadFinish"
                             :file-list="fileList">
                         <el-button slot="trigger" size="small" type="primary">选取文件</el-button>
                         <el-button style="margin-left: 10px;" size="small" type="success" @click="submitUpload">上传到服务器</el-button>
@@ -395,14 +396,18 @@
                 console.log(file);
             },
             handleExceed(files, fileList) {
-                // this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
+                this.$message.warning(`当前限制选择 1 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
             },
             beforeRemove(file, fileList) {
                 return this.$confirm(`确定移除 ${ file.name }？`);
             },
+            uploadFinish(){
+                this.dialogVisible = false;
+                this.getData();
+            },
             submitUpload() {
                 this.$refs.upload.submit();
-                this.dialogVisible = false;
+
 
             },
 
