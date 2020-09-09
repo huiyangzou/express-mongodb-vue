@@ -1,6 +1,9 @@
 const express = require('express')
 const router = express.Router()
 const fileManager = require('../bussiness/fileManager');
+const logger = require('../common/logger').logger;
+const log = logger.getLogger('API');
+var _ = require('lodash');
 
 
 router.get('/v1/fileManager', async function (req, res) {
