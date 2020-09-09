@@ -62,7 +62,7 @@ const Api = function () {
     app.use('/', baomingRouter)
 
     // 处理由 /upload 页面发送过来的post请求
-    app.post('/upload', (req, res) => {
+    app.post('/v1/upload', (req, res) => {
         // req 中的 files 属性由 express-fileupload 中间件添加!? (疑问暂存)
         // 判断 files 属性是否存在 和 是否有文件传来 若无返回400
         console.log(req.files.foo, "yyyy"); // the uploaded file object

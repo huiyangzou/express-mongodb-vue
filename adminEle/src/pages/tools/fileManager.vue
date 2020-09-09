@@ -142,7 +142,7 @@
                 <el-tab-pane label="基本信息" name="first">
                     <el-upload
                             class="upload-demo"
-                            action="https://www.93goodtea.com/upload"
+                            action="https://www.93goodtea.com/v1/upload"
                             :on-preview="handlePreview"
                             :on-remove="handleRemove"
                             :before-remove="beforeRemove"
