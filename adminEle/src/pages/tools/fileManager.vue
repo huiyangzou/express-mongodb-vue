@@ -104,6 +104,7 @@
             <el-table-column
                     label="操作"
                     fixed="right"
+                    width="150"
                     show-overflow-tooltip>
                 <template slot-scope="scope">
                     <el-button @click="handleClick(scope.row)" type="text" size="small">统计</el-button>

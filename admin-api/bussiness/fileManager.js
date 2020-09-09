@@ -3,6 +3,7 @@
 const logger = require('./../common/logger').logger;
 const log = logger.getLogger('fileManager');
 const utils = require('./../common/utils');
+const fs = require('fs')
 const fileManagerModule = require('./../db/modules/fileManagerModule');
 
 const FileManagerModule = {
@@ -29,6 +30,14 @@ const FileManagerModule = {
     },
 
     delete: async function(id){
+        const fileInfo= await fileManagerModule.findOne({_id:id});
+        console.log(fileInfo)
+        try{
+            await fs.unlinkSync(fileInfo.filePath)
+
+        }catch (e) {
+            e.message;
+        }
         await fileManagerModule.delete({_id:id})
     },
 

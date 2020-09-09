@@ -2,6 +2,7 @@
 const bodyParser = require('body-parser');
 const session = require('express-session');
 const fileUpload = require('express-fileupload');
+const fs = require('fs')
 var _ = require('lodash');
 const logger = require('./common/logger').logger;
 const log = logger.getLogger('API');
@@ -73,6 +74,10 @@ const Api = function () {
         // file 由后文中 formData.append('file', file) 的第一个参数定义 可自定义为其他名称
         const file = req.files.foo;
         // 移动文件到第一参数指定位置 若有错误 返回500
+        if (!fs.existsSync(`${__dirname}/client/public/uploads/`)) {
+            fs.mkdirSync(`${__dirname}/client/public/uploads/`, { recursive: true });
+
+        }
         file.mv(`${__dirname}/client/public/uploads/${file.name}`, async err => {
             if (err) {
                 console.error(err);
@@ -84,7 +89,7 @@ const Api = function () {
             // 在客户端中的 public 文件夹下创建 uploads 文件夹 用于保存上传的文件
             const result = {
                 fileName: file.name,
-                filePath: `uploads/${file.name}`,
+                filePath: `${__dirname}/client/public/uploads/${file.name}`,
                 fileSize: file.size,
                 fileUrl: 'http://'+req.hostname+'/' + `uploads/${file.name}`,
                 mineType: file.mimetype

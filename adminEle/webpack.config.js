@@ -4,6 +4,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const url = require('url')
 const publicPath = ''
 
+
 module.exports = (options = {}) => ({
   entry: {
     vendor: './src/vendor',
