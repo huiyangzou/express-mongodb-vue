@@ -142,7 +142,7 @@
                 <el-tab-pane label="基本信息" name="first">
                     <el-upload
                             class="upload-demo"
-                            action="http://127.0.0.1:8080/upload"
+                            action="https://www.93goodtea.com/upload"
                             :on-preview="handlePreview"
                             :on-remove="handleRemove"
                             :before-remove="beforeRemove"
