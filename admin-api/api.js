@@ -86,7 +86,7 @@ const Api = function () {
                 fileName: file.name,
                 filePath: `uploads/${file.name}`,
                 fileSize: file.size,
-                fileUrl: 'https://www.93goodtea.com/' + `uploads/${file.name}`,
+                fileUrl: 'http://'+req.hostname+'/' + `uploads/${file.name}`,
                 mineType: file.mimetype
             };
             console.log(result)

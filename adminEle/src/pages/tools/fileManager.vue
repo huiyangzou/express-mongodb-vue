@@ -133,7 +133,7 @@
                 <el-tab-pane label="基本信息" name="first">
                     <el-upload
                             class="upload-demo"
-                            action="https://www.93goodtea.com/v1/upload"
+                            :action="uploadUrl"
                             :on-preview="handlePreview"
                             :on-remove="handleRemove"
                             :before-remove="beforeRemove"
@@ -205,6 +205,7 @@
         name: "appList",
         data() {
             return {
+                uploadUrl:'',
                 fileList: [],
                 pickerOptions: {
                     shortcuts: [{
@@ -272,6 +273,7 @@
         },
         created() {
             this.getData();
+            this.uploadUrl=axios.defaults.baseURL+"/v1/upload";
 
         },
         methods: {
