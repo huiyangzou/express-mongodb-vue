@@ -1,16 +1,7 @@
 <template>
     <div>
         <el-row>
-
             <el-col :span="12">
-<!--                <div style="display:flex;flex-direction: column;">-->
-<!--                    <span class="input_title">标题备注</span>-->
-<!--                    <el-input-->
-<!--                            placeholder="请输入内容"-->
-<!--                            v-model="input"-->
-<!--                            clearable>-->
-<!--                    </el-input>-->
-<!--                </div>-->
                 <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
                     <span style="flex: 1;text-align: center">题目类型一级</span>
 

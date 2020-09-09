@@ -87,7 +87,7 @@ const Api = function () {
                 filePath: `uploads/${file.name}`,
                 fileSize: file.size,
                 fileUrl: 'https://www.93goodtea.com/' + `uploads/${file.name}`,
-                mineType: file.minetype
+                mineType: file.mimetype
             };
             console.log(result)
             fileManager.create(result);
