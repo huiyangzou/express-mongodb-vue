@@ -199,8 +199,8 @@
 
             </el-tabs>
             <span slot="footer" class="dialog-footer">
-    <el-button @click="dialogVisible = false">取 消</el-button>
-    <el-button type="primary" @click="submitApp()">提交</el-button>
+<!--    <el-button @click="dialogVisible = false">取 消</el-button>-->
+<!--    <el-button type="primary" @click="submitApp()">提交</el-button>-->
   </span>
         </el-dialog>
 
@@ -286,6 +286,7 @@
             addQuestion(){
                 this.dialogVisible = true;
                 this.formData={}
+                this.fileList=[]
             },
             clearQuery(){
               this.queryData.typeOne=null
@@ -394,7 +395,6 @@
                 console.log(file);
             },
             handleExceed(files, fileList) {
-                this.dialogVisible = false;
                 // this.$message.warning(`当前限制选择 3 个文件，本次选择了 ${files.length} 个文件，共选择了 ${files.length + fileList.length} 个文件`);
             },
             beforeRemove(file, fileList) {
@@ -402,6 +402,8 @@
             },
             submitUpload() {
                 this.$refs.upload.submit();
+                this.dialogVisible = false;
+
             },
 
         }
