@@ -7,7 +7,7 @@
                     <el-input
                             style="flex:4;margin-right: 20px;"
                             placeholder="商品名称"
-                            v-model="queryData.goodsName"
+                            v-model="queryData.androidName"
                             clearable>
                     </el-input>
                 </div>
@@ -21,7 +21,7 @@
 
         <!--        新增-->
         <div style="flex-direction: row;justify-content: space-between;display: flex;margin-top: 20px;margin-bottom: 20px;">
-            <el-button type="primary" icon="el-icon-plus" @click="addGoods">添加商品</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="addAndroid">添加商品</el-button>
         </div>
 
         <!--        表格-->
@@ -39,18 +39,18 @@
             </el-table-column>
 
             <el-table-column
-                    prop="goodsName"
+                    prop="androidName"
                     label="商品名称"
                     width="100">
             </el-table-column>
             <el-table-column
-                    prop="goodsLink"
+                    prop="androidLink"
                     label="商品链接"
                     :show-overflow-tooltip="true"
                     width="400">
             </el-table-column>
             <el-table-column
-                    prop="goodsImage"
+                    prop="androidImage"
                     label="商品图片"
                     width="400">
             </el-table-column>
@@ -89,20 +89,20 @@
                 <el-tab-pane label="基本信息" name="first">
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
                         <span style="flex: 1;text-align: center">商品名称</span>
-                        <el-input style="flex:4;margin-left: 20px;" v-model="formData.goodsName"
+                        <el-input style="flex:4;margin-left: 20px;" v-model="formData.androidName"
                                   placeholder="请输入内容"></el-input>
                     </div>
 
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
                         <span style="flex: 1;text-align: center">商品链接</span>
                         <el-input style="flex:4;margin-left: 20px;" type="text"
-                                   v-model="formData.goodsLink"
+                                   v-model="formData.androidLink"
                                   placeholder="请输入内容"></el-input>
                     </div>
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
                         <span style="flex: 1;text-align: center">商品图片</span>
                         <el-input style="flex:4;margin-left: 20px;" type="text"
-                                   v-model="formData.goodsImage"
+                                   v-model="formData.androidImage"
                                   placeholder="请输入内容"></el-input>
                     </div>
                 </el-tab-pane>
@@ -127,13 +127,13 @@
                 queryData: {
                     currentPage: 1,
                     pageSize: 5,
-                    goodsName: null,
+                    androidName: null,
                 },
                 formData: {
                     id: '',
-                    goodsName: "",
-                    goodsLink: "",
-                    goodsImage: "",
+                    androidName: "",
+                    androidLink: "",
+                    androidImage: "",
                 },
                 activeName: 'first',
                 dialogVisible: false,
@@ -148,7 +148,7 @@
         },
         methods: {
             //添加商品
-            addGoods() {
+            addAndroid() {
                 this.dialogVisible = true;
                 this.formData = {}
             },
@@ -165,7 +165,7 @@
             },
             //获取列表数据
             getData() {
-                this.$fetch('/v1/goods', this.queryData)
+                this.$fetch('/v1/android', this.queryData)
                     .then((response) => {
                         console.log(response)
                         this.tableData = response.data.data;
@@ -179,13 +179,13 @@
                 console.log("formData", this.formData);
                 this.dialogVisible = false;
                 if (_.isEmpty(this.formData._id)) {
-                    this.$post('/v1/goods', this.formData)
+                    this.$post('/v1/android', this.formData)
                         .then((response) => {
                             console.log(response)
                             this.getData();
                         })
                 } else {
-                    this.$put('/v1/goods/' + this.formData._id, this.formData)
+                    this.$put('/v1/android/' + this.formData._id, this.formData)
                         .then((response) => {
                             console.log(response)
                             this.getData();
@@ -198,7 +198,7 @@
                 console.log(tab, event);
                 console.log("xxxx" + tab._id)
 
-                this.$fetch('/v1/goods', {_id: tab._id})
+                this.$fetch('/v1/android', {_id: tab._id})
                     .then((response) => {
                         console.log(response)
                         this.formData = response.data.data[0];
@@ -208,7 +208,7 @@
             //删除条目
             deleteClick(tab, event) {
                 console.log(tab, event);
-                this.$delete('/v1/goods/' + tab._id)
+                this.$delete('/v1/android/' + tab._id)
                     .then((response) => {
                         console.log(response)
                         this.getData();

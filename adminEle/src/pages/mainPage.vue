@@ -89,6 +89,9 @@
                             <el-menu-item-group>
                                 <el-menu-item index="5-4" @click="skipTo('goods')">产品</el-menu-item>
                             </el-menu-item-group>
+                            <el-menu-item-group>
+                                <el-menu-item index="5-5" @click="skipTo('category')">分类</el-menu-item>
+                            </el-menu-item-group>
                         </el-submenu>
                     </el-menu>
                 </el-aside>

@@ -5,10 +5,10 @@ const Schema = mongoose.Schema;
 
 const GoodsSchema = new Schema({
     id: { type: String, description: "The ID of goods " },
-    question: { type: String, description: "问题"},
-    answer: { type: String,  description: "答案"},
-    typeOne: { type: String, description: "一级类型"},
-    typeTwo: { type: String, description: "二级类型"}
+    goodsName: { type: String, description: "商品名称"},
+    goodsLink: { type: String, description: "商品链接"},
+    goodsImage: { type: String, description: "商品链接"},
+
 });
 
 module.exports = mongoose.model('goods', GoodsSchema, 'goods');
