@@ -11,6 +11,7 @@ import baoming from "./pages/tools/baoming";
 import questionType from "./pages/tools/questionType";
 import login from './pages/user/login'
 import fileManager from "./pages/tools/fileManager";
+import goods from "./pages/tools/goods";
 import userList from "./pages/user/userList";
 
 const routes = [
@@ -32,6 +33,7 @@ const routes = [
             {path: '/question', component: android, name:'question',realName:'试题大合集'},
             {path: '/baoming', component: baoming, name:'baoming',realName:'报名'},
             {path: '/questionType', component: questionType, name:'questionType',realName:'问题类型'},
+            {path: '/goods', component: goods, name:'goods',realName:'产品信息'},
             {path: '/userList', component: userList, name:'userList',realName:'用户列表'},
             {path: '/fileManager', component: fileManager, name:'fileManager',realName:'文件管理'},
         ]
