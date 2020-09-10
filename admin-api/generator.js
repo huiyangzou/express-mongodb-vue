@@ -21,15 +21,15 @@ function createFile(moduleName) {
     const copymodelFilePath=`${__dirname}`+MODEL_PATH+"androidModel.js";
 
     //创建Module文件
-    const moduleFilePath=`${__dirname}`+MODULE_PATH+moduleName+".js";
+    const moduleFilePath=`${__dirname}`+MODULE_PATH+moduleName+"Module.js";
     const copymoduleFilePath=`${__dirname}`+MODULE_PATH+"androidModule.js";
 
     //创建Bussiness文件
-    const bussnessFilePath=`${__dirname}`+BUSSINESS_PATH+moduleName+"Model.js";
+    const bussnessFilePath=`${__dirname}`+BUSSINESS_PATH+moduleName+".js";
     const copybussnessFilePath=`${__dirname}`+BUSSINESS_PATH+"android.js";
 
     //创建Router文件
-    const routerFilePath=`${__dirname}`+ROUTER_PATH+moduleName+"Model.js";
+    const routerFilePath=`${__dirname}`+ROUTER_PATH+moduleName+"Router.js";
     const copyrouterFilePath=`${__dirname}`+ROUTER_PATH+"questionRouter.js";
 
     clone(modelFilePath,copymodelFilePath);
@@ -41,7 +41,7 @@ function createFile(moduleName) {
 
 function clone(destFilePath,targetFilePath){
     let readData=fs.readFileSync(targetFilePath).toString();
-    console.log(readData)
+    // console.log(readData)
     var regExp1=new RegExp(REPLACE_KEY,'g');
     readData=readData.replace(regExp1,moduleName);
     const upperModuleName=moduleName.charAt(0).toUpperCase() + moduleName.slice(1)
@@ -50,7 +50,7 @@ function clone(destFilePath,targetFilePath){
     readData=readData.replace(regExp2,upperModuleName);
     fs.writeFile(destFilePath, readData, (err) => {
         if (err) throw err;
-        console.log('Model信息已写入');
+        console.log('信息已写入');
     });
 }
 

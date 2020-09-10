@@ -13,6 +13,7 @@ const questionTypeRouter = require('./router/questionType');
 const usersRouter = require('./router/usersRouter');
 const questionRouter = require('./router/questionRouter');
 const baomingRouter = require('./router/baomingRouter');
+const goodsRouter = require('./router/goodsRouter');
 const fileManager = require('./bussiness/fileManager');
 
 
@@ -67,6 +68,7 @@ const Api = function () {
     app.use('/', usersRouter)
     app.use('/', questionRouter)
     app.use('/', baomingRouter)
+    app.use('/', goodsRouter)
 
     // 处理由 /upload 页面发送过来的post请求
     app.post('/v1/upload', (req, res) => {
