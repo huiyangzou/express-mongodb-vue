@@ -1,17 +1,17 @@
 'use strict';
 
 const logger = require('./../common/logger').logger;
-const log = logger.getLogger('Android');
+const log = logger.getLogger('Goods');
 const utils = require('./../common/utils');
-const androidModule = require('./../db/modules/androidModule');
+const goodsModule = require('./../db/modules/goodsModule');
 
-const AndroidModule = {
+const GoodsModule = {
 
     create: async function(params){
         let {question} =params;
-        let userInfo=await androidModule.findOne({question:question})
+        let userInfo=await goodsModule.findOne({question:question})
         if(userInfo==null){
-            await androidModule.create(params);
+            await goodsModule.create(params);
         }else{
             throw {status: 200, code: '1002', message: 'question already exists'};
         }
@@ -20,23 +20,23 @@ const AndroidModule = {
 
     update: async function(id,body){
 
-        let userInfo=await androidModule.findOne({_id:id})
+        let userInfo=await goodsModule.findOne({_id:id})
         userInfo.question=body.question;
         userInfo.answer=body.answer;
         console.log(JSON.stringify(userInfo))
-        await  androidModule.update({_id:id},{$set: userInfo})
+        await  goodsModule.update({_id:id},{$set: userInfo})
     },
 
     delete: async function(id){
-        await androidModule.delete({_id:id})
+        await goodsModule.delete({_id:id})
     },
 
     patch: async function(){
     },
 
     list: async function(param){
-        return androidModule.findMany(param);
+        return goodsModule.findMany(param);
     }
 };
 
-module.exports = AndroidModule
+module.exports = GoodsModule

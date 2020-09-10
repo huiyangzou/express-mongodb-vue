@@ -1,12 +1,10 @@
 <template>
-    <div style="display: flex;flex-direction: column;height: 1024px;">
+    <div style="display: flex;flex-direction: column;" :style="{ height: screenHeight + 'px' }">
         <el-container style=" border: 1px solid #eee">
             <el-header style=" width:100%;font-size: 12px;display: flex;">
                 <span style="font-size: 34px;color:#ffffff">知识仓库</span>
 
-                <div
-                        style="flex: 1;text-align: right"
-                >
+                <div style="flex: 1;text-align: right">
                     <el-dropdown>
                         <i class="el-icon-setting" style="margin-right: 15px"></i>
                         <el-dropdown-menu slot="dropdown">
@@ -62,12 +60,12 @@
                         <el-submenu index="4">
                             <template slot="title">
                                 <i class="el-icon-setting"></i>
-                                <span slot="title">android知识库</span>
+                                <span slot="title">知识库</span>
 
                             </template>
                             <el-menu-item-group>
                                 <el-menu-item index="4-0" @click="skipTo('boardPage')">首页</el-menu-item>
-                                <el-menu-item index="4-1" @click="skipTo('question')">面试题大合集</el-menu-item>
+                                <el-menu-item index="4-1" @click="skipTo('question')">试题大合集</el-menu-item>
                                 <el-menu-item index="4-2" @click="skipTo('questionType')">问题类型</el-menu-item>
                             </el-menu-item-group>
                         </el-submenu>
@@ -92,7 +90,7 @@
                     </el-menu>
                 </el-aside>
                 <el-container>
-                    <el-main style="">
+                    <el-main style="background-color: #ffffff;padding: 20px;">
                         <el-tabs  v-model="editableTabsValue" type="card" closable  @edit="handleTabsEdit" @tab-click="skipTo(editableTabsValue)" style="flex: 1;height: 60px;">
                             <el-tab-pane
 
@@ -122,6 +120,7 @@
         name: "mainPage",
         data() {
             return {
+                screenHeight: document.body.clientHeight,
                 editableTabsValue: '1',
                 editableTabs: [{
                     title: '首页',
@@ -180,7 +179,8 @@
 
             }
 
-        }
+        },
+
 
     }
 </script>

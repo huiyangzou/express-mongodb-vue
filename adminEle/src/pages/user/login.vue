@@ -1,5 +1,5 @@
 <template>
-    <div style="margin:auto 0px;width: 100%;display:flex;flex-direction: column;justify-items: center;align-items: center;justify-content: center;":style="{ height: screenHeight + 'px' }">
+    <div style="margin:auto 0px;width: 100%;display:flex;flex-direction: column;justify-items: center;align-items: center;justify-content: center;" :style="{ height: screenHeight + 'px' }">
         <el-form ref="form" :model="form" label-width="80px">
             <el-form-item label="用户名">
                 <el-input type="text" v-model="form.username" placeholder="请输入用户名"></el-input>

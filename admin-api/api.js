@@ -19,6 +19,7 @@ const fileManager = require('./bussiness/fileManager');
 const Api = function () {
     let express = require('express');
     let app = express();
+    //session 配置
     app.use(
         session({
             secret: 'secret',              //  用来对session_id相关的cookie进行签名
@@ -28,17 +29,21 @@ const Api = function () {
         })
     )
 
+    //文件上传配置
     app.use(fileUpload(
         {
             limits: {fileSize: 1024 * 1024 * 1024},
         }
     ));
 
+    //json解析配置
     app.use(bodyParser.json(
         {limit: '50mb'}
     ));
+    //url编码配置
     app.use(bodyParser.urlencoded({extended: false}));
 
+    //访问配置
     app.use(function (req, res, next) {
         res.header('Access-Control-Allow-Origin', '*');
         res.header('Access-Control-Allow-Methods', 'POST, GET, PUT, PATCH, OPTIONS, DELETE');
@@ -49,13 +54,14 @@ const Api = function () {
             next();
         }
     });
+    //请求拦截日志
     app.use(function (req, res, next) {
-
         console.log('request：', 'url:' + req.url + '======' + 'param:' + JSON.stringify(req.body))
         next();
 
     });
 
+    //路由配置
     app.use('/', fileManagerRouter)
     app.use('/', questionTypeRouter)
     app.use('/', usersRouter)
@@ -75,7 +81,7 @@ const Api = function () {
         const file = req.files.foo;
         // 移动文件到第一参数指定位置 若有错误 返回500
         if (!fs.existsSync(`${__dirname}/client/public/uploads/`)) {
-            fs.mkdirSync(`${__dirname}/client/public/uploads/`, { recursive: true });
+            fs.mkdirSync(`${__dirname}/client/public/uploads/`, {recursive: true});
 
         }
         file.mv(`${__dirname}/client/public/uploads/${file.name}`, async err => {
@@ -91,7 +97,7 @@ const Api = function () {
                 fileName: file.name,
                 filePath: `${__dirname}/client/public/uploads/${file.name}`,
                 fileSize: file.size,
-                fileUrl: 'http://'+req.hostname+'/' + `uploads/${file.name}`,
+                fileUrl: 'http://' + req.hostname + '/' + `uploads/${file.name}`,
                 mineType: file.mimetype
             };
             console.log(result)

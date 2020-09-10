@@ -1,12 +1,12 @@
 const express = require('express')
 const router = express.Router()
-const android = require('../bussiness/android');
+const activity = require('../bussiness/activity');
 const logger = require('../common/logger').logger;
 const log = logger.getLogger('API');
 var _ = require('lodash');
 
 //查询
-router.get('/v1/android', async function (req, res) {
+router.get('/v1/activity', async function (req, res) {
     try {
         const {pageSize, currentPage, _id, typeOne, typeTwo, question} = req.query;
         const param = {pageSize, currentPage};
@@ -14,7 +14,7 @@ router.get('/v1/android', async function (req, res) {
         if (typeOne) param.typeOne = typeOne;
         if (typeTwo) param.typeTwo = typeTwo;
         if (question) param.question = {$regex:new RegExp(question,'i')};
-        let result = await android.list(param);
+        let result = await activity.list(param);
         res.status(200).send({code: 1000, message: 'ok', data: result});
     } catch (error) {
         log.warn('get article error', error);
@@ -26,10 +26,10 @@ router.get('/v1/android', async function (req, res) {
 });
 
 //新增
-router.post('/v1/android', async function (req, res) {
+router.post('/v1/activity', async function (req, res) {
     try {
         let body = req.body;
-        await android.create(body);
+        await activity.create(body);
         res.status(200).send({code: 1000, message: 'ok'});
     } catch (error) {
         log.warn('create article error', error);
@@ -41,12 +41,12 @@ router.post('/v1/android', async function (req, res) {
 });
 
 //修改
-router.put('/v1/android/:id', async function (req, res) {
+router.put('/v1/activity/:id', async function (req, res) {
     try {
         let id = req.params.id;
         let body = req.body;
         console.log(JSON.stringify(req.body))
-        await android.update(id, body);
+        await activity.update(id, body);
         res.status(200).send({code: 1000, message: 'ok'});
     } catch (error) {
         log.warn('update article error', error);
@@ -58,10 +58,10 @@ router.put('/v1/android/:id', async function (req, res) {
 });
 
 //删除
-router.delete('/v1/android/:id', async function (req, res) {
+router.delete('/v1/activity/:id', async function (req, res) {
     try {
         let id = req.params.id;
-        await android.delete(id);
+        await activity.delete(id);
         res.status(200).send({code: 1000, message: 'ok'});
     } catch (error) {
         log.warn('delete article error', error);

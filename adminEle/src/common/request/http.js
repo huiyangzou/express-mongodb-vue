@@ -18,7 +18,7 @@ let needLoadingRequestCount = 0; //当前正在请求的数量
 function showLoading() {
     if (needLoadingRequestCount === 0 && !loadingInstance) {
         loadingInstance = Loading.service({
-            target: '.el-table', text: '正在加载...', background: 'rgba(0,0,0,0.3)'
+            target: '.el-table', text: '正在加载...', background: 'rgba(256,256,256,0.8)'
         });
     }
     needLoadingRequestCount++;

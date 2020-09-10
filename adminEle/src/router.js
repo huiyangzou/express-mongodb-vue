@@ -29,7 +29,7 @@ const routes = [
             {path: '/appList', component: appList, name:'appList',realName:'应用列表'},
             {path: '/appUpdate', component: appUpdate, name:'appUpdate',realName:'应用热更新'},
             {path: '/appVersionUpdate', component: appVersionUpdate, name:'appVersionUpdate',realName:'应用版本更新'},
-            {path: '/question', component: android, name:'question',realName:'面试题大集合'},
+            {path: '/question', component: android, name:'question',realName:'试题大合集'},
             {path: '/baoming', component: baoming, name:'baoming',realName:'报名'},
             {path: '/questionType', component: questionType, name:'questionType',realName:'问题类型'},
             {path: '/userList', component: userList, name:'userList',realName:'用户列表'},
