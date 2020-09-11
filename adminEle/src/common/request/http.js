@@ -6,7 +6,7 @@ axios.defaults.timeout = 5000;
 if(process.env.NODE_ENV=='production'){
     axios.defaults.baseURL = 'https://www.93goodtea.com';
 }else {
-    axios.defaults.baseURL = 'http://127.0.0.1:8080';
+    axios.defaults.baseURL = 'http://172.19.31.140:8080';
 }
 
 
