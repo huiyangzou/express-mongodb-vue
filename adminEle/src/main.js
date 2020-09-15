@@ -3,6 +3,20 @@ import Vue from 'vue'
 import ElementUI from 'element-ui';
 import 'element-ui/lib/theme-chalk/index.css';
 
+import VueVideoPlayer from 'vue-video-player'
+
+// require videojs style
+import 'video.js/dist/video-js.css'
+// import 'vue-video-player/src/custom-theme.css'
+
+
+
+
+
+const hls =require("videojs-contrib-hls")
+
+
+
 //axio
 import {post,fetch,patch,put,del} from '../src/common/request/http'
 
@@ -13,6 +27,10 @@ import App from "./App";
 
 Vue.use(VueRouter)
 Vue.use(ElementUI);
+Vue.use(VueVideoPlayer)
+Vue.use(hls)
+
+
 
 import routes from "./router";
 

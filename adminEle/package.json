@@ -11,8 +11,10 @@
     "axios": "^0.19.2",
     "element-ui": "^2.3.4",
     "lodash": "^4.17.15",
+    "videojs-contrib-hls": "^5.15.0",
     "vue": "^2.5.16",
-    "vue-router": "^3.3.4"
+    "vue-router": "^3.3.4",
+    "vue-video-player": "^5.0.2"
   },
   "engines": {
     "node": ">=6"

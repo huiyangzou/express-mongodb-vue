@@ -14,6 +14,7 @@ import login from './pages/user/login'
 import fileManager from "./pages/tools/fileManager";
 import goods from "./pages/tools/goods";
 import userList from "./pages/user/userList";
+import player from "./pages/tools/player";
 
 const routes = [
     {
@@ -38,6 +39,7 @@ const routes = [
             {path: '/category', component: category, name:'category',realName:'分类'},
             {path: '/userList', component: userList, name:'userList',realName:'用户列表'},
             {path: '/fileManager', component: fileManager, name:'fileManager',realName:'文件管理'},
+            {path: '/video', component: player, name:'video',realName:'视频播放'},
         ]
     }
 
