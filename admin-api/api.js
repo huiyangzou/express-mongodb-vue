@@ -20,6 +20,7 @@ const categoryRouter = require('./router/categoryRouter');
 const activityRouter = require('./router/activityRouter');
 const codeGeneratorRouter = require('./router/codeGeneratorRouter');
 const gameRouter = require('./router/gameRouter');
+const videoListRouter = require('./router/videoListRouter');
 //import
 
 
@@ -81,6 +82,7 @@ const Api = function () {
     app.use('/', activityRouter)
     app.use('/', codeGeneratorRouter)
     app.use('/', gameRouter)
+    app.use('/', videoListRouter)
     //useRouter
 
     // 处理由 /upload 页面发送过来的post请求

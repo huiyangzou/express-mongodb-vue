@@ -19,6 +19,7 @@ import activity from "./pages/tools/activity";
 import codeGenerator from "./pages/tools/codeGenerator";
 import game from "./pages/tools/game";
 
+import videoList from "./pages/tools/videoList";
 //import
 
 const routes = [
@@ -44,10 +45,11 @@ const routes = [
             {path: '/category', component: category, name:'category',realName:'分类'},
             {path: '/userList', component: userList, name:'userList',realName:'用户列表'},
             {path: '/fileManager', component: fileManager, name:'fileManager',realName:'文件管理'},
-            {path: '/video', component: player, name:'video',realName:'视频播放'},
+            {path: '/video', component: player, name:'video',realName:'视频播放',props: (route) => ({ query: route.query.q })},
         {path: '/activity', component: activity, name:'activity',realName:'活动'},
     {path: '/codeGenerator', component: codeGenerator, name:'codeGenerator',realName:'代码生成器'},
     {path: '/game', component: game, name:'game',realName:'游戏'},
+    {path: '/videoList', component: videoList, name:'videoList',realName:'视频列表'},
     //router
         ]
     }

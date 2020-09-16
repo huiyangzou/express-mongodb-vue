@@ -24,6 +24,9 @@
     // Similarly, you can also introduce the plugin resource pack you want to use within the component
     // import 'some-videojs-plugin'
     export default {
+        props: {
+            query: String
+        },
         data() {
             return {
                 playerOptions: {
@@ -33,11 +36,16 @@
                     playbackRates: [0.7, 1.0, 1.5, 2.0],
                     sources: [{
                         type: "application/x-mpegURL",
-                        src: "https://leshi.cdn-zuyida.com/20170530/wLwNFIZ8/index.m3u8"
+                        src: this.query
                     }],
                     poster: "/static/images/author.jpg",
                 }
             }
+        },
+        created() {
+            console.log('xxxxyyy')
+            console.log(this.query,'xxxxyyy')
+
         },
         mounted() {
             console.log('this is current player instance object', this.player)
