@@ -92,21 +92,6 @@
                             <el-menu-item-group>
                                 <el-menu-item index="5-5" @click="skipTo('category')">分类</el-menu-item>
                             </el-menu-item-group>
-                            <el-menu-item-group>
-                                <el-menu-item index="5-6" @click="skipTo('video')">视频</el-menu-item>
-                            </el-menu-item-group>
-                        </el-submenu>
-
-
-                        <el-submenu index="6">
-                            <template slot="title">
-                                <i class="el-icon-setting"></i>
-                                <span slot="title">模块(DEV)</span>
-                            </template>
-                            <el-menu-item-group v-for="item in routerInfo[1].children">
-                                <el-menu-item :index="item.index" @click="skipTo(item.name)">{{item.realName}}</el-menu-item>
-                            </el-menu-item-group>
-
                         </el-submenu>
                     </el-menu>
                 </el-aside>
@@ -147,15 +132,11 @@
                     title: '首页',
                     name: 'boardPage',
                 }],
-                tabIndex: 1,
-                routerInfo:[]
-
+                tabIndex: 1
             }
         },
         created() {
             this.$router.push('boardPage');
-            this.routerInfo=routes;
-            console.log(this.routerInfo);
         },
         methods:{
             skipTo(name){

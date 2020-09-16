@@ -33,7 +33,7 @@
                     playbackRates: [0.7, 1.0, 1.5, 2.0],
                     sources: [{
                         type: "application/x-mpegURL",
-                        src: "https://leshi.cdn-zuyida.com/20170530/FNUnWYfb/index.m3u8"
+                        src: "https://leshi.cdn-zuyida.com/20170530/wLwNFIZ8/index.m3u8"
                     }],
                     poster: "/static/images/author.jpg",
                 }

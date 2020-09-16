@@ -8,6 +8,8 @@ const logger = require('./common/logger').logger;
 const log = logger.getLogger('API');
 const orders = require('./bussiness/orders');
 const apps = require('./bussiness/apps');
+const fileManager = require('./bussiness/fileManager');
+
 const fileManagerRouter = require('./router/fileManager');
 const questionTypeRouter = require('./router/questionType');
 const usersRouter = require('./router/usersRouter');
@@ -15,7 +17,12 @@ const questionRouter = require('./router/questionRouter');
 const baomingRouter = require('./router/baomingRouter');
 const goodsRouter = require('./router/goodsRouter');
 const categoryRouter = require('./router/categoryRouter');
-const fileManager = require('./bussiness/fileManager');
+const activityRouter = require('./router/activityRouter');
+const codeGeneratorRouter = require('./router/codeGeneratorRouter');
+const gameRouter = require('./router/gameRouter');
+//import
+
+
 
 
 const Api = function () {
@@ -71,6 +78,10 @@ const Api = function () {
     app.use('/', baomingRouter)
     app.use('/', goodsRouter)
     app.use('/', categoryRouter)
+    app.use('/', activityRouter)
+    app.use('/', codeGeneratorRouter)
+    app.use('/', gameRouter)
+    //useRouter
 
     // 处理由 /upload 页面发送过来的post请求
     app.post('/v1/upload', (req, res) => {
