@@ -9,11 +9,13 @@ import VueVideoPlayer from 'vue-video-player'
 import 'video.js/dist/video-js.css'
 // import 'vue-video-player/src/custom-theme.css'
 
+var _ = require('lodash')
 
 
 
 
 const hls =require("videojs-contrib-hls")
+
 
 
 
@@ -24,7 +26,8 @@ import {post,fetch,patch,put,del} from '../src/common/request/http'
 import VueRouter from 'vue-router'
 
 import App from "./App";
-
+import VueClipboard from 'vue-clipboard2'
+Vue.use(VueClipboard)
 Vue.use(VueRouter)
 Vue.use(ElementUI);
 Vue.use(VueVideoPlayer)

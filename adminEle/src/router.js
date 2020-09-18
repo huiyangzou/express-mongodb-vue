@@ -19,6 +19,7 @@ import activity from "./pages/tools/activity";
 import codeGenerator from "./pages/tools/codeGenerator";
 import game from "./pages/tools/game";
 
+import haowuSuggest from "./pages/tools/haowuSuggest";
 //import
 
 const routes = [
@@ -48,6 +49,7 @@ const routes = [
         {path: '/activity', component: activity, name:'activity',realName:'活动'},
     {path: '/codeGenerator', component: codeGenerator, name:'codeGenerator',realName:'代码生成器'},
     {path: '/game', component: game, name:'game',realName:'游戏'},
+    {path: '/haowuSuggest', component: haowuSuggest, name:'haowuSuggest',realName:'好物推荐'},
     //router
         ]
     }

@@ -71,7 +71,7 @@ axios.interceptors.response.use(
     response => {
         closeLoading()
         console.log('xxxx',JSON.stringify(response.data))
-        if(response.data.code!='1000'){
+        if(response.data.code!='1000'&&response.data==null){
             Message.error({message:response.data.message})
         }
 
