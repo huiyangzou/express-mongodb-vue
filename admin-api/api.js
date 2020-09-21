@@ -20,6 +20,7 @@ const categoryRouter = require('./router/categoryRouter');
 const activityRouter = require('./router/activityRouter');
 const codeGeneratorRouter = require('./router/codeGeneratorRouter');
 const gameRouter = require('./router/gameRouter');
+const videoListRouter = require('./router/videoListRouter');
 const haowuSuggestRouter = require('./router/haowuSuggestRouter');
 //import
 
@@ -42,7 +43,7 @@ const Api = function () {
     //文件上传配置
     app.use(fileUpload(
         {
-            limits: {fileSize: 1024 * 1024 * 1024},
+            limits: {fileSize: 10*1024 * 1024 * 1024},
         }
     ));
 
@@ -83,6 +84,7 @@ const Api = function () {
     app.use('/', codeGeneratorRouter)
     app.use('/', gameRouter)
     app.use('/', haowuSuggestRouter)
+    app.use('/', videoListRouter)
     //useRouter
 
     // 处理由 /upload 页面发送过来的post请求
