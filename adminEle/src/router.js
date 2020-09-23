@@ -25,7 +25,7 @@ import haowuSuggest from "./pages/tools/haowuSuggest";
 
 const routes = [
     {
-        path: '/', component: login,
+        path: '/', component: login,name:'login',
     },
 
     {

@@ -34,6 +34,7 @@
                   .then((response) => {
                       if(response.code==1000){
 
+                          
                           this.$router.replace('home');
                       }
                       console.log(response)
