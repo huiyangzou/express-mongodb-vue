@@ -51,12 +51,12 @@ Vue.prototype.$delete=del;
 const router = new VueRouter({
   routes // (缩写) 相当于 routes: routes
 })
-router.beforeEach((to, from, next) => {
-
-  const isAuthenticated=true;
-  if (to.name !== 'login' && !isAuthenticated) next({ name: 'login' })
-  else next()
-})
+// router.beforeEach((to, from, next) => {
+// //
+// //   const isAuthenticated=false;
+// //   if (to.name !== 'login' && !isAuthenticated) next({ name: 'login' })
+// //   else next()
+// // })
 
 // 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题
 //element中使用router.push 异常  问题原因尚不明确

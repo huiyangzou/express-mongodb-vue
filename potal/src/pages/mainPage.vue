@@ -157,7 +157,7 @@
             this.routerInfo=routes;
             console.log(this.routerInfo);
 
-            console.log(this.$cookies.keys(),'cookie');
+            // console.log(this.$cookies.keys(),'cookie');
         },
         methods:{
             skipTo(name){

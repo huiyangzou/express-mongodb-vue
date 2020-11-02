@@ -1,41 +1,13 @@
 <template>
     <div style="">
-<!--        查询-->
+        <!--        查询-->
         <el-row>
             <el-col :span="4">
                 <div style="display: flex;flex-direction: row;align-items: center;">
-                    <el-select style="flex:4;" v-model="queryData.typeOne" clearable placeholder="一级题目类型"
-                               @change="gettypeList">
-                        <el-option
-                                v-for="item in typesOne"
-                                :key="item._id"
-                                :label="item.questionTypeName"
-                                :value="item._id">
-                        </el-option>
-                    </el-select>
-                </div>
-            </el-col>
-
-            <el-col :span="4">
-                <div style="display: flex;flex-direction: row;align-items: center;">
-                    <el-select filterable style="flex:4;margin-left: 20px;" v-model="queryData.typeTwo" clearable
-                               placeholder="二级题目类型">
-                        <el-option
-                                v-for="item in typesTwo"
-                                :key="item._id"
-                                :label="item.questionTypeName"
-                                :value="item._id">
-                        </el-option>
-                    </el-select>
-                </div>
-            </el-col>
-
-            <el-col :span="4">
-                <div style="display: flex;flex-direction: row;align-items: center;">
                     <el-input
-                            style="flex:4;margin-left: 20px;"
-                            placeholder="文章标题"
-                            v-model="queryData.question"
+                            style="flex:4;margin-right: 20px;"
+                            placeholder="代码生成器名称"
+                            v-model="queryData.codeGeneratorModuleName"
                             clearable>
                     </el-input>
                 </div>
@@ -47,12 +19,12 @@
             </div>
         </el-row>
 
-<!--        新增-->
+        <!--        新增-->
         <div style="flex-direction: row;justify-content: space-between;display: flex;margin-top: 20px;margin-bottom: 20px;">
-            <el-button type="primary" icon="el-icon-plus" @click="addQuestion">添加问题</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="addCodeGenerator">添加代码生成器</el-button>
         </div>
 
-<!--        表格-->
+        <!--        表格-->
         <el-table
                 id="elMain"
                 ref="multipleTable"
@@ -67,18 +39,40 @@
             </el-table-column>
 
             <el-table-column
-                    prop="question"
-                    label="问题"
-                    width="500">
+                    prop="codeGeneratorModuleName"
+                    label="模块名称"
+                    width="200">
             </el-table-column>
             <el-table-column
-                    prop="answer"
-                    label="答案"
-                    :show-overflow-tooltip="true"
-
-                    width="800">
+                    prop="codeGeneratorKey"
+                    label="唯一标识"
+                    width="400">
             </el-table-column>
-
+            <el-table-column
+                    prop="modelFilePath"
+                    label="modelFilePath"
+                    width="400">
+            </el-table-column>
+            <el-table-column
+                    prop="moduleFilePath"
+                    label="moduleFilePath"
+                    width="400">
+            </el-table-column>
+            <el-table-column
+                    prop="bussnessFilePath"
+                    label="bussnessFilePath"
+                    width="400">
+            </el-table-column>
+            <el-table-column
+                    prop="routerFilePath"
+                    label="routerFilePath"
+                    width="400">
+            </el-table-column>
+            <el-table-column
+                    prop="vueFilePath"
+                    label="vueFilePath"
+                    width="400">
+            </el-table-column>
             <el-table-column
                     label="操作"
                     width="150"
@@ -91,7 +85,7 @@
             </el-table-column>
         </el-table>
 
-<!--        分页-->
+        <!--        分页-->
         <div class="block" style="text-align: right;margin-top: 30px;">
             <el-pagination
                     @size-change="handleSizeChange"
@@ -104,59 +98,31 @@
             </el-pagination>
         </div>
 
-<!--        对话框-->
+        <!--        对话框-->
         <el-dialog
-                title="添加问题"
+                title="添加代码生成器"
                 :visible.sync="dialogVisible"
                 width="40%">
             <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
                 <el-tab-pane label="基本信息" name="first">
-
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">题目类型一级</span>
-
-                        <el-select style="flex:4;margin-left: 20px;" v-model="formData.typeOne" clearable
-                                   placeholder="请选择" @change="gettypeList">
-                            <el-option
-                                    v-for="item in typesOne"
-                                    :key="item._id"
-                                    :label="item.questionTypeName"
-                                    :value="item._id">
-                            </el-option>
-                        </el-select>
-
-                    </div>
-                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">题目类型二级</span>
-                        <el-select filterable style="flex:4;margin-left: 20px;" v-model="formData.typeTwo" clearable
-                                   placeholder="请选择">
-                            <el-option
-                                    v-for="item in typesTwo"
-                                    :key="item._id"
-                                    :label="item.questionTypeName"
-                                    :value="item._id">
-                            </el-option>
-                        </el-select>
+                        <span style="flex: 1;text-align: center">唯一标识</span>
+                        <el-input style="flex:4;margin-left: 20px;" v-model="formData.codeGeneratorKey"
+                                  placeholder="请输入内容,例如：activity"></el-input>
                     </div>
 
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">题目</span>
-                        <el-input style="flex:4;margin-left: 20px;" v-model="formData.question"
-                                  placeholder="请输入内容"></el-input>
-                    </div>
-
-                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">答案</span>
-                        <el-input style="flex:4;margin-left: 20px;" type="textarea"
-                                  :autosize="{ minRows:5, maxRows: 5}" v-model="formData.answer"
-                                  placeholder="请输入内容"></el-input>
+                        <span style="flex: 1;text-align: center">模块名称</span>
+                        <el-input style="flex:4;margin-left: 20px;" type="text"
+                                   v-model="formData.codeGeneratorModuleName"
+                                  placeholder="请输入内容,例如：活动"></el-input>
                     </div>
                 </el-tab-pane>
 
             </el-tabs>
             <span slot="footer" class="dialog-footer">
                 <el-button @click="dialogVisible = false">取 消</el-button>
-                <el-button type="primary" @click="submitApp()">提交</el-button>
+                <el-button type="primary" @click="submit()">提交</el-button>
             </span>
         </el-dialog>
 
@@ -171,21 +137,15 @@
         data() {
             return {
                 queryData: {
-                    typeOne: null,
-                    typeTwo: null,
                     currentPage: 1,
                     pageSize: 5,
-                    question: null,
+                    codeGeneratorName: null,
                 },
                 formData: {
                     id: '',
-                    question: '',
-                    answer: '',
-                    typeOne: "",
-                    typeTwo: "",
+                    codeGeneratorKey: "",
+                    codeGeneratorModuleName: "",
                 },
-                typesOne: [],
-                typesTwo: [],
                 activeName: 'first',
                 dialogVisible: false,
                 tableData: [],
@@ -198,8 +158,8 @@
             this.getData();
         },
         methods: {
-            //添加问题
-            addQuestion() {
+            //添加代码生成器
+            addCodeGenerator() {
                 this.dialogVisible = true;
                 this.formData = {}
             },
@@ -216,7 +176,7 @@
             },
             //获取列表数据
             getData() {
-                this.$fetch('/v1/android', this.queryData)
+                this.$fetch('/v1/codeGenerator', this.queryData)
                     .then((response) => {
                         console.log(response)
                         this.tableData = response.data.data;
@@ -224,32 +184,21 @@
                         this.currentPage = response.data.currentPage;
                     })
 
-                this.$fetch('/v1/questionType', {level: 'l1'})
-                    .then((response) => {
-                        console.log(response)
-                        this.typesOne = response.data;
-                    })
-            },
-            //查询问题类型
-            gettypeList(id) {
-                this.$fetch('/v1/questionType', {level: 'l2', fartherid: id})
-                    .then((response) => {
-                        console.log(response)
-                        this.typesTwo = response.data;
-                    })
             },
             //添加/修改提交
-            submitApp() {
+            submit() {
                 console.log("formData", this.formData);
                 this.dialogVisible = false;
                 if (_.isEmpty(this.formData._id)) {
-                    this.$post('/v1/android', this.formData)
+
+
+                    this.$post('/v1/codeGenerator', this.formData)
                         .then((response) => {
                             console.log(response)
                             this.getData();
                         })
                 } else {
-                    this.$put('/v1/android/' + this.formData._id, this.formData)
+                    this.$put('/v1/codeGenerator/' + this.formData._id, this.formData)
                         .then((response) => {
                             console.log(response)
                             this.getData();
@@ -259,23 +208,20 @@
             },
             //编辑条目
             handleClick(tab, event) {
-                // console.log(tab, event);
-                // console.log("xxxx" + tab._id)
-                //
-                // this.$fetch('/v1/android', {_id: tab._id})
-                //     .then((response) => {
-                //         console.log(response)
-                //         this.formData = response.data.data[0];
-                //     })
-                // this.dialogVisible = true;
-                this.$router.push('editQuestion')
+                console.log(tab, event);
+                console.log("xxxx" + tab._id)
 
-
+                this.$fetch('/v1/codeGenerator', {_id: tab._id})
+                    .then((response) => {
+                        console.log(response)
+                        this.formData = response.data.data[0];
+                    })
+                this.dialogVisible = true;
             },
             //删除条目
             deleteClick(tab, event) {
                 console.log(tab, event);
-                this.$delete('/v1/android/' + tab._id)
+                this.$delete('/v1/codeGenerator/' + tab._id)
                     .then((response) => {
                         console.log(response)
                         this.getData();
@@ -345,7 +291,8 @@
         margin-bottom: 10px;
     }
 
-    &:last-child {
+    &
+    :last-child {
         margin-bottom: 0;
 
     }

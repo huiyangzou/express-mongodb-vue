@@ -259,18 +259,15 @@
             },
             //编辑条目
             handleClick(tab, event) {
-                // console.log(tab, event);
-                // console.log("xxxx" + tab._id)
-                //
-                // this.$fetch('/v1/android', {_id: tab._id})
-                //     .then((response) => {
-                //         console.log(response)
-                //         this.formData = response.data.data[0];
-                //     })
-                // this.dialogVisible = true;
-                this.$router.push('editQuestion')
+                console.log(tab, event);
+                console.log("xxxx" + tab._id)
 
-
+                this.$fetch('/v1/android', {_id: tab._id})
+                    .then((response) => {
+                        console.log(response)
+                        this.formData = response.data.data[0];
+                    })
+                this.dialogVisible = true;
             },
             //删除条目
             deleteClick(tab, event) {

@@ -268,7 +268,6 @@
                 //         this.formData = response.data.data[0];
                 //     })
                 // this.dialogVisible = true;
-                this.$router.push('editQuestion')
 
 
             },

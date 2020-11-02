@@ -18,18 +18,18 @@ import player from "./pages/tools/player";
 import activity from "./pages/tools/activity";
 import codeGenerator from "./pages/tools/codeGenerator";
 import game from "./pages/tools/game";
-import editQuestion from "./pages/tools/editQuestion";
+
 import videoList from "./pages/tools/videoList";
 import haowuSuggest from "./pages/tools/haowuSuggest";
 //import
 
 const routes = [
     {
-        path: '/', component: login,name:'login',
+        path: '/login', component: login,name:'login',
     },
 
     {
-        path: '/home', component: mainPage,name:'home',realName:'主页',
+        path: '/', component: mainPage,name:'home',realName:'主页',
 
         children: [
             {path: '/boardPage', component: boardPage, name:'boardPage',realName:'首页'},
@@ -40,7 +40,6 @@ const routes = [
             // {path: '/appUpdate', component: appUpdate, name:'appUpdate',realName:'应用热更新'},
             // {path: '/appVersionUpdate', component: appVersionUpdate, name:'appVersionUpdate',realName:'应用版本更新'},
             {path: '/question', component: android, name:'question',realName:'试题大合集'},
-            {path: '/editQuestion', component: editQuestion, name:'editQuestion',realName:'编辑问题'},
             {path: '/baoming', component: baoming, name:'baoming',realName:'报名'},
             {path: '/questionType', component: questionType, name:'questionType',realName:'问题类型'},
             {path: '/goods', component: goods, name:'goods',realName:'产品信息'},
