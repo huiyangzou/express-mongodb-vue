@@ -1,78 +1,57 @@
 import requests
-import os
-from bs4 import BeautifulSoup
+from lxml import etree
+import re
+import threading
+import operator
 
 
-def getHtml(url):
-    headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
-               "Referer": "https://www.mm131.net"
-        }
-    html = requests.get(url, headers = headers)
-    html.encoding = html.apparent_encoding
-    return html
+def get_page(url):
+    response = requests.get(url)
+    all_page = int(re.findall('var listTotal = (.*?) ;',response.text)[0])//20 +1
+    return all_page
 
 
-def getSoup(html):
-    return BeautifulSoup(html.text, "html.parser")
+def parse_article(url,article_list):
+    response = requests.get(url).text
+    x = etree.HTML(response)
+    x= x.xpath('//*[@id="mainBox"]/main/div[2]/div')
+    # article_list = []
 
+    for item in x:
+        print(f"yyyy{item}")
+        title = item.xpath('//*[@id="mainBox"]/main/div[2]/div[1]/h4/a/text()')[1].strip()
+        url = item.xpath('//*[@id="mainBox"]/main/div[2]/div[1]/h4/a/@href')
+        print(f"title{title}")
+#         pubdata = item.xpath('div[@class="info-box d-flex align-content-center"]/p/span[@class="date"]/text()')[0]
+#         pageviews = item.xpath('div[@class="info-box d-flex align-content-center"]/p[3]/span/span/text()')[0]
+#         comments = item.xpath('div[@class="info-box d-flex align-content-center"]/p[5]/span/span/text()')[0]
+        article = dict(
+        title = title,
+        url = url
+            )
+        article_list.append(article)
+#     print(article_list)
 
-def getList(soup):
-    list = soup.find('div',attrs={'class':'article-list'})
-    return list
+def main(url):
+    main_url = url
+    all_page = get_page(url)
+    all_page = 1
+    print(f"allpage{all_page}")
+    thread_list = []
+    data = []
+    for page in range(1,all_page+1):
+        url = main_url + '/article/list/' + str(page)
+        t = threading.Thread(target=parse_article,args=(url,data))
+        t.start()
+        thread_list.append(t)
 
+    for t in thread_list:
+        t.join()
 
-def getAllPage(soup):
-    allPage = soup.find('div', attrs={'class':'ui-paging-container'}).find('ul').contents[7].text
-    return allPage
-
-
-def makedir(title):
-    try:
-        os.mkdir(title)
-    except:
-        print(f"{title} folder is exist!")
-        return
-
-
-def downloadPic(title, allPage, htmlMark):
-    for number in range(1,int(allPage)+1):
-        picUrl = f"https://img1.nthjjz.com/pic/{htmlMark}/{number}.jpg"
-        pic = getHtml(picUrl)
-        with open(f"{title}/{number}.jpg", "wb+") as f:
-            f.write(pic.content)
-            print(f"{number}.jpg download successful!")
-
-
-
-def main():
-    blog_url=f"https://zhangphil.blog.csdn.net/article/list"
-    blog_html=getHtml(blog_url)
-    blog_soup=getSoup(blog_html)
-    blog_allPage = getAllPage(blog_soup)
-
-    for mark in range(1,blog_allPage):
-        htmlMark = str(mark)
-        try:
-            html = getHtml(f"https://zhangphil.blog.csdn.net/article/list/{htmlMark}.html")
-            soup = getSoup(html)
-            list = getList(soup)
-            for item in list:
-                url=item.find['h4'].find['a'].attrs['href']
-                title=item.find['h4'].find['a'].text
-                tag=item.find['h4'].find['span'].text
-
-                des=item.find['p'].find['a'].text
-                create_date=item.find('span',attrs['class':'date']).text
-                read_count=item.find('span',attrs['class':'read-num']).contents[0].text
-                comment_count=item.find('span',attrs['class':'read-num']).contents[1].text
-                obj={'url':url,'title':title,'tag':tag,'des':des,'create_date':create_date,'read_count':read_count,'comment_count':comment_count}
-
-
-            makedir(title)
-        except:
-            continue
-        downloadPic(title, allPage, htmlMark)
-
+    data.sort(key=operator.itemgetter('pubdata'))
+    print(data,len(data))
 
 if __name__ == '__main__':
-    main()
+    url = 'https://zhangphil.blog.csdn.net'
+    main(url)
+
