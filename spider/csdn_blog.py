@@ -3,12 +3,13 @@ import os
 from bs4 import BeautifulSoup
 
 
-def getHtml(url):
+def getHtml(url,htmlMark):
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
-               "Referer": "https://zhangphil.blog.csdn.net"
+               "Referer": url
         }
-    html = requests.get(url, headers = headers)
-    html.encoding = html.apparent_encoding
+    html = requests.get(f"{url}/article/list/{htmlMark}", headers = headers)
+    html.encoding = "utf-8"
+    print(f"{html.encoding}=======================")
     return html
 
 
@@ -17,7 +18,8 @@ def getSoup(html):
 
 
 def getList(soup):
-    list = soup.find_all('div',attrs={'class':'article-item-box csdn-tracking-statistics'})
+    list = soup.find('div',attrs={'class':'article-list'}).find_all('div',attrs={'class':'article-item-box'})
+#     print(f"{list}=======88888888")
     return list
 
 
@@ -45,15 +47,13 @@ def downloadPic(title, allPage, htmlMark):
 
 
 def main():
-    blog_url=f"https://zhangphil.blog.csdn.net/article/list"
-    blog_html=getHtml(blog_url)
-    blog_soup=getSoup(blog_html)
-    blog_allPage =28
+    blog_url=f"https://blog.csdn.net/qq_35190492"
 
-    for mark in range(1,blog_allPage):
+
+    for mark in range(4,5):
         htmlMark = str(mark)
         try:
-            html = getHtml(f"https://zhangphil.blog.csdn.net/article/list/{htmlMark}")
+            html = getHtml(blog_url,htmlMark)
             soup = getSoup(html)
 #             print(soup)
             list = getList(soup)
@@ -63,7 +63,7 @@ def main():
                 print(url)
                 title=item.find('h4').find('a').text.strip()
                 print(title)
-                des=item.find('p').find('a').text.strip()
+                des=item.find('p').text
                 print(des)
                 tag=item.find('h4').find('span').text
                 print(tag)

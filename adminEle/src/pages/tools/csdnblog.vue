@@ -41,18 +41,37 @@
             <el-table-column
                     prop="csdnblogName"
                     label="CSDN博客名称"
-                    width="100">
+                    :show-overflow-tooltip="true"
+                    width="500">
+            </el-table-column>
+            <el-table-column
+                    prop="tag"
+                    label="标签"
+                    width="50">
             </el-table-column>
             <el-table-column
                     prop="csdnblogLink"
                     label="CSDN博客链接"
                     :show-overflow-tooltip="true"
-                    width="400">
+                    width="200">
+                <template slot-scope="scope">
+                    <a :href="scope.row.csdnblogLink">链接</a>
+                </template>
             </el-table-column>
             <el-table-column
-                    prop="csdnblogImage"
-                    label="CSDN博客图片"
-                    width="400">
+                    prop="create_date"
+                    label="创建时间"
+                    width="100">
+            </el-table-column>
+            <el-table-column
+                    prop="read_count"
+                    label="阅读总数"
+                    width="80">
+            </el-table-column>
+            <el-table-column
+                    prop="comment_count"
+                    label="评论总数"
+                    width="80">
             </el-table-column>
 
             <el-table-column
@@ -126,7 +145,7 @@
             return {
                 queryData: {
                     currentPage: 1,
-                    pageSize: 5,
+                    pageSize: 20,
                     csdnblogName: null,
                 },
                 formData: {
