@@ -21,6 +21,7 @@ import game from "./pages/tools/game";
 import editQuestion from "./pages/tools/editQuestion";
 import videoList from "./pages/tools/videoList";
 import haowuSuggest from "./pages/tools/haowuSuggest";
+import csdnblog from "./pages/tools/csdnblog";
 //import
 
 const routes = [
@@ -53,6 +54,7 @@ const routes = [
     {path: '/game', component: game, name:'game',realName:'游戏'},
     {path: '/videoList', component: videoList, name:'videoList',realName:'视频列表'},
     {path: '/haowuSuggest', component: haowuSuggest, name:'haowuSuggest',realName:'好物推荐'},
+    {path: '/csdnblog', component: csdnblog, name:'csdnblog',realName:'CSDN博客'},
     //router
         ]
     }
