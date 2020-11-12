@@ -26,6 +26,9 @@ const VideoListModule = {
     delete: async function(id){
         await videoListModule.delete({_id:id})
     },
+    deleteAll: async function(){
+        await videoListModule.delete({})
+    },
 
     patch: async function(){
     },

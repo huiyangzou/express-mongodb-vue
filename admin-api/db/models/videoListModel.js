@@ -8,6 +8,10 @@ const VideoListSchema = new Schema({
     videoListName: { type: String, description: "videoListName"},
     videoListImage: { type: String,  description: "videoListImage"},
     videoListLink: { type: String, description: "videoListLink"},
+    createTime: { type: String, description: "createTime"},
+    area: { type: String, description: "area"},
+    language: { type: String, description: "language"},
+    release: { type: String, description: "release"},
 });
 
 module.exports = mongoose.model('videoList', VideoListSchema, 'videoList');

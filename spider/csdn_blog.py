@@ -47,10 +47,10 @@ def downloadPic(title, allPage, htmlMark):
 
 
 def main():
-    blog_url=f"https://blog.csdn.net/qq_35190492"
+    blog_url=f"https://blog.csdn.net/MeituanTech"
 
 
-    for mark in range(4,5):
+    for mark in range(1,14):
         htmlMark = str(mark)
         try:
             html = getHtml(blog_url,htmlMark)
@@ -71,11 +71,12 @@ def main():
                 print(create_date)
                 read_count=item.find_all('span',attrs={'class':'read-num'})[0].text
                 print(read_count)
-                comment_count=item.find_all('span',attrs={'class':'read-num'})[1].text
+#                 comment_count=item.find_all('span',attrs={'class':'read-num'})[1].text
+                comment_count='0'
                 print(comment_count)
                 obj={'csdnblogLink':url,'csdnblogName':title,'des':des,'tag':tag,'create_date':create_date,'read_count':read_count,'comment_count':comment_count}
                 r_json = requests.post("https://www.93goodtea.com/v1/csdnblog",obj)
-#                 print(obj)
+                print(r_json.text)
 #                 tag=item.find['h4'].find['span'].text
 #
 #                 des=item.find['p'].find['a'].text

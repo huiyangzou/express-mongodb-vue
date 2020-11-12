@@ -10,6 +10,30 @@
                             v-model="queryData.videoListName"
                             clearable>
                     </el-input>
+
+                </div>
+            </el-col>
+<el-col :span="4">
+                <div style="display: flex;flex-direction: row;align-items: center;">
+                    <el-input
+                            style="flex:4;margin-right: 20px;"
+                            placeholder="语言"
+                            v-model="queryData.language"
+                            clearable>
+                    </el-input>
+
+
+                </div>
+            </el-col>
+<el-col :span="4">
+                <div style="display: flex;flex-direction: row;align-items: center;">
+                    <el-input
+                            style="flex:4;margin-right: 20px;"
+                            placeholder="地区"
+                            v-model="queryData.area"
+                            clearable>
+                    </el-input>
+
                 </div>
             </el-col>
 
@@ -22,6 +46,7 @@
         <!--        新增-->
         <div style="flex-direction: row;justify-content: space-between;display: flex;margin-top: 20px;margin-bottom: 20px;">
             <el-button type="primary" icon="el-icon-plus" @click="addVideoList">添加视频列表</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="clearVideoList">清空所有数据</el-button>
         </div>
 
         <!--        表格-->
@@ -29,7 +54,7 @@
                 id="elMain"
                 ref="multipleTable"
                 :data="tableData"
-                max-height="600"
+                max-height="550"
                 tooltip-effect="dark"
                 style="width: 100%;"
                 @selection-change="handleSelectionChange">
@@ -41,18 +66,31 @@
             <el-table-column
                     prop="videoListName"
                     label="视频列表名称"
+                    width="200">
+            </el-table-column>
+            <el-table-column
+                    prop="area"
+                    label="地区"
+                    :show-overflow-tooltip="true"
                     width="100">
             </el-table-column>
             <el-table-column
-                    prop="videoListLink"
-                    label="视频列表链接"
+                    prop="language"
+                    label="语言"
                     :show-overflow-tooltip="true"
-                    width="400">
+                    width="100">
             </el-table-column>
             <el-table-column
-                    prop="videoListImage"
-                    label="视频列表图片"
-                    width="400">
+                    prop="createTime"
+                    label="创建时间"
+                    :show-overflow-tooltip="true"
+                    width="100">
+            </el-table-column>
+            <el-table-column
+                    prop="release"
+                    label="发布"
+                    :show-overflow-tooltip="true"
+                    width="100">
             </el-table-column>
 
             <el-table-column
@@ -60,7 +98,7 @@
                     width="400">
                 <template slot-scope="scope">
                     <el-image
-                            style="width: 100px; height: 100px"
+                            style="width: 200px; height: 300px"
                             :src="scope.row.videoListImage"
                             ></el-image>
                 </template>
@@ -138,8 +176,10 @@
             return {
                 queryData: {
                     currentPage: 1,
-                    pageSize: 5,
+                    pageSize: 40,
                     videoListName: null,
+                    language: null,
+                    area: null,
                 },
                 formData: {
                     id: '',
@@ -163,6 +203,13 @@
             addVideoList() {
                 this.dialogVisible = true;
                 this.formData = {}
+            },
+            clearVideoList(){
+                this.$delete('/v1/videoList/')
+                    .then((response) => {
+                        console.log(response)
+                        this.getData();
+                    })
             },
             //清空查询
             clearQuery() {
