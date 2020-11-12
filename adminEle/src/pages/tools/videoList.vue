@@ -120,7 +120,7 @@
                     width="100">
             </el-table-column>
             <el-table-column
-                    prop="type"
+                    prop="actor"
                     label="演员"
                     :show-overflow-tooltip="true"
                     width="200">

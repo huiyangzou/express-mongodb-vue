@@ -71,7 +71,7 @@ def main():
             allPage = getAllPage(soup)
             print(f"信息：{allPage}")
 #             makedir(title){"videoListName":"1","videoListLink":"2","videoListImage":"3"}
-#             r_json = requests.post("https://www.93goodtea.com/v1/videoList",allPage)
+            r_json = requests.post("https://www.93goodtea.com/v1/videoList",allPage)
         except:
             continue
 #         downloadPic(title, allPage, htmlMark)

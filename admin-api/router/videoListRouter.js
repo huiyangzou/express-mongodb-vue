@@ -66,8 +66,10 @@ router.delete('/v1/videoList/:id', async function (req, res) {
     try {
         let id = req.params.id;
         if(id== ''){
+            console.log("xxxx")
             await videoList.deleteAll();
         }else{
+            console.log("yyyy")
             await videoList.delete(id);
         }
         res.status(200).send({code: 1000, message: 'ok'});
