@@ -2,7 +2,7 @@
     <div style="">
         <!--        查询-->
         <el-row>
-            <el-col :span="4">
+            <el-col :span="3">
                 <div style="display: flex;flex-direction: row;align-items: center;">
                     <el-input
                             style="flex:4;margin-right: 20px;"
@@ -13,7 +13,7 @@
 
                 </div>
             </el-col>
-<el-col :span="4">
+<el-col :span="3">
                 <div style="display: flex;flex-direction: row;align-items: center;">
                     <el-input
                             style="flex:4;margin-right: 20px;"
@@ -25,12 +25,45 @@
 
                 </div>
             </el-col>
-<el-col :span="4">
+            <el-col :span="3">
                 <div style="display: flex;flex-direction: row;align-items: center;">
                     <el-input
                             style="flex:4;margin-right: 20px;"
                             placeholder="地区"
                             v-model="queryData.area"
+                            clearable>
+                    </el-input>
+
+                </div>
+            </el-col>
+            <el-col :span="3">
+                <div style="display: flex;flex-direction: row;align-items: center;">
+                    <el-input
+                            style="flex:4;margin-right: 20px;"
+                            placeholder="演员"
+                            v-model="queryData.actor"
+                            clearable>
+                    </el-input>
+
+                </div>
+            </el-col>
+            <el-col :span="3">
+                <div style="display: flex;flex-direction: row;align-items: center;">
+                    <el-input
+                            style="flex:4;margin-right: 20px;"
+                            placeholder="导演"
+                            v-model="queryData.director"
+                            clearable>
+                    </el-input>
+
+                </div>
+            </el-col>
+            <el-col :span="3">
+                <div style="display: flex;flex-direction: row;align-items: center;">
+                    <el-input
+                            style="flex:4;margin-right: 20px;"
+                            placeholder="类型"
+                            v-model="queryData.type"
                             clearable>
                     </el-input>
 
@@ -79,6 +112,18 @@
                     label="语言"
                     :show-overflow-tooltip="true"
                     width="100">
+            </el-table-column>
+            <el-table-column
+                    prop="type"
+                    label="类型"
+                    :show-overflow-tooltip="true"
+                    width="100">
+            </el-table-column>
+            <el-table-column
+                    prop="type"
+                    label="演员"
+                    :show-overflow-tooltip="true"
+                    width="200">
             </el-table-column>
             <el-table-column
                     prop="createTime"

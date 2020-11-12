@@ -8,14 +8,17 @@ var _ = require('lodash');
 //查询
 router.get('/v1/videoList', async function (req, res) {
     try {
-        const {pageSize, currentPage, _id, videoListName, area, language} = req.query;
+        const {pageSize, currentPage, _id, videoListName, area, language,actor,type,director} = req.query;
         const param = {pageSize, currentPage};
         //指定id查询
         if (_id) param._id = _id;
         if (area) param.area = area;
         if (language) param.language = language;
+        if (type) param.type = type;
+        if (director) param.director = director;
         //name 模糊查询
         if (videoListName) param.videoListName = {$regex:new RegExp(videoListName,'i')};
+        if (actor) param.actor = {$regex:new RegExp(actor,'i')};
         let result = await videoList.list(param);
         res.status(200).send({code: 1000, message: 'ok', data: result});
     } catch (error) {
@@ -63,7 +66,7 @@ router.delete('/v1/videoList/:id', async function (req, res) {
     try {
         let id = req.params.id;
         if(id== ''){
-            await videoList.delete();
+            await videoList.deleteAll();
         }else{
             await videoList.delete(id);
         }
