@@ -250,7 +250,7 @@
                 this.formData = {}
             },
             clearVideoList(){
-                this.$delete('/v1/videoList/')
+                this.$delete('/v1/videoList/-1')
                     .then((response) => {
                         console.log(response)
                         this.getData();
