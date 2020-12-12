@@ -155,7 +155,6 @@
         created() {
             this.$router.push('boardPage');
             this.routerInfo=routes;
-            console.log(this.routerInfo);
 
             console.log(this.$cookies.keys(),'cookie');
         },

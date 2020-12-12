@@ -1,5 +1,5 @@
 import requests,json
-import os
+import os, time, random
 from bs4 import BeautifulSoup
 
 
@@ -61,8 +61,8 @@ def downloadPic(title, allPage, htmlMark):
 
 
 def main():
-#     for mark in range(32994,97659):
-    for mark in range(35096,35099):
+    for mark in range(36786,97659):
+#     for mark in range(35096,35099):
         htmlMark = str(mark)
         print(f"标题：{htmlMark}")
         try:
@@ -72,7 +72,9 @@ def main():
             print(f"信息：{allPage}")
 #             makedir(title){"videoListName":"1","videoListLink":"2","videoListImage":"3"}
             r_json = requests.post("https://www.93goodtea.com/v1/videoList",allPage)
-        except:
+            time.sleep(random.random() * 3)
+        except Exception as e:
+            print(e)
             continue
 #         downloadPic(title, allPage, htmlMark)
 

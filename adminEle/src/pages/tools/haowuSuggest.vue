@@ -14,7 +14,31 @@
             </el-col>
             <el-col :span="4">
                 <div style="display: flex;flex-direction: row;align-items: center;">
-                    <el-select v-model="queryData.source" placeholder="请选择">
+                    <el-select v-model="queryData.categoryOne" clearable placeholder="请选择" @change="getCategoryTwo(queryData.categoryOne)">
+                        <el-option
+                                v-for="item in categoryOne"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                        </el-option>
+                    </el-select>
+                </div>
+            </el-col>
+            <el-col :span="4">
+                <div style="display: flex;flex-direction: row;align-items: center;">
+                    <el-select v-model="queryData.categoryTwo" clearable placeholder="请选择">
+                        <el-option
+                                v-for="item in categoryTwo"
+                                :key="item.id"
+                                :label="item.name"
+                                :value="item.id">
+                        </el-option>
+                    </el-select>
+                </div>
+            </el-col>
+            <el-col :span="4">
+                <div style="display: flex;flex-direction: row;align-items: center;">
+                    <el-select v-model="queryData.source" placeholder="请选择" @change="getCategoryOne()">
                         <el-option
                                 v-for="item in options"
                                 :key="item.value"
@@ -69,15 +93,16 @@
                     label="好物推荐名称"
                     width="300">
                 <template slot-scope="scope">
-                   <span>{{scope.row.title.substring(0,10)}}</span>
+                   <span>{{scope.row.title}}</span>
                 </template>
             </el-table-column>
             <el-table-column
-                    prop="url"
                     label="好物推荐链接"
                     :show-overflow-tooltip="true"
                     width="260">
-
+                <template slot-scope="scope">
+                    <a target="_blank" :href="getUrl(scope.row.url)">{{scope.row.url}}</a>
+                </template>
             </el-table-column>
             <el-table-column
                     label="好物推荐图片"
@@ -117,9 +142,9 @@
                     fixed="right"
                     show-overflow-tooltip>
                 <template slot-scope="scope">
-                    <el-button   v-clipboard:copy="scope.row.url"
+                    <el-button   v-clipboard:copy="scope.row.url_action"
                                  v-clipboard:success="onCopy" type="text" size="small">复制</el-button>
-<!--                    <el-button @click="deleteClick(scope.row)" type="text" size="small">删除</el-button>-->
+                    <el-button @click="getDescription(scope.row)" type="text" size="small">商品描述信息</el-button>
                 </template>
             </el-table-column>
         </el-table>
@@ -176,11 +201,13 @@
 
 <script>
     import axios from 'axios';
-
+    import $ from 'jquery'
     export default {
         name: "appList",
         data() {
             return {
+                categoryOne:[],
+                categoryTwo:[],
                 sorts:[{
                     label: '佣金',
                     value: 'commission'
@@ -202,6 +229,8 @@
                     value: 'jingdong'
                 }],
                 queryData: {
+                    categoryOne:'',
+                    categoryTwo:'',
                     currentPage: 1,
                     pageSize:18,
                     haowuSuggestName: "",
@@ -216,6 +245,7 @@
                 },
                 activeName: 'first',
                 dialogVisible: false,
+                dataCache:[],
                 tableData: [],
                 totalItem: 0,
                 currentPage: 1,
@@ -224,6 +254,7 @@
         },
         created() {
             this.getData();
+            this.getCategoryOne();
         },
         methods: {
             onCopy(e) {
@@ -246,6 +277,9 @@
                 this.queryData.typeTwo = ""
                 this.queryData.question = ""
             },
+            getUrl(url){
+              return "https://"+url
+            },
             //模糊搜索
             search() {
                 this.queryData.currentPage = 1;
@@ -253,7 +287,8 @@
             },
             //获取列表数据
             getData() {
-                var url=`https://www.zhihu.com/api/v4/mcn/search?source=${this.queryData.source}&producer=&cid1=&cid2=&keyword=${this.queryData.haowuSuggestName}&url=&sort_name=${this.queryData.sort}&page_index=${this.queryData.currentPage}&search_param=&city_id=&city_out_id=&county_out_id=&area_out_id=`
+                var url=`http://127.0.0.1:8090/demo/api/v4/mcn/search?source=${this.queryData.source}&producer=&cid1=${this.queryData.categoryOne}&cid2=${this.queryData.categoryTwo}&keyword=${this.queryData.haowuSuggestName}&url=&sort_name=${this.queryData.sort}&page_index=${this.queryData.currentPage}&search_param=&city_id=&city_out_id=&county_out_id=&area_out_id=`
+                // var url=`http://127.0.0.1:8090/demo/api/v4/mcn/search?source=pinduoduo&producer=&cid1=&cid2=&keyword=&url=&sort_name=&page_index=1&search_param=&city_id=&city_out_id=&county_out_id=&area_out_id=`
                 // 'https://www.zhihu.com/api/v4/mcn/search?source=jingdong&producer=&cid1=&cid2=&keyword=%E6%B8%B8%E6%88%8F%E7%AC%94%E8%AE%B0%E6%9C%AC&url=&sort_name=&page_index=450&search_param=&city_id=&city_out_id=&county_out_id=&area_out_id='
                 //https://www.zhihu.com/api/v4/mcn/search?source=pinduoduo&producer=&cid1=&cid2=&keyword=&url=&sort_name=&page_index=1&search_param=&city_id=&city_out_id=&county_out_id=&area_out_id=
                 //https://www.zhihu.com/api/v4/mcn/search?source=pinduoduo&producer=&cid1=&cid2=&keyword=&url=&sort_name=&page_index=1&search_param=&city_id=&city_out_id=&county_out_id=&area_out_id=
@@ -262,9 +297,52 @@
                     .then((response) => {
                         console.log(response,"=============")
                         this.tableData = response.data;
-                        this.totalItem = 500;
+                        this.totalItem = 9000;
+
+                        console.log(this.dataCache,"yyyyyy=============")
                     })
 
+
+
+
+            },
+            getCategoryOne(){
+                var url=`http://127.0.0.1:8090/demo/api/v4/mcn/category?source=${this.queryData.source}&producer=`
+                this.$fetch(url)
+                    .then((response) => {
+                        console.log(response,"=============")
+                        this.categoryOne = response.data;
+
+                    })
+            },
+            getCategoryTwo(id){
+                this.queryData.categoryTwo=''
+                var url=`http://127.0.0.1:8090/demo/api/v4/mcn/category/reflect/${id}?source=${this.queryData.source}&producer=`
+                this.$fetch(url)
+                    .then((response) => {
+                        console.log(response,"=============")
+                        this.categoryTwo = response.data;
+
+                    })
+            },
+            getDescription(data){
+                var url=`http://${data.url}`
+                var proxyUrl=url.substring(19,url.length)
+                console.log(proxyUrl,'proxyUrl')
+                var proxyRealUrl=`http://127.0.0.1:8090/api/${proxyUrl}`
+                this.$get(proxyRealUrl)
+                    .then((response) => {
+                        let htmlDom = $(response);
+                        console.log(htmlDom.text(),"htmlDom=============")
+                        let titleList = htmlDom.find(".parameter2");
+                        let skuName = htmlDom.find(".sku-name");
+                        let price = htmlDom.find(".price");
+                        let Ptable = htmlDom.find(".Ptable");
+                        console.log(Ptable.text(),"html=============")
+                        data.url_action=`产品标题:${skuName.text().trim()}\n图片信息:${data.img_url}\n基本信息:${titleList.text().trim()}\n详细信息:${Ptable.text().trim()}\n产品链接:${data.url}`
+
+
+                    })
             },
             //添加/修改提交
             submit() {

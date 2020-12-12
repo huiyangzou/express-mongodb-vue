@@ -10,6 +10,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "element-ui": "^2.3.4",
+    "jquery": "^3.5.1",
     "lodash": "^4.17.15",
     "videojs-contrib-hls": "^5.15.0",
     "vue": "^2.5.16",

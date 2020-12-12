@@ -11,6 +11,7 @@ import category from "./pages/tools/category";
 import baoming from "./pages/tools/baoming";
 import questionType from "./pages/tools/questionType";
 import login from './pages/user/login'
+import leanIndex from './pages/lean/index'
 import fileManager from "./pages/tools/fileManager";
 import goods from "./pages/tools/goods";
 import userList from "./pages/user/userList";
@@ -57,7 +58,11 @@ const routes = [
     {path: '/csdnblog', component: csdnblog, name:'csdnblog',realName:'CSDN博客'},
     //router
         ]
-    }
+    },
+    {
+        path: '/learn', component: leanIndex,name:'learn',realName:'学习',
+    },
+
 
 ]
 export default routes;

@@ -57,6 +57,7 @@ axios.interceptors.request.use(
         // if(token){
         //   config.params = {'token':token}
         // }
+        console.log('request',JSON.stringify(config))
         return config;
     },
     error => {
@@ -70,7 +71,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
         closeLoading()
-        console.log('xxxx',JSON.stringify(response.data))
+        // console.log('response',JSON.stringify(response.data))
         if(response.data.code!='1000'&&response.data==null){
             Message.error({message:response.data.message})
         }
@@ -98,6 +99,20 @@ axios.interceptors.response.use(
  */
 
 export function fetch(url,params={}){
+    return new Promise((resolve,reject) => {
+        axios.get(url,{
+            params:params
+        })
+            .then(response => {
+                resolve(response.data);
+            })
+            .catch(err => {
+                reject(err)
+            })
+    })
+}
+
+export function get(url,params={}){
     return new Promise((resolve,reject) => {
         axios.get(url,{
             params:params

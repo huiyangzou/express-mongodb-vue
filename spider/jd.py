@@ -5,7 +5,7 @@ from bs4 import BeautifulSoup
 
 def getHtml(url):
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
-               "Referer": "http://gityuan.com"
+               "Referer": "https://item.jd.com"
         }
     html = requests.get(url, headers = headers)
     html.encoding = html.apparent_encoding
@@ -23,14 +23,15 @@ def getTitle(soup):
 
 def getAllPage(soup):
 
-    warp_dom = soup.find_all('div', attrs={'class':'gl-i-wrap'})
+    parameter2 = soup.find('ul', attrs={'class':'parameter2'})
+    parameter3 = parameter2.find_all('li')
+    for item in parameter3:
+        print(f"{item.text}")
+#     content = soup.find('div', attrs={'id':'J-detail-content'})
 
-    for item in warp_dom:
-        title = item.find('a')['title']
-        url = item.find('a')['href']
-        allPage = {'jdName':title,'jdLink':url}
-        print(f"信息：{allPage}")
-        r_json = requests.post("https://www.93goodtea.com/v1/jd",allPage)
+#     print(f"信息：{content}")
+
+#         r_json = requests.post("https://www.93goodtea.com/v1/jd",allPage)
 
 
 
@@ -57,13 +58,13 @@ def main():
         htmlMark = str(mark)
         print(f"标题：{htmlMark}")
         try:
-            html = getHtml(f"https://list.jd.com/list.html?cat=670%2C671%2C1105&page=1&s=1&click=0")
-            print(f"html：{html}")
+            html = getHtml(f"https://item.jd.com/72248141122.html")
+#             print(f"html：{html.text}")
             soup = getSoup(html)
             allPage = getAllPage(soup)
 
 #             makedir(title){"videoListName":"1","videoListLink":"2","videoListImage":"3"}
-        except:
+        except Exception:
             continue
 #         downloadPic(title, allPage, htmlMark)
 

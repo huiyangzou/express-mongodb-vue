@@ -20,7 +20,7 @@ const hls =require("videojs-contrib-hls")
 
 
 //axio
-import {post,fetch,patch,put,del} from '../src/common/request/http'
+import {post,fetch,patch,put,del,get} from '../src/common/request/http'
 
 //vue router
 import VueRouter from 'vue-router'
@@ -42,6 +42,7 @@ import routes from "./router";
 //定义全局变量
 Vue.prototype.$post=post;
 Vue.prototype.$fetch=fetch;
+Vue.prototype.$get=get;
 Vue.prototype.$patch=patch;
 Vue.prototype.$put=put;
 Vue.prototype.$delete=del;
@@ -53,9 +54,22 @@ const router = new VueRouter({
 })
 router.beforeEach((to, from, next) => {
 
+  console.log(to.name+from.name,'yyy')
   const isAuthenticated=true;
-  if (to.name !== 'login' && !isAuthenticated) next({ name: 'login' })
-  else next()
+    if(to.name=='learn'){
+        next()
+    }else{
+        if (to.name !== 'login' && !isAuthenticated) {
+
+            next({ name: 'login' })
+
+        }
+
+        else{
+            next()
+        }
+    }
+
 })
 
 // 解决ElementUI导航栏中的vue-router在3.0版本以上重复点菜单报错问题

@@ -47,6 +47,12 @@ module.exports = (options = {}) => ({
     }),
     new HtmlWebpackPlugin({
       template: 'src/index.html'
+    }),
+    new webpack.ProvidePlugin({
+      $: "jquery",
+      jQuery: "jquery",
+      jquery: "jquery",
+      "window.jQuery": "jquery"
     })
   ],
   resolve: {
@@ -59,11 +65,18 @@ module.exports = (options = {}) => ({
     host: '127.0.0.1',
     port: 8090,
     proxy: {
-      '/v1/': {
-        target: 'http://127.0.0.1:8080',
+      '/api':{
+        target: 'https://item.jd.com',
         changeOrigin: true,
         pathRewrite: {
-          '^/v1': ''
+          '^/api': ''
+        }
+      },
+      '/demo':{
+        target: 'https://www.zhihu.com',
+        changeOrigin: true,
+        pathRewrite: {
+          '^/demo': ''
         }
       }
     },

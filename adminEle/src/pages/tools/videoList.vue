@@ -250,11 +250,20 @@
                 this.formData = {}
             },
             clearVideoList(){
-                this.$delete('/v1/videoList/-1')
-                    .then((response) => {
-                        console.log(response)
-                        this.getData();
-                    })
+                this.$alert('确认删除', '删除', {
+                    confirmButtonText: '确定',
+                    callback: action => {
+                        if(action== 'confirm'){
+                            this.$delete('/v1/videoList/-1')
+                                .then((response) => {
+                                    console.log(response)
+                                    this.getData();
+                                })
+                        }
+
+                    }
+                });
+
             },
             //清空查询
             clearQuery() {
