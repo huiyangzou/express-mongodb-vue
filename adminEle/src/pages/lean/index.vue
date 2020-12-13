@@ -1,5 +1,17 @@
 <template>
     <div class="bg" style="align-items: center;width: 100%;display: flex;flex-direction: column">
+
+        <div style="position: absolute;left: 10px;text-align: center;display: flex;flex-direction: column;">
+            <img
+                    src="../../assets/31143b6c44889e13a18afdb90e6aa8a5.png"  height="260" width="200"/>
+            <span>扫我购茶,优惠多</span>
+        </div>
+
+        <div v-if="select=='1'"  style="position: absolute;right: 10px;display: flex;flex-direction: row;flex-wrap: wrap;width: 250px;overflow-y:auto;height: 900px;">
+            <el-tag style="margin: 10px;text-decoration: none" v-for="item in types" @click="chooseType(item._id)">{{item.questionTypeName}}</el-tag>
+
+        </div>
+
         <div style="margin-top: 50px;">
             <span style="font-size: 50px;color: #409EFF;text-align: center;padding: 40px;">Android 知识仓库</span>
 
@@ -19,7 +31,7 @@
         </div>
         <el-button v-if="select!=='1'" type="primary" style="width: 70%;margin-top: 10px;" disabled plain >{{`发现结果：${totalItem}`}}</el-button>
         <el-button v-else type="primary" style="width: 70%;margin-top: 10px;" disabled plain >{{`发现结果：${facetotalItem}`}}</el-button>
-        <div v-if="select!=='1'" style="width: 70%;height: 600px;margin-top: 10px;overflow-y:auto;background-color: #ecf5ff">
+        <div  v-if="select!=='1'" style="width: 70%;height: 600px;margin-top: 10px;overflow-y:auto;background-color: #ecf5ff">
             <ol >
                 <li style="text-decoration: none;margin-left: -25px" v-for="(item,index) in tableData" class="infinite-list-item">
 
@@ -38,7 +50,7 @@
             </ol>
         </div>
 
-        <div v-else style="width: 70%;height: 600px;margin-top: 10px;overflow-y:auto;background-color: #ecf5ff">
+        <div  v-else style="width: 70%;height: 600px;margin-top: 10px;overflow-y:auto;background-color: #ecf5ff">
             <ol >
                 <li style="text-decoration: none;margin-left: -25px" v-for="(item,index) in facetableData" class="infinite-list-item">
 
@@ -64,6 +76,7 @@
         name: "index",
         data () {
             return {
+                types:[],
                 queryFaceData: {
                     typeOne: null,
                     typeTwo: null,
@@ -92,6 +105,11 @@
             this.search ()
         },
         methods: {
+            chooseType(type){
+                this.queryFaceData.typeTwo=type;
+
+                this.search();
+            },
             change(e,item){
                 console.log('xxx','yyy')
                 this.search()
@@ -100,6 +118,7 @@
                 if(this.select=='1'){
                     this.queryFaceData.currentPage++;
                     this.getFaceData();
+
                 }else{
                     this.queryData.currentPage++;
                     this.getData();
@@ -113,6 +132,11 @@
                     this.queryFaceData.currentPage=1;
                     this.queryFaceData.question=this.queryData.csdnblogName;
                     this.getFaceData();
+                    this.$fetch('/v1/questionType', {level: 'l2'})
+                        .then((response) => {
+                            // console.log(response)
+                            this.types = response.data;
+                        })
                 }else{
                     this.queryData.currentPage=1;
                     this.getData();

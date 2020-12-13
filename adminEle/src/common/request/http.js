@@ -18,7 +18,7 @@ let needLoadingRequestCount = 0; //当前正在请求的数量
 function showLoading() {
     if (needLoadingRequestCount === 0 && !loadingInstance) {
         loadingInstance = Loading.service({
-            target: '.el-table', text: '正在加载...', background: 'rgba(256,256,256,0.8)'
+            target: '.el-table', text: '正在加载...', background: 'rgba(256,256,256,0)'
         });
     }
     needLoadingRequestCount++;
@@ -71,7 +71,7 @@ axios.interceptors.request.use(
 axios.interceptors.response.use(
     response => {
         closeLoading()
-        // console.log('response',JSON.stringify(response.data))
+        console.log('response',JSON.stringify(response.data))
         if(response.data.code!='1000'&&response.data==null){
             Message.error({message:response.data.message})
         }
