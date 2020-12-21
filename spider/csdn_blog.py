@@ -5,9 +5,9 @@ from bs4 import BeautifulSoup
 
 def getHtml(url,htmlMark):
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
-               "Referer": url
-        }
-    html = requests.get(f"{url}/article/list/{htmlMark}", headers = headers)
+               "Referer": url}
+    a=f"{url}/article/list/{htmlMark}"
+    html = requests.get(a, headers = headers)
     html.encoding = "utf-8"
     print(f"{html.encoding}=======================")
     return html
@@ -47,10 +47,10 @@ def downloadPic(title, allPage, htmlMark):
 
 
 def main():
-    blog_url=f"https://blog.csdn.net/MeituanTech"
+    blog_url=f"https://blog.csdn.net/zpcrobot"
 
 
-    for mark in range(1,14):
+    for mark in range(1,4):
         htmlMark = str(mark)
         try:
             html = getHtml(blog_url,htmlMark)

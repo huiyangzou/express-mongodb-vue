@@ -2,71 +2,14 @@
     <div style="">
         <!--        查询-->
         <el-row>
-            <el-col :span="3">
+            <el-col :span="4">
                 <div style="display: flex;flex-direction: row;align-items: center;">
                     <el-input
                             style="flex:4;margin-right: 20px;"
-                            placeholder="视频列表名称"
-                            v-model="queryData.videoListName"
+                            placeholder="模块名称"
+                            v-model="queryData.moduleManagerName"
                             clearable>
                     </el-input>
-
-                </div>
-            </el-col>
-<el-col :span="3">
-                <div style="display: flex;flex-direction: row;align-items: center;">
-                    <el-input
-                            style="flex:4;margin-right: 20px;"
-                            placeholder="语言"
-                            v-model="queryData.language"
-                            clearable>
-                    </el-input>
-
-
-                </div>
-            </el-col>
-            <el-col :span="3">
-                <div style="display: flex;flex-direction: row;align-items: center;">
-                    <el-input
-                            style="flex:4;margin-right: 20px;"
-                            placeholder="地区"
-                            v-model="queryData.area"
-                            clearable>
-                    </el-input>
-
-                </div>
-            </el-col>
-            <el-col :span="3">
-                <div style="display: flex;flex-direction: row;align-items: center;">
-                    <el-input
-                            style="flex:4;margin-right: 20px;"
-                            placeholder="演员"
-                            v-model="queryData.actor"
-                            clearable>
-                    </el-input>
-
-                </div>
-            </el-col>
-            <el-col :span="3">
-                <div style="display: flex;flex-direction: row;align-items: center;">
-                    <el-input
-                            style="flex:4;margin-right: 20px;"
-                            placeholder="导演"
-                            v-model="queryData.director"
-                            clearable>
-                    </el-input>
-
-                </div>
-            </el-col>
-            <el-col :span="3">
-                <div style="display: flex;flex-direction: row;align-items: center;">
-                    <el-input
-                            style="flex:4;margin-right: 20px;"
-                            placeholder="类型"
-                            v-model="queryData.type"
-                            clearable>
-                    </el-input>
-
                 </div>
             </el-col>
 
@@ -78,8 +21,7 @@
 
         <!--        新增-->
         <div style="flex-direction: row;justify-content: space-between;display: flex;margin-top: 20px;margin-bottom: 20px;">
-            <el-button type="primary" icon="el-icon-plus" @click="addVideoList">添加视频列表</el-button>
-            <el-button type="primary" icon="el-icon-plus" @click="clearVideoList">清空所有数据</el-button>
+            <el-button type="primary" icon="el-icon-plus" @click="addModuleManager">添加模块管理</el-button>
         </div>
 
         <!--        表格-->
@@ -87,7 +29,7 @@
                 id="elMain"
                 ref="multipleTable"
                 :data="tableData"
-                max-height="550"
+                max-height="600"
                 tooltip-effect="dark"
                 style="width: 100%;"
                 @selection-change="handleSelectionChange">
@@ -95,58 +37,35 @@
                     type="selection"
                     width="80">
             </el-table-column>
-
             <el-table-column
-                    prop="videoListName"
-                    label="视频列表名称"
+                    prop="_id"
+                    label="模块ID"
                     width="200">
             </el-table-column>
             <el-table-column
-                    prop="area"
-                    label="地区"
-                    :show-overflow-tooltip="true"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    prop="language"
-                    label="语言"
-                    :show-overflow-tooltip="true"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    prop="type"
-                    label="类型"
-                    :show-overflow-tooltip="true"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    prop="actor"
-                    label="演员"
-                    :show-overflow-tooltip="true"
+                    prop="moduleManagerName"
+                    label="模块名称"
                     width="200">
             </el-table-column>
             <el-table-column
-                    prop="createTime"
-                    label="创建时间"
-                    :show-overflow-tooltip="true"
-                    width="100">
+                    prop="moduleLevel"
+                    label="模块等级"
+                    width="200">
             </el-table-column>
             <el-table-column
-                    prop="release"
-                    label="发布"
-                    :show-overflow-tooltip="true"
-                    width="100">
+                    prop="moduleParentID"
+                    label="父级ID"
+                    width="200">
             </el-table-column>
-
             <el-table-column
-                    label="视频列表图片"
-                    width="400">
-                <template slot-scope="scope">
-                    <el-image
-                            style="width: 200px; height: 300px"
-                            :src="scope.row.videoListImage"
-                            ></el-image>
-                </template>
+                    prop="moduleManagerLink"
+                    label="模块路径"
+                    width="200">
+            </el-table-column>
+            <el-table-column
+                    prop="moduleManagerImage"
+                    label="模块标识"
+                    width="200">
             </el-table-column>
 
             <el-table-column
@@ -155,7 +74,6 @@
                     fixed="right"
                     show-overflow-tooltip>
                 <template slot-scope="scope">
-                    <el-button @click="seeClick(scope.row)" type="text" size="small">查看</el-button>
                     <el-button @click="handleClick(scope.row)" type="text" size="small">修改</el-button>
                     <el-button @click="deleteClick(scope.row)" type="text" size="small">删除</el-button>
                 </template>
@@ -177,29 +95,60 @@
 
         <!--        对话框-->
         <el-dialog
-                title="添加视频列表"
+                title="添加模块管理"
                 :visible.sync="dialogVisible"
                 width="40%">
             <el-tabs v-model="activeName" type="card" @tab-click="handleClick">
                 <el-tab-pane label="基本信息" name="first">
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">视频列表名称</span>
-                        <el-input style="flex:4;margin-left: 20px;" v-model="formData.videoListName"
+                        <span style="flex: 1;text-align: center">模块名称</span>
+                        <el-input style="flex:4;margin-left: 20px;" v-model="formData.moduleManagerName"
                                   placeholder="请输入内容"></el-input>
+                    </div>
+                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
+                        <span style="flex: 1;text-align: center">模块等级</span>
+                        <el-select style="flex:4;margin-left: 20px;" v-model="formData.moduleLevel" clearable placeholder="选择模块等级"
+                        >
+                            <el-option
+                                    v-for="item in moduleLevelType"
+                                    :key="item.value"
+                                    :label="item.modulename"
+                                    :value="item.value">
+                            </el-option>
+                        </el-select>
+<!--                        <el-input style="flex:4;margin-left: 20px;" type="text"-->
+<!--                                  v-model="formData.moduleLevel"-->
+<!--                                  placeholder="请输入内容"></el-input>-->
+                    </div>
+                    <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
+                        <span style="flex: 1;text-align: center">模块父ID</span>
+                        <el-select style="flex:4;margin-left: 20px;" v-model="formData.moduleParentID" clearable placeholder="选择父级ID"
+                                   >
+                            <el-option
+                                    v-for="item in moduleList"
+                                    :key="item._id"
+                                    :label="item.moduleManagerName"
+                                    :value="item._id">
+                            </el-option>
+                        </el-select>
+<!--                        <el-input style="flex:4;margin-left: 20px;" type="text"-->
+<!--                                  v-model="formData.moduleParentID"-->
+<!--                                  placeholder="请输入内容"></el-input>-->
                     </div>
 
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">视频列表链接</span>
+                        <span style="flex: 1;text-align: center">模块路径</span>
                         <el-input style="flex:4;margin-left: 20px;" type="text"
-                                   v-model="formData.videoListLink"
+                                   v-model="formData.moduleManagerLink"
                                   placeholder="请输入内容"></el-input>
                     </div>
                     <div style="display: flex;flex-direction: row;align-items: center;margin-top: 20px;">
-                        <span style="flex: 1;text-align: center">视频列表图片</span>
+                        <span style="flex: 1;text-align: center">模块表识</span>
                         <el-input style="flex:4;margin-left: 20px;" type="text"
-                                   v-model="formData.videoListImage"
+                                   v-model="formData.moduleManagerImage"
                                   placeholder="请输入内容"></el-input>
                     </div>
+
                 </el-tab-pane>
 
             </el-tabs>
@@ -219,51 +168,41 @@
         name: "appList",
         data() {
             return {
+                moduleList:[],
+                moduleLevelType:[
+                    {modulename:'一级',value:"1"},
+                    {modulename:'二级',value: "2"},
+                ],
                 queryData: {
                     currentPage: 1,
-                    pageSize: 40,
-                    videoListName: null,
-                    language: null,
-                    area: null,
+                    pageSize: 5,
+                    moduleManagerName: null,
                 },
                 formData: {
                     id: '',
-                    videoListName: "",
-                    videoListLink: "",
-                    videoListImage: "",
+                    moduleManagerName: "",
+                    moduleManagerLink: "",
+                    moduleManagerImage: "",
+                    moduleParentID: "",
+                    moduleLevel: "",
                 },
                 activeName: 'first',
                 dialogVisible: false,
                 tableData: [],
                 totalItem: 0,
                 currentPage: 1,
-                multipleSelection: []
+                multipleSelection: [],
+                moduleList:[]
             }
         },
         created() {
             this.getData();
         },
         methods: {
-            //添加视频列表
-            addVideoList() {
+            //添加模块管理
+            addModuleManager() {
                 this.dialogVisible = true;
                 this.formData = {}
-            },
-            clearVideoList(){
-                this.$alert('确认删除', '删除', {
-                    confirmButtonText: '确定',
-                    callback: action => {
-                        if(action== 'confirm'){
-                            this.$delete('/v1/videoList/-1')
-                                .then((response) => {
-                                    console.log(response)
-                                    this.getData();
-                                })
-                        }
-
-                    }
-                });
-
             },
             //清空查询
             clearQuery() {
@@ -278,12 +217,25 @@
             },
             //获取列表数据
             getData() {
-                this.$fetch('/v1/videoList', this.queryData)
+                this.$fetch('/v1/moduleManager/tree', null)
+                    .then((response) => {
+                        console.log(response)
+                        this.moduleList = response.data;
+                        // this.totalItem = response.data.total
+                        // this.currentPage = response.data.currentPage;
+                    })
+                this.$fetch('/v1/moduleManager', this.queryData)
                     .then((response) => {
                         console.log(response)
                         this.tableData = response.data.data;
                         this.totalItem = response.data.total
                         this.currentPage = response.data.currentPage;
+                    })
+
+                this.$fetch('/v1/codeGenerator', this.queryData)
+                    .then((response) => {
+                        console.log(response)
+                        this.moduleList = response.data.data;
                     })
 
             },
@@ -292,13 +244,13 @@
                 console.log("formData", this.formData);
                 this.dialogVisible = false;
                 if (_.isEmpty(this.formData._id)) {
-                    this.$post('/v1/videoList', this.formData)
+                    this.$post('/v1/moduleManager', this.formData)
                         .then((response) => {
                             console.log(response)
                             this.getData();
                         })
                 } else {
-                    this.$put('/v1/videoList/' + this.formData._id, this.formData)
+                    this.$put('/v1/moduleManager/' + this.formData._id, this.formData)
                         .then((response) => {
                             console.log(response)
                             this.getData();
@@ -311,23 +263,17 @@
                 console.log(tab, event);
                 console.log("xxxx" + tab._id)
 
-                this.$fetch('/v1/videoList', {_id: tab._id})
+                this.$fetch('/v1/moduleManager', {_id: tab._id})
                     .then((response) => {
                         console.log(response)
                         this.formData = response.data.data[0];
                     })
                 this.dialogVisible = true;
             },
-            seeClick(tab,event){
-                const {videoListLink} =tab;
-                this.$bus.$emit('eventName',{type:"video",info:tab} )
-
-
-            },
             //删除条目
             deleteClick(tab, event) {
                 console.log(tab, event);
-                this.$delete('/v1/videoList/' + tab._id)
+                this.$delete('/v1/moduleManager/' + tab._id)
                     .then((response) => {
                         console.log(response)
                         this.getData();

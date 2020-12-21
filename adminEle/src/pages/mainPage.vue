@@ -70,6 +70,16 @@
                             </el-menu-item-group>
                         </el-submenu>
 
+                        <el-submenu :index="item._id" v-for="item in moduleList">
+                            <template slot="title">
+                                <i class="el-icon-setting"></i>
+                                <span slot="title">{{item.moduleManagerName}}</span>
+                            </template>
+                            <el-menu-item-group v-for="subItem in item.data">
+                                <el-menu-item :index="subItem._id" @click="skipTo(subItem.moduleManagerImage)">{{subItem.moduleManagerName}}</el-menu-item>
+                            </el-menu-item-group>
+
+                        </el-submenu>
 
                         <el-submenu index="5">
                             <template slot="title">
@@ -122,9 +132,12 @@
                             >
                             </el-tab-pane>
                         </el-tabs>
-                        <router-view>
+                        <keep-alive>
+                            <router-view>
+                                <!-- 所有路径匹配到的视图组件都会被缓存！ -->
+                            </router-view>
+                        </keep-alive>
 
-                        </router-view>
                     </el-main>
                 </el-container>
 
@@ -141,6 +154,10 @@
         name: "mainPage",
         data() {
             return {
+                queryTreeData:{
+                },
+                moduleList:[],
+                count:0,
                 screenHeight: document.body.clientHeight,
                 editableTabsValue: '1',
                 editableTabs: [{
@@ -155,10 +172,43 @@
         created() {
             this.$router.push('boardPage');
             this.routerInfo=routes;
-
+            this.$bus.$on('eventName', (data) => {
+                // this.skipTo(data)
+                const {type,info}=data;
+                console.log(info,'yxyxyxyxy')
+                if(!_.find(this.editableTabs,{name:type})){
+                    let rou=_.find(routes[1].children,{name:type})
+                    this.editableTabs.push({
+                        title: rou.realName,
+                        name: type,
+                    });
+                }
+                this.editableTabsValue = type;
+                // this.$router.push('video?q='+link)
+                this.$router.push({name:'video',params:info})
+            })
+            this.getData();
             console.log(this.$cookies.keys(),'cookie');
+
         },
         methods:{
+            getData(){
+                this.$fetch('/v1/moduleManager/tree', this.queryTreeData)
+                    .then((response) => {
+                        console.log(response)
+                        this.moduleList = response.data;
+                        // this.totalItem = response.data.total
+                        // this.currentPage = response.data.currentPage;
+                    })
+                // this.$fetch('/v1/moduleManager', this.queryData)
+                //     .then((response) => {
+                //         console.log(response,'moduleManager')
+                //
+                //         this.tableData = response.data.data;
+                //         this.totalItem = response.data.total
+                //         this.currentPage = response.data.currentPage;
+                //     })
+            },
             skipTo(name){
 
                 this.handleTabsEdit(name,'add')

@@ -81,7 +81,11 @@ VueRouter.prototype.push = function push(location) {
   return originalPush.call(this, location).catch(err => err)
 }
 
+
 new Vue({
+    beforeCreate(){
+        Vue.prototype.$bus = this
+    },
   mode: 'history',
   router,
   render: h => h(App),

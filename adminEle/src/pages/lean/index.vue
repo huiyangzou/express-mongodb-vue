@@ -8,7 +8,7 @@
         </div>
 
         <div v-if="select=='1'"  style="position: absolute;right: 10px;display: flex;flex-direction: row;flex-wrap: wrap;width: 250px;overflow-y:auto;height: 900px;">
-            <el-tag style="margin: 10px;text-decoration: none" v-for="item in types" @click="chooseType(item._id)">{{item.questionTypeName}}</el-tag>
+            <el-tag  style="margin: 10px;text-decoration: none;cursor:default" v-for="item in types" @click="chooseType(item._id)">{{item.questionTypeName}}</el-tag>
 
         </div>
 
