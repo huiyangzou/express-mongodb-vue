@@ -38,23 +38,23 @@
                     width="80">
             </el-table-column>
 
-            <el-table-column
-                    prop="pictureName"
-                    label="图片合集名称"
-                    width="100">
-            </el-table-column>
-            <el-table-column
-                    prop="pictureLink"
-                    label="图片合集链接"
-                    :show-overflow-tooltip="true"
-                    width="400">
-            </el-table-column>
+<!--            <el-table-column-->
+<!--                    prop="pictureName"-->
+<!--                    label="图片合集名称"-->
+<!--                    width="100">-->
+<!--            </el-table-column>-->
+<!--            <el-table-column-->
+<!--                    prop="pictureLink"-->
+<!--                    label="图片合集链接"-->
+<!--                    :show-overflow-tooltip="true"-->
+<!--                    width="400">-->
+<!--            </el-table-column>-->
             <el-table-column
                     prop="pictureImage"
                     label="图片合集图片"
-                    width="400">
+                    width="800">
                 <template slot-scope="scope">
-                   <img :src="scope.row.pictureImage"  style="width: 100px;height: 100px;"/>
+                   <img :src="scope.row.pictureImage"  style="width: 400px;height: 600px;"/>
                 </template>
             </el-table-column>
 
