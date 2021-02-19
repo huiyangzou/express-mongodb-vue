@@ -61,7 +61,7 @@ def downloadPic(title, allPage, htmlMark):
 
 
 def main():
-    for mark in range(36786,97659):
+    for mark in range(37075,97659):
 #     for mark in range(35096,35099):
         htmlMark = str(mark)
         print(f"标题：{htmlMark}")

@@ -24,6 +24,8 @@ import videoList from "./pages/tools/videoList";
 import haowuSuggest from "./pages/tools/haowuSuggest";
 import csdnblog from "./pages/tools/csdnblog";
 import moduleManager from "./pages/tools/moduleManager";
+import shareMoney from "./pages/tools/shareMoney";
+import picture from "./pages/tools/picture";
 //import
 
 const routes = [
@@ -61,6 +63,8 @@ const routes = [
     {path: '/haowuSuggest', component: haowuSuggest, name:'haowuSuggest',realName:'好物推荐'},
     {path: '/csdnblog', component: csdnblog, name:'csdnblog',realName:'CSDN博客'},
     {path: '/moduleManager', component: moduleManager, name:'moduleManager',realName:'模块管理'},
+    {path: '/shareMoney', component: shareMoney, name:'shareMoney',realName:'引流方案'},
+    {path: '/picture', component: picture, name:'picture',realName:'图片合集'},
     //router
         ]
     },

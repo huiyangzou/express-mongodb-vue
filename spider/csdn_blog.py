@@ -5,9 +5,9 @@ from bs4 import BeautifulSoup
 
 def getHtml(url,htmlMark):
     headers = {"User-Agent": "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/63.0.3239.132 Safari/537.36",
-               "Referer": url}
-    a=f"{url}/article/list/{htmlMark}"
-    html = requests.get(a, headers = headers)
+               "Referer": url
+        }
+    html = requests.get(f"{url}/article/list/{htmlMark}", headers = headers)
     html.encoding = "utf-8"
     print(f"{html.encoding}=======================")
     return html

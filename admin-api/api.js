@@ -24,6 +24,8 @@ const videoListRouter = require('./router/videoListRouter');
 const haowuSuggestRouter = require('./router/haowuSuggestRouter');
 const csdnblogRouter = require('./router/csdnblogRouter');
 const moduleManagerRouter = require('./router/moduleManagerRouter');
+const shareMoneyRouter = require('./router/shareMoneyRouter');
+const pictureRouter = require('./router/pictureRouter');
 //import
 
 
@@ -89,6 +91,8 @@ const Api = function () {
     app.use('/', videoListRouter)
     app.use('/', csdnblogRouter)
     app.use('/', moduleManagerRouter)
+    app.use('/', shareMoneyRouter)
+    app.use('/', pictureRouter)
     //useRouter
 
     // 处理由 /upload 页面发送过来的post请求
