@@ -45,7 +45,7 @@ Vue.prototype.$delete = del;
 // 3. 创建 router 实例，然后传 `routes` 配置
 // 你还可以传别的配置参数
 const router = new VueRouter({
-    mode: 'history',
+    // mode: 'history',
     routes // (缩写) 相当于 routes: routes
 })
 router.beforeEach((to, from, next) => {
