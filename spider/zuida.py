@@ -61,7 +61,7 @@ def downloadPic(title, allPage, htmlMark):
 
 
 def main():
-    for mark in range(37075,97659):
+    for mark in range(100035,101035):
 #     for mark in range(35096,35099):
         htmlMark = str(mark)
         print(f"标题：{htmlMark}")
@@ -69,8 +69,9 @@ def main():
             html = getHtml(f"http://zuidazy4.com/?m=vod-detail-id-{htmlMark}.html")
             soup = getSoup(html)
             allPage = getAllPage(soup)
+
             print(f"信息：{allPage}")
-#             makedir(title){"videoListName":"1","videoListLink":"2","videoListImage":"3"}
+            #             makedir(title){"videoListName":"1","videoListLink":"2","videoListImage":"3"}
             r_json = requests.post("https://www.93goodtea.com/v1/videoList",allPage)
             time.sleep(random.random() * 3)
         except Exception as e:

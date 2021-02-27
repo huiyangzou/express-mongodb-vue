@@ -29,6 +29,7 @@ import picture from "./pages/tools/picture";
 import likemovie from "./pages/tools/likemovie";
 import likevideoplayer from "./pages/tools/likevideoplayer";
 import moviePage from "./pages/moviePage";
+import mmpicture from "./pages/tools/mmpicture";
 //import
 
 const routes = [
@@ -72,7 +73,8 @@ const routes = [
             {path: '/picture', component: picture, name: 'picture', realName: '图片合集'},
             // {path: '/likemovie', component: likemovie, name:'likemovie',realName:'喜欢影院'},
 
-            //router
+            {path: '/mmpicture', component: mmpicture, name:'mmpicture',realName:'美女相册'},
+    //router
         ]
     },
     {

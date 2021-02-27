@@ -28,6 +28,7 @@ const shareMoneyRouter = require('./router/shareMoneyRouter');
 const pictureRouter = require('./router/pictureRouter');
 const likemovieRouter = require('./router/likemovieRouter');
 const likevideoplayerRouter = require('./router/likevideoplayerRouter');
+const mmpictureRouter = require('./router/mmpictureRouter');
 //import
 
 
@@ -97,6 +98,7 @@ const Api = function () {
     app.use('/', pictureRouter)
     app.use('/', likemovieRouter)
     app.use('/', likevideoplayerRouter)
+    app.use('/', mmpictureRouter)
     //useRouter
 
     // 处理由 /upload 页面发送过来的post请求
